@@ -1,0 +1,19 @@
+{
+  "name": "mohammed-java-casebook",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vinext dev --port 5173",
+    "build": "vinext build"
+  },
+  "dependencies": {
+    "next": "16.3.4",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "type": "module",
+  "packageManager": "pnpm@11.25.0"
+}
