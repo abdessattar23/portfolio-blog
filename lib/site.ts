@@ -8,3 +8,12 @@ export const SITE = {
   linkedin: 'https://linkedin.com/in/abdessattar23',
   rss: '/feed.xml',
 } as const;
+
+export function formatUtcDate(isoDate: string, month: 'short' | 'long' = 'short') {
+  return new Date(`${isoDate}T00:00:00Z`).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month,
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
