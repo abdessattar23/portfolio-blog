@@ -31,6 +31,12 @@ export default function Speaking() {
           <a className="text-link" href={SITE.linkedin}>Connect on LinkedIn ↗</a>
         </div>
       </article>
+      <section className="proposal">
+        <div className="eyebrow">PROPOSAL / NOT AN ACCEPTED APPEARANCE</div>
+        <h3>When Observability Breaks: Four Bugs I Fixed in OpenTelemetry Java</h3>
+        <p>Submitted to OCX 2027. Acceptance is not confirmed.</p>
+        <a className="text-link" href="/work">Explore the underlying contributions ↗</a>
+      </section>
     </>
   );
 }
