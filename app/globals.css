@@ -324,3 +324,23 @@ footer p { margin-top: 0.4rem; color: var(--muted); font-size: 0.8rem; }
 .proposal h3 { margin: 0.65rem 0; font-size: 1.6rem; }
 .proposal p { margin-bottom: 1rem; color: var(--muted); }
 
+/* Interactive article example */
+.demo { margin: 2rem 0; padding: 1.25rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-soft); font-size: 0.9rem; }
+.demo-head, .demo-controls { display: flex; justify-content: space-between; gap: 1rem; align-items: center; }
+.demo-head span { color: var(--muted); font: 0.68rem var(--mono); }
+.toggle { display: flex; gap: 0.5rem; margin: 1.2rem 0; }
+.toggle button { padding: 0.55rem 0.75rem; border: 1px solid var(--line-strong); border-radius: 7px; background: transparent; color: var(--text); cursor: pointer; }
+.toggle button[aria-pressed='true'] { background: var(--blue); color: white; border-color: var(--blue); }
+.bucket { min-height: 112px; display: flex; align-items: center; gap: 0.65rem; margin: 1.25rem 0; }
+.bucket-cell { min-width: 95px; padding: 0.65rem 1rem; display: flex; flex-direction: column; align-items: center; border: 1px solid var(--line-strong); border-radius: 9px; background: var(--bg); }
+.bucket-cell small { color: var(--muted); font: 0.65rem var(--mono); }
+.bucket-cell strong { font-size: 1.8rem; }
+.bucket-cell span, .skipped { font-size: 0.72rem; color: var(--muted); }
+.bucket-cell.stale { border-color: var(--red); }
+.bucket-cell.visited { border-color: var(--green); background: color-mix(in srgb, var(--green) 11%, var(--bg)); }
+.skipped { color: var(--red); }
+.demo > p { min-height: 3rem; margin-bottom: 1rem; }
+.demo-controls { padding-top: 1rem; border-top: 1px solid var(--line); font-size: 0.75rem; }
+.demo-controls button { padding: 0.55rem 0.75rem; border: 0; border-radius: 7px; background: var(--blue); color: white; cursor: pointer; }
+
+.skip { position: fixed; z-index: 100; top: -100px; left: 1rem; padding: 0.75rem 1rem; background: var(--blue); color: white; }
