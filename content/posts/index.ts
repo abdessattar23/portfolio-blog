@@ -1,6 +1,12 @@
+import {pooledHashMapPost} from './pooled-hashmap';
+// new-post-import
+
 import type {BlogPost} from './types';
 
-export const allPosts: BlogPost[] = [];
+export const allPosts: BlogPost[] = [
+  pooledHashMapPost,
+  // new-post-entry
+];
 
 export const publishedPosts = allPosts
   .filter((post) => !post.draft)
