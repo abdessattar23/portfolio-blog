@@ -43,6 +43,5 @@ export const pooledHashMapPost: BlogPost = {
     {id: 'source', title: 'Source & scope'},
   ],
   homeDiff: {removed: 'forward iteration', added: 'backward iteration'},
-  draft: true,
   Content: PooledHashMapContent,
 };
