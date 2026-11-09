@@ -41,10 +41,12 @@ body:has(.studio-atelier) {
   font-family: var(--font-studio-sans), "IBM Plex Sans", "Segoe UI", sans-serif;
   font-size: 15px;
   letter-spacing: -0.011em;
+  color-scheme: light;
 }
 
 .studio-atelier button {
   font: inherit;
+  color: var(--ink);
 }
 
 .studio-atelier input,
@@ -149,7 +151,16 @@ body:has(.studio-atelier) {
   cursor: pointer;
 }
 
-.atelier-cmd-trigger span { flex: 1; text-align: left; font-size: 0.86rem; }
+.atelier-cmd-trigger span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+  font-size: 0.86rem;
+}
+.atelier-cmd-trigger kbd { flex: 0 0 auto; }
 .atelier-cmd-trigger kbd,
 .atelier-palette kbd,
 .workbench-tools span {
@@ -168,7 +179,10 @@ body:has(.studio-atelier) {
 .atelier-btn-publish,
 .studio-atelier a.atelier-pill-primary,
 .studio-atelier a.atelier-btn-primary,
-.studio-atelier a.atelier-btn-publish {
+.studio-atelier a.atelier-btn-publish,
+.studio-atelier button.atelier-pill-primary,
+.studio-atelier button.atelier-btn-primary,
+.studio-atelier button.atelier-btn-publish {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -282,8 +296,22 @@ body:has(.studio-atelier) {
 .binder-add-btn:hover { background: var(--paper-2); color: var(--ink); }
 .binder-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.1rem; }
 .binder-leaf-text { min-width: 0; display: grid; }
-.binder-leaf-text strong { font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.binder-leaf-text small { color: var(--ink-soft); font-size: 0.72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.studio-atelier button.binder-leaf,
+.studio-atelier a.binder-leaf,
+.studio-atelier .binder-nav-item {
+  appearance: none;
+  color: #171717;
+  background: transparent;
+}
+.studio-atelier .binder-leaf-text strong {
+  color: #171717;
+  -webkit-text-fill-color: #171717;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.25;
+  white-space: normal;
+}
+.binder-leaf-text small { color: #4d4d4d; font-size: 0.72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .binder-status-dot {
   width: 8px;
@@ -696,11 +724,11 @@ body:has(.studio-atelier) {
 }
 .manuscript-focus-spotlight p {
   margin: 0.25rem 0 0;
+  color: #171717;
+  -webkit-text-fill-color: #171717;
   font-family: var(--font-studio-sans), "IBM Plex Sans", sans-serif;
   line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
+  max-height: 6.2em;
   overflow: hidden;
 }
 .focus-label { color: var(--amber); font-size: 0.68rem; letter-spacing: 0.08em; }
@@ -1036,10 +1064,23 @@ body:has(.studio-atelier[data-mode='dark']) { background: #111111; }
 .studio-atelier[data-mode='dark'] .atelier-btn-secondary,
 .studio-atelier[data-mode='dark'] .atelier-btn-ghost,
 .studio-atelier[data-mode='dark'] a.atelier-btn-secondary,
-.studio-atelier[data-mode='dark'] a.atelier-btn-ghost {
+.studio-atelier[data-mode='dark'] a.atelier-btn-ghost,
+.studio-atelier[data-mode='dark'] button.atelier-btn-secondary,
+.studio-atelier[data-mode='dark'] button.atelier-btn-ghost {
   background: transparent;
   color: #f3f3f3;
   border-color: #4a4a4a;
+}
+.studio-atelier[data-mode='dark'] .binder-leaf-text strong,
+.studio-atelier[data-mode='dark'] button.binder-leaf,
+.studio-atelier[data-mode='dark'] a.binder-leaf,
+.studio-atelier[data-mode='dark'] .binder-nav-item {
+  color: #f3f3f3;
+  -webkit-text-fill-color: #f3f3f3;
+}
+.studio-atelier[data-mode='dark'] .manuscript-focus-spotlight p {
+  color: #f3f3f3;
+  -webkit-text-fill-color: #f3f3f3;
 }
 .studio-atelier[data-mode='dark'] .studio-atelier .search-preview strong,
 .studio-atelier[data-mode='dark'] .search-preview strong { color: #9eb6ff; }
