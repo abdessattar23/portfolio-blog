@@ -1,9 +1,9 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {getPublishedPost, publishedPosts} from '../../../content/posts';
+import {PostTemplate} from '../../../components/templates/post-template';
 import {MarkdownView} from '../../../lib/content/render';
 import {buildBlogPostJsonLd, buildPageMetadata, serializeJsonLd} from '../../../lib/seo';
-import {formatUtcDate} from '../../../lib/site';
 
 type BlogPostPageProps = {params: Promise<{slug: string}>};
 
@@ -22,6 +22,12 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
     type: 'article',
     publishedTime: post.publishedAt,
     keywords: post.topics,
+    image: {
+      url: `/og/${post.slug}`,
+      width: 1200,
+      height: 630,
+      alt: post.title,
+    },
   });
 }
 
@@ -36,23 +42,9 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: serializeJsonLd(buildBlogPostJsonLd(post))}}
       />
-      <section className="page-intro">
-        <a className="back" href="/blog">← All writing</a>
-        <div className="eyebrow">{post.topics.join(' · ')} / {formatUtcDate(post.publishedAt, 'long')}</div>
-        <h1>{post.title}<span>.</span></h1>
-        <p>{post.description}</p>
-      </section>
-      <div className="article-layout">
-        <aside>
-          <div className="eyebrow">IN THIS NOTE</div>
-          {post.sections.map((section) => (
-            <a key={section.id} href={`#${section.id}`}>{section.title}</a>
-          ))}
-        </aside>
-        <article className="prose">
-          <MarkdownView markdown={post.body} />
-        </article>
-      </div>
+      <PostTemplate post={post}>
+        <MarkdownView markdown={post.body} />
+      </PostTemplate>
     </>
   );
 }

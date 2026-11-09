@@ -153,6 +153,7 @@ export function parsePost(raw: string, file: string): PostDocument {
   const template = readString(data, 'template', file);
   if (!POST_TEMPLATES.includes(template as PostTemplate)) fail(file, `unknown template ${template}`);
   const accent = readOptionalString(data, 'accent', file);
+  if (accent !== undefined && !/^#[0-9a-fA-F]{6}$/.test(accent)) fail(file, 'accent must be a #rrggbb colour');
   const homeDiff = readHomeDiff(data, file);
   const post: PostDocument = {
     slug: readString(data, 'slug', file),

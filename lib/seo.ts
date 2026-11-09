@@ -30,6 +30,7 @@ export type PageMetadataInput = {
   publishedTime?: string;
   keywords?: readonly string[];
   includeIdentityKeywords?: boolean;
+  image?: {url: string; width: number; height: number; alt: string};
 };
 
 export function buildPageMetadata(input: PageMetadataInput): Metadata {
@@ -41,6 +42,7 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
     publishedTime,
     keywords = [],
     includeIdentityKeywords = false,
+    image = OG_IMAGE,
   } = input;
 
   const fullTitle = title
@@ -64,7 +66,7 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
     description,
     siteName: `${SITE.name} (${SITE.handle})`,
     locale: 'en_US',
-    images: [OG_IMAGE],
+    images: [image],
   };
 
   const openGraph: NonNullable<Metadata['openGraph']> =
@@ -101,7 +103,7 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
       title: fullTitle,
       description,
       creator: `@${SITE.handle}`,
-      images: [OG_IMAGE.url],
+      images: [image.url],
     },
     robots: {
       index: true,
@@ -208,7 +210,7 @@ export function buildBlogPostJsonLd(post: BlogPost) {
 
   return {
     '@context': SCHEMA_CONTEXT,
-    '@type': ['TechArticle', 'BlogPosting'],
+    '@type': post.template === 'til' || post.template === 'talk-notes' ? 'BlogPosting' : 'TechArticle',
     '@id': `${postUrl}#article`,
     url: postUrl,
     mainEntityOfPage: postUrl,
