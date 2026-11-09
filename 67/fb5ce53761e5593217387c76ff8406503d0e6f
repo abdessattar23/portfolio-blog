@@ -1,0 +1,29 @@
+content/posts/pooled-hashmap.md
+  s_ca15d3fa531b7c::t_7ce69cb4aadca0 1-66
+app/blog/[slug]/page.tsx
+  s_ca15d3fa531b7c::t_36f71a57399606 53
+content/posts/types.ts
+  s_ca15d3fa531b7c::t_e6a0ef23deae4b 1
+lib/content/load.ts
+  s_ca15d3fa531b7c::t_b9e7dce66358b1 16-21
+  s_ca15d3fa531b7c::t_bd82a760b9d0c9 38-47
+  s_ca15d3fa531b7c::t_962d9363841549 1
+content/posts/index.ts
+  s_ca15d3fa531b7c::t_506c39206dd7c7 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "67fb5ce53761e5593217387c76ff8406503d0e6f",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
