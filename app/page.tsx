@@ -50,6 +50,9 @@ export default async function Home() {
             height="1536"
           />
           <figcaption>small me, big rabbit holes.</figcaption>
+          <blockquote className="hero-quote">
+            <p>Act like the bug is already beaten. Then do the work that makes it true.</p>
+          </blockquote>
         </figure>
       </section>
       <div className="home-grid">

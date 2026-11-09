@@ -175,9 +175,11 @@ h1, h2, h3 { font-weight: 720; letter-spacing: -0.035em; }
 
 .social-links { gap: 1.5rem; margin-top: 1.8rem; }
 .social-links a, .text-link { color: var(--blue); font-weight: 680; }
-.hero-art { margin: 0; align-self: end; }
-.hero-art img { width: 100%; height: 380px; object-fit: contain; display: block; filter: drop-shadow(0 16px 18px rgba(23, 32, 42, 0.12)); }
-.hero-art figcaption { margin-top: -0.3rem; text-align: center; color: var(--muted); font-family: var(--mono); font-size: 0.76rem; }
+.hero-art { margin: 0; align-self: end; display: flex; flex-direction: column; align-items: center; gap: 1.35rem; }
+.hero-art img { width: 100%; height: 380px; object-fit: contain; object-position: center top; display: block; filter: drop-shadow(0 16px 18px rgba(23, 32, 42, 0.12)); }
+.hero-art figcaption { margin: 0; text-align: center; color: var(--muted); font-family: var(--mono); font-size: 0.76rem; }
+.hero-quote { margin: 0; max-width: 28ch; text-align: center; }
+.hero-quote p { margin: 0; font-size: 1.02rem; line-height: 1.45; letter-spacing: -0.02em; }
 
 .home-grid {
   display: grid;
