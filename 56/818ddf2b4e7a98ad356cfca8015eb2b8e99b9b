@@ -1,0 +1,28 @@
+app/studio/atelier.css
+  s_cd8ddbc7735baa::t_83f15c38ee9cb4 182-185
+  s_cd8ddbc7735baa::t_736786fab47eb1 1081-1084
+  s_cd8ddbc7735baa::t_b0b503a8b8f7b5 299-302,304-308,311-312
+  s_cd8ddbc7735baa::t_2ae433cd3ec6b4 44
+  s_cd8ddbc7735baa::t_f71880f1e79a68 727-728,731
+  s_cd8ddbc7735baa::t_ff7bdf33c311b5 49
+  s_cd8ddbc7735baa::t_b2fea34f228561 303,309-310,313-314
+  s_cd8ddbc7735baa::t_439f618a1acdef 154-163
+  s_cd8ddbc7735baa::t_bc650ce16f4492 1067-1069,1074
+  s_cd8ddbc7735baa::t_935da875ccd974 1075-1080
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "56818ddf2b4e7a98ad356cfca8015eb2b8e99b9b",
+  "prompts": {},
+  "sessions": {
+    "s_cd8ddbc7735baa": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "b27af003-350c-4d18-b52d-43fd8a475baa",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
