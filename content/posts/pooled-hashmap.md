@@ -1,10 +1,12 @@
 ---
 slug: pooled-hashmap
 title: Why walking a bucket backwards can keep a metric alive
-description: A technical note on removal during iteration, based on the merged OpenTelemetry Java contribution #8499.
-excerpt: Removal, shifting indices, and the regression test that makes a subtle collection bug visible. A technical note based on OpenTelemetry Java PR #8499.
+description: A technical note on removal during iteration, based on the merged
+  OpenTelemetry Java contribution
+excerpt: Removal, shifting indices, and the regression test that makes a subtle
+  collection bug visible. A technical note based on OpenTelemetry Java PR
 publishedAt: 2026-11-08
-updatedAt: 2026-11-08
+updatedAt: 2026-11-09
 topics:
   - Java
   - Collections
@@ -13,6 +15,8 @@ draft: false
 homeDiff:
   removed: forward iteration
   added: backward iteration
+stickers:
+  - bug
 ---
 
 A loop can visit every index and still miss an entry. The catch is that an index does not keep pointing at the same object when the collection changes underneath it.
