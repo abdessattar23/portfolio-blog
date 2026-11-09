@@ -1,0 +1,31 @@
+scripts/verify-studio.ts
+  s_ca15d3fa531b7c::t_b5217aa5d47ab8 1-2,7-52
+  s_ca15d3fa531b7c::t_67f88279288a04 3-6
+lib/studio/session.ts
+  s_ca15d3fa531b7c::t_925a5d3d0553db 1-76
+lib/studio/publish.ts
+  s_ca15d3fa531b7c::t_000adc45a683f0 5
+  s_ca15d3fa531b7c::t_f4017afd7006f8 21-22
+lib/studio/guards.ts
+  s_ca15d3fa531b7c::t_cd6cfc96972946 1-7
+content/talks/02-when-observability-breaks.md
+  s_ca15d3fa531b7c::t_cd2f6b09aa2b65 6
+lib/studio/auth.ts
+  s_ca15d3fa531b7c::t_ef1f5fa24f1bad 4-27,29,32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "951dde04266effdbe735355299ec16d16ddfe517",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
