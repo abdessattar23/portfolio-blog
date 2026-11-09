@@ -106,7 +106,10 @@ export default async function Home() {
               <h2 id="speaking-heading">Speaking</h2>
               <p className="event-meta">{featuredTalk.event}</p>
               <h3>{featuredTalk.title}</h3>
-              <a className="text-link" href="/speaking">Talk details →</a>
+              <div className="inline-links">
+                <a className="text-link" href="/speaking">Talk details →</a>
+                <a className="text-link" href="/speaking#invite">Invite me →</a>
+              </div>
             </section>
           )}
         </aside>

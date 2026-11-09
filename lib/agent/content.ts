@@ -270,7 +270,9 @@ export function pageMarkdown(corpus: AgentCorpus, pathname: string): string | nu
     const lines = [
       '# From the code to the conversation',
       '',
-      `Conference talks by ${corpus.site.fullName} (${corpus.site.handle}) on open source and observability engineering.`,
+      `Conference talks by ${corpus.site.fullName} (${corpus.site.handle}) on observability, Java, the JVM, and open source.`,
+      '',
+      `Organizers can invite him: ${absolute(corpus.site, '/speaking#invite')}. Send the event, place, date, audience, and length. Contact is LinkedIn: ${corpus.site.linkedin}`,
       '',
     ];
     for (const talk of corpus.talks) {

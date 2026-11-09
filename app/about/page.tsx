@@ -42,7 +42,7 @@ export default function About() {
           </p>
           <a className="text-link" href="/work">Explore the casebook ↗</a>
           <h2>Speaking</h2>
-          <p>I spoke at Devoxx Morocco 2026 about the next generation entering open source.</p>
+          <p>I spoke at Devoxx Morocco 2026 about the next generation entering open source. Organizers can <a href="/speaking#invite">invite me to a talk</a>.</p>
           <a className="text-link" href="/speaking">View speaking ↗</a>
           <h2>Get in touch</h2>
           <p>

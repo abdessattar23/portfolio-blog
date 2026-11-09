@@ -422,6 +422,17 @@ footer p { margin-top: 0.4rem; color: var(--muted); font-size: 0.8rem; }
 .proposal h3 { margin: 0.65rem 0; font-size: 1.6rem; }
 .proposal p { margin-bottom: 1rem; color: var(--muted); }
 
+.invite {
+  margin: 2.5rem 0 0;
+  padding: 2rem 0 2.4rem;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+.invite h2 { margin: 0.55rem 0 0.8rem; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; }
+.invite h2 span { color: var(--blue); }
+.invite p { max-width: 68ch; margin-bottom: 0.8rem; }
+.invite .button { margin-top: 0.6rem; }
+
 /* Interactive article example */
 .demo { margin: 2rem 0; padding: 1.25rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-soft); font-size: 0.9rem; }
 .demo-head, .demo-controls { display: flex; justify-content: space-between; gap: 1rem; align-items: center; }

@@ -31,7 +31,19 @@ export default async function Speaking() {
           From the code<br />
           to the conversation<span>.</span>
         </h1>
-        <p>Talks about open source and the engineering behind observability.</p>
+        <p>Talks about observability, Java, the JVM, and open source. The mechanism, not the brochure.</p>
+        <a className="button" href="#invite">Invite me to talk</a>
+      </section>
+      <section className="invite" id="invite">
+        <div className="eyebrow">FOR ORGANIZERS</div>
+        <h2>Invite me<span>.</span></h2>
+        <p>
+          I speak at conferences, meetups, and internal engineering sessions. The subjects are observability, Java, the JVM, open source, and how a system actually works.
+        </p>
+        <p className="muted">
+          Tell me the event, the city or that it is online, the date, who is in the room, and how long you want.
+        </p>
+        <a className="button" href={SITE.linkedin} rel="me">Invite me on LinkedIn</a>
       </section>
       {upcomingTalks.map((talk) => (
         <article className="talk" key={talk.slug}>
