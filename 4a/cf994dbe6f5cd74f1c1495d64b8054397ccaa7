@@ -1,0 +1,21 @@
+scripts/new-post.mjs
+  s_3300b58d364bca::t_e93c35fc3d7176 1-50
+templates/blog-post.tsx.txt
+  s_3300b58d364bca::t_e0552ff45e2fc9 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "4acf994dbe6f5cd74f1c1495d64b8054397ccaa7",
+  "prompts": {},
+  "sessions": {
+    "s_3300b58d364bca": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
