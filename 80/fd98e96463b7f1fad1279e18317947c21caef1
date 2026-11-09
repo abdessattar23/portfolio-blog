@@ -1,0 +1,52 @@
+app/studio/new-talk-form.tsx
+  s_cd8ddbc7735baa::t_740e6043ab0e13 13-21,38,43,51-56,58,63-70
+  s_cd8ddbc7735baa::t_9c98dffb7810b7 28
+  s_cd8ddbc7735baa::t_da71131b02a435 1-12,22-27,29-37,39-42,44-50,57,59-62,71-73
+lib/studio/drafts.ts
+  s_cd8ddbc7735baa::t_bc1fe6ec463495 168
+  s_cd8ddbc7735baa::t_3f70700a883fc5 149
+  s_cd8ddbc7735baa::t_f9439290a15057 102
+  s_cd8ddbc7735baa::t_978c8982bcccc9 154
+app/studio/studio-shell.tsx
+  s_cd8ddbc7735baa::t_e8a511cc1657c7 6
+  s_cd8ddbc7735baa::t_d59bad6a206cf6 483,485
+app/globals.css
+  s_cd8ddbc7735baa::t_5531f4f705e356 460,462-467,469,471-473
+  s_cd8ddbc7735baa::t_dedb043ddcf6c9 564-565
+  s_cd8ddbc7735baa::t_504045aaeb9d6d 419-430,436-454
+  s_cd8ddbc7735baa::t_ee7d07dc8ea481 416-418,431-433
+app/api/studio/drafts/route.ts
+  s_cd8ddbc7735baa::t_e95d64728fbcbb 12,18-22,25-29
+  s_cd8ddbc7735baa::t_800a4258c1b27b 52-53,58,60
+  s_cd8ddbc7735baa::t_aa84fac95829d2 3
+  s_cd8ddbc7735baa::t_4ce1ebb3606f14 54-56
+app/studio/page.tsx
+  s_cd8ddbc7735baa::t_45272f1bf6abc0 4
+  s_cd8ddbc7735baa::t_cca9ca1a4bc55e 351
+app/speaking/page.tsx
+  s_cd8ddbc7735baa::t_66cb433d194a69 45,48-58,62,72
+  s_cd8ddbc7735baa::t_c7d35872ea541e 16-25
+app/studio/atelier.css
+  s_cd8ddbc7735baa::t_b56ba2eb1600db 451-452,457,461
+  s_cd8ddbc7735baa::t_ca5b3bcd55e21b 521-522
+  s_cd8ddbc7735baa::t_e0f4c2221a2817 505,509-514
+  s_cd8ddbc7735baa::t_742e7d8d7309b0 453-456,458-460,462-475
+  s_cd8ddbc7735baa::t_509d3c0ea5a9a4 523-527
+  s_cd8ddbc7735baa::t_e20ff4225a7394 935-937
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "80fd98e96463b7f1fad1279e18317947c21caef1",
+  "prompts": {},
+  "sessions": {
+    "s_cd8ddbc7735baa": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "b27af003-350c-4d18-b52d-43fd8a475baa",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
