@@ -1,0 +1,28 @@
+app/studio/studio-shell.tsx
+  s_cd8ddbc7735baa::t_49b2b369ee9675 44
+  s_cd8ddbc7735baa::t_270db68fedd152 101
+  s_cd8ddbc7735baa::t_335a68b6e8a87b 75
+  s_cd8ddbc7735baa::t_c7aa6c57b22f00 375-385
+  s_cd8ddbc7735baa::t_b9bef25c6f755c 552-561
+  s_cd8ddbc7735baa::t_e80ee0fd8a474e 476-513
+lib/studio/drafts.ts
+  s_cd8ddbc7735baa::t_987293e905015a 149
+app/studio/page.tsx
+  s_cd8ddbc7735baa::t_a32f954d79f91f 350-360
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "e1eb26dc37db15cf4329c84932da2aca800a52cc",
+  "prompts": {},
+  "sessions": {
+    "s_cd8ddbc7735baa": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "b27af003-350c-4d18-b52d-43fd8a475baa",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
