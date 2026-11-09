@@ -1,0 +1,21 @@
+content/posts/index.ts
+  s_3300b58d364bca::t_9fae774a894ab2 1-3,6-9
+content/posts/pooled-hashmap.tsx
+  s_3300b58d364bca::t_237070a99ebd9c 1-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "45cf6f91c296e0bbda9df67db95c2afab584a950",
+  "prompts": {},
+  "sessions": {
+    "s_3300b58d364bca": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
