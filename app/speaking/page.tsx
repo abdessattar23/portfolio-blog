@@ -1,11 +1,24 @@
 import type {Metadata} from 'next';
+import {buildPageMetadata, buildSpeakingEventJsonLd, serializeJsonLd} from '../../lib/seo';
 import {SITE} from '../../lib/site';
 
-export const metadata: Metadata = {title: 'Speaking'};
+export const metadata: Metadata = buildPageMetadata({
+  title: 'Speaking',
+  description: `Conference talks by ${SITE.fullName} (${SITE.handle}) on open source and observability engineering, including Devoxx Morocco 2026.`,
+  path: '/speaking',
+  includeIdentityKeywords: true,
+  keywords: ['Devoxx Morocco 2026', 'The Future of Open Source Has New Faces', 'Conference Speaker'],
+});
 
 export default function Speaking() {
+  const [deliveredTalk, proposalTalk] = SITE.speaking;
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildSpeakingEventJsonLd())}}
+      />
       <section className="page-intro">
         <div className="eyebrow">SPEAKING / SHARING THE WORK</div>
         <h1>
@@ -21,20 +34,16 @@ export default function Speaking() {
           CASABLANCA
         </div>
         <div>
-          <h2>The Future of Open Source Has New Faces</h2>
-          <p>
-            AI can lower the barrier to entering open source. Earning trust still requires understanding the work and taking responsibility for a contribution.
-          </p>
-          <p className="muted">
-            A talk on entering open source and contributing beyond the amount of code written.
-          </p>
-          <a className="text-link" href={SITE.linkedin}>Connect on LinkedIn ↗</a>
+          <h2>{deliveredTalk.title}</h2>
+          <p>{deliveredTalk.summary}</p>
+          <p className="muted">{deliveredTalk.detail}</p>
+          <a className="text-link" href={SITE.linkedin} rel="me">Connect on LinkedIn ↗</a>
         </div>
       </article>
       <section className="proposal">
         <div className="eyebrow">PROPOSAL / NOT AN ACCEPTED APPEARANCE</div>
-        <h3>When Observability Breaks: Four Bugs I Fixed in OpenTelemetry Java</h3>
-        <p>Submitted to OCX 2027. Acceptance is not confirmed.</p>
+        <h3>{proposalTalk.title}</h3>
+        <p>{proposalTalk.summary}</p>
         <a className="text-link" href="/work">Explore the underlying contributions ↗</a>
       </section>
     </>

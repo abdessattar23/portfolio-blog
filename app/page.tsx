@@ -1,12 +1,26 @@
+import type {Metadata} from 'next';
 import {publishedPosts} from '../content/posts';
 import {contributions} from '../lib/contributions';
+import {buildPageMetadata, buildProfilePageJsonLd, serializeJsonLd} from '../lib/seo';
 import {SITE, formatUtcDate} from '../lib/site';
+
+export const metadata: Metadata = buildPageMetadata({
+  description: SITE.bio,
+  path: '/',
+  type: 'profile',
+  includeIdentityKeywords: true,
+});
 
 export default function Home() {
   const latestPost = publishedPosts[0];
+  const featuredTalk = SITE.speaking[0];
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildProfilePageJsonLd('/'))}}
+      />
       <section className="hero">
         <div className="hero-copy">
           <p className="kicker">Java · OpenTelemetry · Rabat</p>
@@ -18,14 +32,14 @@ export default function Home() {
             Mostly interested in the <span>bugs hiding between abstractions.</span>
           </p>
           <div className="social-links">
-            <a href={SITE.github}>GitHub</a>
-            <a href={SITE.linkedin}>LinkedIn</a>
+            <a href={SITE.github} rel="me">GitHub</a>
+            <a href={SITE.linkedin} rel="me">LinkedIn</a>
           </div>
         </div>
         <figure className="hero-art">
           <img
             src="/mohammed-figurine.png"
-            alt="A miniature of Mohammed in a navy suit, based on his portrait, standing on a clear display base"
+            alt={`${SITE.fullName} (${SITE.handle}), Java and OpenTelemetry engineer`}
             width="1024"
             height="1536"
           />
@@ -81,7 +95,7 @@ export default function Home() {
           <section className="speaking-summary" aria-labelledby="speaking-heading">
             <h2 id="speaking-heading">Speaking</h2>
             <p className="event-meta">Devoxx Morocco · 2026</p>
-            <h3>The Future of Open Source Has New Faces</h3>
+            <h3>{featuredTalk.title}</h3>
             <a className="text-link" href="/speaking">Talk details →</a>
           </section>
         </aside>

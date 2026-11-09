@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {contributions, getContribution, prUrl} from '../../../lib/contributions';
+import {buildContributionJsonLd, buildPageMetadata, serializeJsonLd} from '../../../lib/seo';
 import {SITE} from '../../../lib/site';
 
 type CasePageProps = {params: Promise<{slug: string}>};
@@ -13,7 +14,13 @@ export async function generateMetadata({params}: CasePageProps): Promise<Metadat
   const {slug} = await params;
   const c = getContribution(slug);
   if (!c) return {};
-  return {title: c.title, description: c.summary};
+  return buildPageMetadata({
+    title: c.title,
+    description: c.summary,
+    path: `/work/${c.slug}`,
+    type: 'article',
+    keywords: [c.shortTitle, ...c.topic.split(' · '), `PR #${c.number}`, 'opentelemetry-java'],
+  });
 }
 
 export default async function CasePage({params}: CasePageProps) {
@@ -23,6 +30,10 @@ export default async function CasePage({params}: CasePageProps) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildContributionJsonLd(c))}}
+      />
       <section className="page-intro">
         <a className="back" href="/work">← All contributions</a>
         <div className="eyebrow">OPENTELEMETRY JAVA / MERGED #{c.number}</div>

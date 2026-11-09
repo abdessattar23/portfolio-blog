@@ -1,8 +1,13 @@
 import type {Metadata} from 'next';
 import {publishedPosts} from '../../content/posts';
+import {buildPageMetadata} from '../../lib/seo';
 import {SITE, formatUtcDate} from '../../lib/site';
 
-export const metadata: Metadata = {title: 'Blog'};
+export const metadata: Metadata = buildPageMetadata({
+  title: 'Blog',
+  description: `Technical notes on Java, OpenTelemetry, JVM collections, concurrency, and observability by ${SITE.fullName} (${SITE.handle}).`,
+  path: '/blog',
+});
 
 export default function Blog() {
   return (

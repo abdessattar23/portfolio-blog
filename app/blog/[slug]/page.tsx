@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {getPublishedPost, publishedPosts} from '../../../content/posts';
+import {buildBlogPostJsonLd, buildPageMetadata, serializeJsonLd} from '../../../lib/seo';
 import {formatUtcDate} from '../../../lib/site';
 
 type BlogPostPageProps = {params: Promise<{slug: string}>};
@@ -13,7 +14,14 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
   const {slug} = await params;
   const post = getPublishedPost(slug);
   if (!post) return {};
-  return {title: post.title, description: post.description};
+  return buildPageMetadata({
+    title: post.title,
+    description: post.description,
+    path: `/blog/${post.slug}`,
+    type: 'article',
+    publishedTime: post.publishedAt,
+    keywords: post.topics,
+  });
 }
 
 export default async function BlogPostPage({params}: BlogPostPageProps) {
@@ -25,6 +33,10 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildBlogPostJsonLd(post))}}
+      />
       <section className="page-intro">
         <a className="back" href="/blog">← All writing</a>
         <div className="eyebrow">{post.topics.join(' · ')} / {formatUtcDate(post.publishedAt, 'long')}</div>

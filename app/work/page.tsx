@@ -1,7 +1,13 @@
 import type {Metadata} from 'next';
 import {contributions, prUrl} from '../../lib/contributions';
+import {buildPageMetadata} from '../../lib/seo';
+import {SITE} from '../../lib/site';
 
-export const metadata: Metadata = {title: 'Open-source work'};
+export const metadata: Metadata = buildPageMetadata({
+  title: 'Open-source work',
+  description: `Merged contributions to the OpenTelemetry Java SDK by ${SITE.fullName} (${SITE.handle}): problem analysis, diffs, and regression tests.`,
+  path: '/work',
+});
 
 export default function Work() {
   return (
