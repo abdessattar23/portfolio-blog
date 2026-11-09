@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {publishedPosts} from '../../../content/posts';
 import {PostTemplate} from '../../../components/templates/post-template';
+import {artifactsForMarkdown} from '../../../lib/artifacts/resolve';
 import {MarkdownView} from '../../../lib/content/render';
 import {buildBlogPostJsonLd, buildPageMetadata, serializeJsonLd} from '../../../lib/seo';
 import {livePublishedPost} from '../../../lib/studio/published';
@@ -38,6 +39,7 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
   const {slug} = await params;
   const post = await livePublishedPost(slug);
   if (!post) return notFound();
+  const artifacts = await artifactsForMarkdown(post.body);
 
   return (
     <>
@@ -46,7 +48,7 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
         dangerouslySetInnerHTML={{__html: serializeJsonLd(buildBlogPostJsonLd(post))}}
       />
       <PostTemplate post={post}>
-        <MarkdownView markdown={post.body} />
+        <MarkdownView markdown={post.body} title={post.title} artifacts={artifacts} />
       </PostTemplate>
     </>
   );

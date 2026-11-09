@@ -53,6 +53,10 @@ if (publishConflict('new', 'old') === null) throw new Error('A changed file shou
 if (publishConflict(null, 'old') === null) throw new Error('A deleted file should be rejected.');
 if (publishConflict(null, null) !== null) throw new Error('A new file should publish.');
 
+const sitemapSource = readFileSync(resolve(root, 'app/sitemap.ts'), 'utf8');
+if (sitemapSource.includes("'weekly'")) throw new Error('The sitemap should describe daily updates, not weekly ones.');
+if (!sitemapSource.includes("changeFrequency: 'daily'")) throw new Error('The homepage and blog should be marked daily.');
+
 const secret = 'verify-studio-secret';
 const owner = await signSession('abdessattar23', secret);
 if ((await verifySession(owner, secret))?.login !== 'abdessattar23') throw new Error('The owner session should verify.');

@@ -1,9 +1,8 @@
 import handler from 'vinext/server/fetch-handler';
-import {AGENT_PATHS} from '../lib/agent/policy';
 import {agentResponse, decoratePublicResponse} from '../lib/agent/serve';
-import {usablePrivateJwk, webBotRequestHeaders} from '../lib/agent/signatures';
-import {SITE} from '../lib/site';
 import {studioEnv} from '../lib/studio/db';
+import {submitIndexNow} from '../lib/studio/indexnow';
+import {studioMcpResponse} from '../lib/studio/mcp-server';
 import {duePings, markPing} from '../lib/studio/pings';
 
 const PUBLIC_CACHE_SECONDS = 60;
@@ -54,7 +53,6 @@ async function notifyIndexNow(): Promise<void> {
   } catch {
     return;
   }
-  const host = new URL(SITE.url).host;
   for (const ping of pending) {
     const attempts = ping.attempts + 1;
     const live = await fetch(ping.url);
@@ -62,35 +60,8 @@ async function notifyIndexNow(): Promise<void> {
       await markPing(ping.url, attempts, false);
       continue;
     }
-    const response = await fetch('https://api.indexnow.org/indexnow', {
-      method: 'POST',
-      headers: await indexNowHeaders(),
-      body: JSON.stringify({
-        host,
-        key,
-        keyLocation: `${SITE.url}/${key}.txt`,
-        urlList: [ping.url],
-      }),
-    });
-    await markPing(ping.url, attempts, response.ok || response.status === 202);
-  }
-}
-
-async function indexNowHeaders(): Promise<Record<string, string>> {
-  const headers: Record<string, string> = {'Content-Type': 'application/json'};
-  const privateJwk = usablePrivateJwk(studioEnv().WEB_BOT_AUTH_PRIVATE_JWK);
-  if (!privateJwk) return headers;
-  try {
-    return {
-      ...headers,
-      ...(await webBotRequestHeaders({
-        authority: 'api.indexnow.org',
-        directoryUrl: `${SITE.url}${AGENT_PATHS.directory}`,
-        privateJwk,
-      })),
-    };
-  } catch {
-    return headers;
+    const delivered = await submitIndexNow([ping.url]);
+    await markPing(ping.url, attempts, delivered);
   }
 }
 
@@ -101,6 +72,8 @@ const worker = {
     if (key && url.pathname === `/${key}.txt`) {
       return new Response(key, {headers: {'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400'}});
     }
+    const studioMcp = await studioMcpResponse(request);
+    if (studioMcp) return studioMcp;
     const agent = await agentResponse(request);
     if (agent) return agent;
     if (isPublicGet(url, request)) return cachedPublicFetch(request, env, ctx);

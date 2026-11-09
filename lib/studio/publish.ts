@@ -3,7 +3,7 @@ import {mediaBucket, studioEnv} from './db';
 import {deleteDraft, getDraft, updateDraftContent, type Draft} from './drafts';
 import {commitFiles, getFileSha, renderDraftFile} from './github';
 import {publishConflict} from './guards';
-import {queuePings} from './pings';
+import {announceLiveUrls} from './indexnow';
 import {savePublishedContent} from './published';
 
 function toBase64(bytes: Uint8Array): string {
@@ -49,11 +49,22 @@ export async function publishDraft(draft: Draft, message: string): Promise<void>
   await commitFiles(message, files);
   await savePublishedContent(draft.kind, draft.slug, rendered.content);
   await deleteDraft(draft.id);
+  await announceLiveUrls(discoveryUrls(draft));
+}
 
-  if (draft.kind !== 'post') return;
-  const fields: unknown = JSON.parse(draft.frontmatter);
-  if (isRecord(fields) && fields['draft'] === true) return;
-  await queuePings([`${SITE.url}/blog/${draft.slug}`, `${SITE.url}/sitemap.xml`]);
+function discoveryUrls(draft: Draft): string[] {
+  const urls = [
+    `${SITE.url}/`,
+    `${SITE.url}/blog`,
+    `${SITE.url}/feed.xml`,
+    `${SITE.url}/sitemap.xml`,
+    `${SITE.url}${SITE.llms}`,
+    `${SITE.url}${SITE.llmsFull}`,
+  ];
+  if (draft.kind === 'post') urls.push(`${SITE.url}/blog/${draft.slug}`);
+  if (draft.kind === 'work') urls.push(`${SITE.url}/work`, `${SITE.url}/work/${draft.slug}`);
+  if (draft.kind === 'talk') urls.push(`${SITE.url}/speaking`);
+  return urls;
 }
 
 export async function publishById(

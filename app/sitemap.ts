@@ -13,13 +13,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     : new Date('2026-11-08T00:00:00Z');
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    {url: SITE.url, lastModified: latestPostDate, changeFrequency: 'weekly', priority: 1.0},
-    {url: `${SITE.url}/blog`, lastModified: latestPostDate, changeFrequency: 'weekly', priority: 0.9},
+    {url: SITE.url, lastModified: latestPostDate, changeFrequency: 'daily', priority: 1.0},
+    {url: `${SITE.url}/blog`, lastModified: latestPostDate, changeFrequency: 'daily', priority: 0.9},
     {url: `${SITE.url}/work`, lastModified: latestPostDate, changeFrequency: 'monthly', priority: 0.9},
     {url: `${SITE.url}/speaking`, lastModified: latestPostDate, changeFrequency: 'monthly', priority: 0.8},
     {url: `${SITE.url}/about`, lastModified: latestPostDate, changeFrequency: 'monthly', priority: 0.9},
-    {url: `${SITE.url}${SITE.llms}`, lastModified: latestPostDate, changeFrequency: 'weekly', priority: 0.7},
-    {url: `${SITE.url}${SITE.llmsFull}`, lastModified: latestPostDate, changeFrequency: 'weekly', priority: 0.7},
+    {url: `${SITE.url}${SITE.llms}`, lastModified: latestPostDate, changeFrequency: 'daily', priority: 0.7},
+    {url: `${SITE.url}${SITE.llmsFull}`, lastModified: latestPostDate, changeFrequency: 'daily', priority: 0.7},
   ];
 
   const postRoutes: MetadataRoute.Sitemap = publishedPosts.map((post) => ({

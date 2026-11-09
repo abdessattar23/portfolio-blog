@@ -1,4 +1,5 @@
 import {notFound} from 'next/navigation';
+import {mergedArtifacts} from '../../../../lib/artifacts/resolve';
 import {getDraft} from '../../../../lib/studio/drafts';
 import {livePosts} from '../../../../lib/studio/published';
 import {PostEditor} from './editor';
@@ -18,6 +19,7 @@ export default async function PostDraftPage({params}: {params: Promise<{id: stri
       description: post.description,
     }));
   const isPublishedAlready = posts.some((post) => post.slug === draft.slug && !post.draft);
+  const artifacts = await mergedArtifacts();
   return (
     <PostEditor
       id={draft.id}
@@ -26,6 +28,7 @@ export default async function PostDraftPage({params}: {params: Promise<{id: stri
       body={draft.body}
       existing={existing}
       isPublishedAlready={isPublishedAlready}
+      artifacts={artifacts}
     />
   );
 }

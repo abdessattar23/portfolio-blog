@@ -397,10 +397,22 @@ footer p { margin-top: 0.4rem; color: var(--muted); font-size: 0.8rem; }
 .prose { min-width: 0; font-size: 1.05rem; line-height: 1.82; }
 .prose h2 { margin: 2.4rem 0 0.85rem; font-size: 1.85rem; line-height: 1.2; }
 .prose h2:first-child { margin-top: 0; }
+.prose h3 { margin: 1.75rem 0 0.5rem; font-size: 1.28rem; line-height: 1.3; }
 .prose p { margin-bottom: 1.25rem; }
+.prose ul, .prose ol { margin: 0 0 1.25rem; padding-left: 1.25rem; }
+.prose li { margin: 0.3rem 0; }
+.prose li > p { margin-bottom: 0.35rem; }
 .prose p > a, .prose > a { color: var(--blue); }
 .prose .lead { font-size: 1.28rem; line-height: 1.68; }
-.prose pre { overflow-x: auto; margin: 1.5rem 0; padding: 1.25rem; border-radius: 12px; background: var(--code-bg); color: var(--code-text); font: 0.83rem/1.85 var(--mono); }
+.prose :not(pre) > code {
+  padding: 0.12em 0.38em;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+  font-family: var(--mono);
+  font-size: 0.86em;
+}
+.prose pre { overflow-x: auto; margin: 1.6rem 0; padding: 1.25rem; border-radius: 12px; background: var(--code-bg); color: var(--code-text); font: 0.83rem/1.85 var(--mono); }
 .prose pre code .hljs-keyword,
 .prose pre code .hljs-built_in { color: var(--coral); }
 .prose pre code .hljs-string { color: var(--green); }
@@ -411,7 +423,7 @@ footer p { margin-top: 0.4rem; color: var(--muted); font-size: 0.8rem; }
 .prose pre code .hljs-function { color: var(--blue); }
 
 .note { margin: 2rem 0; padding: 1.25rem 1.4rem; border-left: 4px solid var(--coral); background: var(--surface); }
-.note h3 { margin-bottom: 0.5rem; font-size: 1rem; }
+.note h3 { margin: 0 0 0.5rem; font-size: 1rem; }
 .note p { margin: 0; font-size: 0.95rem; }
 .button,
 a.button,
@@ -491,6 +503,56 @@ a.button:hover,
 .demo-controls { padding-top: 1rem; border-top: 1px solid var(--line); font-size: 0.75rem; }
 .demo-controls button { padding: 0.55rem 0.75rem; border: 0; border-radius: 7px; background: var(--blue); color: white; cursor: pointer; }
 
+.artifact {
+  margin: 2rem 0;
+  padding: 1.15rem 1.2rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+.artifact-kicker {
+  margin: 0;
+  color: var(--muted);
+  font: 0.68rem var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.artifact h3 { margin: 0.35rem 0 0.45rem; font-size: 1.2rem; line-height: 1.25; }
+.artifact-summary { margin: 0 0 0.9rem; color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+.artifact-row { display: grid; gap: 0.35rem; margin-top: 0.85rem; }
+.artifact-row-label { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.artifact-row-label strong { font-size: 0.86rem; }
+.artifact-row-label span, .artifact-readout { color: var(--muted); }
+.artifact-row-label span { font: 0.72rem var(--mono); }
+.artifact-cells { display: flex; flex-wrap: wrap; gap: 0.35rem; color: var(--text); }
+.artifact-cell { fill: transparent; stroke: var(--line-strong); }
+.artifact-cell[data-state='mounted'],
+.artifact-cell[data-state='running'] { fill: color-mix(in srgb, var(--blue) 22%, var(--bg)); stroke: var(--blue); }
+.artifact-cell[data-state='busy'] { fill: color-mix(in srgb, var(--green) 24%, var(--bg)); stroke: var(--green); }
+.artifact-cell[data-state='waiting'] { stroke: var(--coral); }
+.artifact-readout { min-height: 3.2rem; margin: 0.9rem 0 0; color: var(--text); font-size: 0.95rem; line-height: 1.55; }
+.artifact-controls { display: grid; gap: 0.7rem; margin-top: 0.9rem; }
+.artifact-controls label {
+  display: grid;
+  grid-template-columns: minmax(9rem, 14rem) minmax(0, 1fr) 2rem;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+.artifact-controls strong { font: 0.78rem var(--mono); text-align: right; }
+.artifact-controls input[type='range'] { width: 100%; accent-color: var(--blue); }
+.artifact-controls input:focus-visible { outline: 3px solid color-mix(in srgb, var(--blue) 70%, transparent); outline-offset: 3px; }
+.artifact-scroll { overflow-x: auto; }
+.artifact-graph { width: 100%; height: auto; color: var(--text); }
+.artifact-graph text { fill: currentColor; font: 12px var(--mono); }
+.artifact-node { fill: var(--bg); stroke: var(--line-strong); }
+.artifact .note { margin: 0.4rem 0 0; }
+.artifact .demo-pair { margin-top: 0.4rem; }
+.artifact .demo-pair pre { margin: 0.45rem 0 0; white-space: pre-wrap; }
+@media (prefers-reduced-motion: no-preference) {
+  .artifact-cell { transition: fill 160ms ease, stroke 160ms ease; }
+}
+
 .skip { position: fixed; z-index: 100; top: -100px; left: 1rem; padding: 0.75rem 1rem; background: var(--blue); color: white; }
 .skip:focus { top: 1rem; }
 .agent-note {
@@ -558,6 +620,13 @@ a.button:hover,
   .article-layout { display: flex; flex-direction: column; gap: 2rem; padding-top: 2.5rem; }
   .article-sticker { width: 52px; }
   .demo-pair { grid-template-columns: 1fr; }
+  .artifact-controls label {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "name value" "slider slider";
+  }
+  .artifact-controls label span { grid-area: name; }
+  .artifact-controls label strong { grid-area: value; }
+  .artifact-controls input[type='range'] { grid-area: slider; }
   .article-layout aside { position: static; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
   .article-layout aside > a { display: inline-block; margin-right: 1rem; }
   .case { grid-template-columns: 54px minmax(0, 1fr); gap: 1rem; }

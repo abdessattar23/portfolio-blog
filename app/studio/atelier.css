@@ -1039,6 +1039,7 @@ body:has(.studio-atelier) {
 .demo-composer-head { display: grid; gap: 0.2rem; }
 .demo-composer-head span, .demo-composer > p { color: var(--ink-soft); font-size: 0.85rem; }
 .demo-step-list { display: grid; gap: 0.55rem; }
+.artifact-param-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55rem; }
 .skin-grid, .sticker-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; }
 .skin-swatch, .sticker-pick {
   display: grid;

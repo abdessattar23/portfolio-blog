@@ -1,5 +1,8 @@
 import {env} from 'cloudflare:workers';
+import artifactMigration from '../../migrations/0002_artifacts.sql?raw';
 import migration from '../../migrations/0001_studio.sql?raw';
+
+const migrations = [migration, artifactMigration];
 
 let schemaReady: Promise<void> | undefined;
 
@@ -23,8 +26,10 @@ export async function database() {
   const db = env.DB;
   if (!db) throw new Error('D1 binding DB is not configured. Set CLOUDFLARE_D1_ID for the production build.');
   schemaReady ??= (async () => {
-    for (const statement of statements(migration)) {
-      await db.prepare(statement).run();
+    for (const source of migrations) {
+      for (const statement of statements(source)) {
+        await db.prepare(statement).run();
+      }
     }
   })().catch((error: unknown) => {
     schemaReady = undefined;

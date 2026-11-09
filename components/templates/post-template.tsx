@@ -1,7 +1,8 @@
 import type {CSSProperties, ReactNode} from 'react';
-import {ArticleStickers} from '../article-stickers';
+import {isDuplicateOpeningSection} from '../../lib/content/headings';
 import type {PostDocument} from '../../lib/content/schema';
 import {formatUtcDate} from '../../lib/site';
+import {ArticleStickers} from '../article-stickers';
 
 const ASIDE_LABEL: Record<PostDocument['template'], string> = {
   'deep-dive': 'In this note',
@@ -30,11 +31,15 @@ export function PostTemplate({post, children}: {post: PostDocument; children: Re
         {post.stickers && post.stickers.length > 0 ? <ArticleStickers slug={post.slug} stickers={post.stickers} /> : null}
         <aside>
           <div className="eyebrow">{ASIDE_LABEL[post.template]}</div>
-          {post.sections.map((section, index) => (
-            <a key={section.id} href={`#${section.id}`}>
-              {post.template === 'bug-story' ? `0${index + 1} ` : ''}
-              {section.title}
-            </a>
+          {post.sections.flatMap((section, index) => (
+            isDuplicateOpeningSection(post.sections, index, post.title)
+              ? []
+              : [(
+                <a key={section.id} href={`#${section.id}`}>
+                  {post.template === 'bug-story' ? `0${index + 1} ` : ''}
+                  {section.title}
+                </a>
+              )]
           ))}
         </aside>
         <article className="prose">{children}</article>

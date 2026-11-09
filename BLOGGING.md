@@ -12,7 +12,7 @@ Edit the generated file:
 
 1. Replace every `TODO`.
 2. Set the description, excerpt, topics, and dates.
-3. Write the article in Markdown. Use fenced code blocks for code, `:::note` for a callout, and `:::demo{name="bucket"}` for an interactive example.
+3. Write the article in Markdown. Use fenced code blocks for code, `:::note` for a callout, `:::demo{name="bucket"}` for the built-in bucket example, and `:::artifact{id="virtual-thread-pool"}` for a reusable figure. See [ARTIFACTS.md](./ARTIFACTS.md).
 4. Keep `draft: true` while working.
 5. Set `draft: false` when the article is ready.
 6. Run `pnpm build` before pushing.

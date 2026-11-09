@@ -7,8 +7,12 @@ import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import {unified} from 'unified';
+import {ArtifactFigure} from '../../components/artifacts/artifact-figure';
 import {ArticleDemo} from '../../components/article-demo';
 import BucketDemo from '../../components/bucket-demo';
+import {matchArtifactFence} from '../artifacts/format';
+import type {ArtifactDocument} from '../artifacts/schema';
+import {stripDuplicateTitle} from './headings';
 import {sectionsFromMarkdown} from './schema';
 
 const processor = unified()
@@ -27,7 +31,8 @@ type DemoName = keyof typeof DEMOS;
 export type Segment =
   | {kind: 'markdown'; text: string}
   | {kind: 'demo'; name: string; body: string}
-  | {kind: 'note'; title: string; text: string};
+  | {kind: 'note'; title: string; text: string}
+  | {kind: 'artifact'; id: string};
 
 function isDemoName(name: string): name is DemoName {
   return Object.hasOwn(DEMOS, name);
@@ -54,6 +59,13 @@ export function splitBlocks(markdown: string): Segment[] {
     }
     if (inFence) {
       buffer.push(line);
+      continue;
+    }
+
+    const artifactId = matchArtifactFence(line);
+    if (artifactId) {
+      flush();
+      segments.push({kind: 'artifact', id: artifactId});
       continue;
     }
 
@@ -109,12 +121,24 @@ export function renderMarkdownToHtml(markdown: string, lead = false): string {
   return html;
 }
 
-export function MarkdownView({markdown}: {markdown: string}) {
-  const segments = splitBlocks(markdown);
+export function MarkdownView({
+  markdown,
+  title = '',
+  artifacts = [],
+}: {
+  markdown: string;
+  title?: string;
+  artifacts?: readonly ArtifactDocument[];
+}) {
+  const segments = splitBlocks(stripDuplicateTitle(markdown, title));
   let seenMarkdown = false;
   const nodes: ReactNode[] = [];
 
   segments.forEach((segment, index) => {
+    if (segment.kind === 'artifact') {
+      nodes.push(<ArtifactFigure key={index} id={segment.id} artifacts={artifacts} />);
+      return;
+    }
     if (segment.kind === 'demo') {
       if (segment.name === 'walk' || segment.name === 'compare') {
         nodes.push(<ArticleDemo key={index} name={segment.name} body={segment.body} />);

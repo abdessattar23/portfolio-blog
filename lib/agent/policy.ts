@@ -38,6 +38,7 @@ function robotGroup(userAgent: string): string {
     `Content-Signal: ${CONTENT_SIGNAL}`,
     'Allow: /',
     'Disallow: /studio',
+    'Disallow: /oauth',
     'Disallow: /api/studio',
     'Disallow: /api/auth',
     '',

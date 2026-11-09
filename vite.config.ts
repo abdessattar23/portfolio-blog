@@ -10,6 +10,7 @@ const secretNames = [
   'GITHUB_CONTENT_TOKEN',
   'INDEXNOW_KEY',
   'WEB_BOT_AUTH_PRIVATE_JWK',
+  'STUDIO_MCP_KEY',
 ] as const;
 
 export default defineConfig(({command, mode}) => {
@@ -34,6 +35,10 @@ export default defineConfig(({command, mode}) => {
           main: './worker/index.ts',
           compatibility_flags: ['nodejs_compat'],
           triggers: {crons: ['*/5 * * * *']},
+          ratelimits: [
+            {name: 'AUTH_RATE_LIMIT', namespace_id: '847221', simple: {limit: 5, period: 60}},
+            {name: 'TOKEN_RATE_LIMIT', namespace_id: '847222', simple: {limit: 20, period: 60}},
+          ],
           ...(Object.keys(vars).length > 0 ? {vars} : {}),
           ...(attachStorage
             ? {

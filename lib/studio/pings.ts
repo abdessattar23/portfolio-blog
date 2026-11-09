@@ -1,6 +1,6 @@
 import {database} from './db';
 
-const DEPLOY_SETTLE_MS = 3 * 60 * 1000;
+const RETRY_SETTLE_MS = 0;
 
 export async function queuePings(urls: string[]): Promise<void> {
   const db = await database();
@@ -15,7 +15,7 @@ export async function queuePings(urls: string[]): Promise<void> {
 
 export async function duePings(): Promise<{url: string; attempts: number}[]> {
   const db = await database();
-  const cutoff = new Date(Date.now() - DEPLOY_SETTLE_MS).toISOString();
+  const cutoff = new Date(Date.now() - RETRY_SETTLE_MS).toISOString();
   const rows = await db
     .prepare('select url, attempts from pending_pings where attempts < 12 and queued_at <= ? order by queued_at')
     .bind(cutoff)

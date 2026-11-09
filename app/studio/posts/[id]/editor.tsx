@@ -13,6 +13,8 @@ import {
   type PostSkin,
   type PostTemplate,
 } from '../../../../lib/content/schema';
+import {ArtifactComposer} from '../../artifact-composer';
+import type {ArtifactDocument} from '../../../../lib/artifacts/schema';
 import {formatBucket, formatCompare, formatWalk} from '../../../../lib/content/demos';
 import {findDuplicates} from '../../../../lib/content/duplicates';
 import {MarkdownView} from '../../../../lib/content/render';
@@ -37,7 +39,7 @@ type Fields = {
 
 type ViewMode = 'write' | 'split' | 'preview';
 type InspectorTab = 'meta' | 'outline' | 'seo' | 'craft' | 'magic';
-type DemoKind = 'walk' | 'compare' | 'bucket';
+type DemoKind = 'walk' | 'compare' | 'bucket' | 'artifact';
 type PaperFont = 'serif' | 'sans' | 'mono';
 type PaperWidth = 'narrow' | 'medium' | 'wide';
 type PaperSize = 'cozy' | 'roomy' | 'compact';
@@ -134,6 +136,7 @@ export function PostEditor({
   body,
   existing,
   isPublishedAlready = false,
+  artifacts: initialArtifacts = [],
 }: {
   id: string;
   slug: string;
@@ -141,6 +144,7 @@ export function PostEditor({
   body: string;
   existing: {slug: string; title: string; description: string}[];
   isPublishedAlready?: boolean;
+  artifacts?: ArtifactDocument[];
 }) {
   const initial = useMemo(() => readFields(frontmatter, slug), [frontmatter, slug]);
   const [fields, setFields] = useState<Fields>(initial);
@@ -160,6 +164,7 @@ export function PostEditor({
   const [typewriter, setTypewriter] = useState(false);
   const [focusSpot, setFocusSpot] = useState(false);
   const [wordGoal, setWordGoal] = useState(1200);
+  const [catalog, setCatalog] = useState(initialArtifacts);
   const [demoOpen, setDemoOpen] = useState(false);
   const [demoKind, setDemoKind] = useState<DemoKind>('walk');
   const [demoTitle, setDemoTitle] = useState('How it moves');
@@ -637,6 +642,7 @@ export function PostEditor({
           className="demo-composer"
           onSubmit={(event) => {
             event.preventDefault();
+            if (demoKind === 'artifact') return;
             const block = demoKind === 'bucket'
               ? formatBucket()
               : demoKind === 'compare'
@@ -654,15 +660,27 @@ export function PostEditor({
             <button type="button" data-active={demoKind === 'walk'} onClick={() => setDemoKind('walk')}>Walkthrough</button>
             <button type="button" data-active={demoKind === 'compare'} onClick={() => setDemoKind('compare')}>Before / after</button>
             <button type="button" data-active={demoKind === 'bucket'} onClick={() => setDemoKind('bucket')}>Bucket</button>
+            <button type="button" data-active={demoKind === 'artifact'} onClick={() => setDemoKind('artifact')}>Artifact</button>
           </div>
-          {demoKind !== 'bucket' ? (
+          {demoKind === 'artifact' ? (
+            <ArtifactComposer
+              artifacts={catalog}
+              onSaved={(artifact) => setCatalog((current) => [artifact, ...current.filter((item) => item.id !== artifact.id)])}
+              onInsert={(fence) => {
+                insertSnippet(fence);
+                setDemoOpen(false);
+              }}
+            />
+          ) : null}
+          {demoKind === 'walk' || demoKind === 'compare' ? (
             <label className="inspector-field">
               <span>Title</span>
               <input value={demoTitle} onChange={(event) => setDemoTitle(event.target.value)} />
             </label>
-          ) : (
+          ) : null}
+          {demoKind === 'bucket' ? (
             <p>The built-in bucket walk: forward misses the shifted entry, backward visits both.</p>
-          )}
+          ) : null}
           {demoKind === 'walk' ? (
             <div className="demo-step-list">
               {demoSteps.map((step, index) => (
@@ -689,10 +707,16 @@ export function PostEditor({
               </label>
             </div>
           ) : null}
-          <div className="desk-card-actions">
-            <button type="submit" className="atelier-btn-primary">Insert demo</button>
-            <button type="button" className="atelier-btn-ghost" onClick={() => setDemoOpen(false)}>Close</button>
-          </div>
+          {demoKind === 'artifact' ? (
+            <div className="desk-card-actions">
+              <button type="button" className="atelier-btn-ghost" onClick={() => setDemoOpen(false)}>Close</button>
+            </div>
+          ) : (
+            <div className="desk-card-actions">
+              <button type="submit" className="atelier-btn-primary">Insert demo</button>
+              <button type="button" className="atelier-btn-ghost" onClick={() => setDemoOpen(false)}>Close</button>
+            </div>
+          )}
         </form>
       ) : null}
 
@@ -819,7 +843,7 @@ export function PostEditor({
                   <p>{fields.description}</p>
                 </header>
                 <article className="prose">
-                  <MarkdownView markdown={markdown} />
+                  <MarkdownView markdown={markdown} title={fields.title} artifacts={catalog} />
                 </article>
               </div>
             </div>
@@ -828,7 +852,7 @@ export function PostEditor({
           {viewMode === 'preview' ? (
             <div className="manuscript-full-preview">
               <PostTemplateView post={previewPost}>
-                <MarkdownView markdown={markdown} />
+                <MarkdownView markdown={markdown} title={fields.title} artifacts={catalog} />
               </PostTemplateView>
             </div>
           ) : null}
