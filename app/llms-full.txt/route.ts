@@ -39,7 +39,7 @@ export function GET() {
         `- **Topics**: ${post.topics.join(', ')}`,
         `- **Description**: ${post.description}${diffBlock}`,
         '',
-        post.excerpt,
+        post.body ?? post.excerpt,
       ].join('\n');
     })
     .join('\n\n---\n\n');

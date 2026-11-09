@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {getPublishedPost, publishedPosts} from '../../../content/posts';
+import {MarkdownView} from '../../../lib/content/render';
 import {buildBlogPostJsonLd, buildPageMetadata, serializeJsonLd} from '../../../lib/seo';
 import {formatUtcDate} from '../../../lib/site';
 
@@ -51,7 +52,7 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
           ))}
         </aside>
         <article className="prose">
-          <Content />
+          {post.body ? <MarkdownView markdown={post.body} /> : Content ? <Content /> : null}
         </article>
       </div>
     </>

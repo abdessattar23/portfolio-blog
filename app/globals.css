@@ -311,6 +311,14 @@ footer p { margin-top: 0.4rem; color: var(--muted); font-size: 0.8rem; }
 .prose p > a, .prose > a { color: var(--blue); }
 .prose .lead { font-size: 1.28rem; line-height: 1.68; }
 .prose pre { overflow-x: auto; margin: 1.5rem 0; padding: 1.25rem; border-radius: 12px; background: var(--code-bg); color: var(--code-text); font: 0.83rem/1.85 var(--mono); }
+.prose pre code .hljs-keyword,
+.prose pre code .hljs-built_in { color: var(--coral); }
+.prose pre code .hljs-string { color: var(--green); }
+.prose pre code .hljs-comment { color: var(--muted); }
+.prose pre code .hljs-number,
+.prose pre code .hljs-type,
+.prose pre code .hljs-title,
+.prose pre code .hljs-function { color: var(--blue); }
 
 .note { margin: 2rem 0; padding: 1.25rem 1.4rem; border-left: 4px solid var(--coral); background: var(--surface); }
 .note h3 { margin-bottom: 0.5rem; font-size: 1rem; }

@@ -13,7 +13,8 @@ export type BlogPost = {
   publishedAt: string;
   topics: string[];
   sections: PostSection[];
-  Content: ComponentType;
+  Content?: ComponentType;
+  body?: string;
   draft?: boolean;
   homeDiff?: {
     removed: string;
