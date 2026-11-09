@@ -1,0 +1,54 @@
+migrations/0001_studio.sql
+  s_ca15d3fa531b7c::t_7de3d85fa695cd 11-12
+app/api/studio/unpublish/route.ts
+  s_ca15d3fa531b7c::t_ed98123d2d7903 9-14,16
+  s_ca15d3fa531b7c::t_889a424f5379e9 19
+package.json
+  s_ca15d3fa531b7c::t_25f5a9590493e9 13
+lib/content/render.tsx
+  s_ca15d3fa531b7c::t_47425da0b484df 26,39,49-58,67-69,71-77,118
+lib/studio/drafts.ts
+  s_ca15d3fa531b7c::t_810411360df05e 152
+  s_ca15d3fa531b7c::t_75cd739b77f312 73-84,94-98,107,122,149,151,153-161,163-169,172-180
+app/api/studio/drafts/[id]/route.ts
+  s_ca15d3fa531b7c::t_fa455d8901b82d 2,26,30-38
+app/media/[slug]/[file]/route.ts
+  s_ca15d3fa531b7c::t_61587824385a3b 3,5-7,12-15
+  s_ca15d3fa531b7c::t_0d02c49adaa002 9
+app/studio/record-editor.tsx
+  s_ca15d3fa531b7c::t_ee01a8290eda68 5-19,25,33,37,51-62
+lib/studio/publish.ts
+  s_ca15d3fa531b7c::t_c89ba5a127aeb5 22,33-36,83
+  s_ca15d3fa531b7c::t_0a201acd84e57e 3,21,23,27-28,30-31,39,45-46,54-58,60-65,71-74,77-79,81-82
+app/studio/page.tsx
+  s_ca15d3fa531b7c::t_fdbcff7572c099 3,7-13,43-65,68-89
+lib/content/schema.ts
+  s_ca15d3fa531b7c::t_48219f30e1ffdb 134,136-140
+scripts/verify-studio.ts
+  s_ca15d3fa531b7c::t_12a538a2310958 4-5,29-38,63
+app/api/studio/publish/route.ts
+  s_ca15d3fa531b7c::t_ad51334a4de0f2 4-10,14-22,25-31,37,39-43
+lib/studio/pings.ts
+  s_ca15d3fa531b7c::t_a76a8fca7e47ab 28
+  s_ca15d3fa531b7c::t_4a876b4686a3fa 3-4,18-22
+lib/studio/github.ts
+  s_ca15d3fa531b7c::t_98ecb67af1dea0 91
+app/studio/posts/[id]/editor.tsx
+  s_ca15d3fa531b7c::t_65f78d14e60f82 4,10,20,27-28,31,33-42,44-49,52,54,71,77,85,89,92,97-113,123-126,149,172-187
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "7155d2a8e336a57b2898ac41804da85d24a5de2e",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
