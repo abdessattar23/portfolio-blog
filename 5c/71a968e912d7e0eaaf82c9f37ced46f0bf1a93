@@ -1,0 +1,27 @@
+eslint.config.mjs
+  s_ca15d3fa531b7c::t_cf6ad8dab5d8e3 13-14
+components/theme-toggle.tsx
+  s_ca15d3fa531b7c::t_bba8346cf1d58f 3,7-14,16-21,24,27
+lib/site.ts
+  s_ca15d3fa531b7c::t_34c6750ed6e59e 49
+app/llms-full.txt/route.ts
+  s_ca15d3fa531b7c::t_cc28b29ebb5ae8 41,78
+components/site-navigation.tsx
+  s_ca15d3fa531b7c::t_010972d9499f56 16-17,21,36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "5c71a968e912d7e0eaaf82c9f37ced46f0bf1a93",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
