@@ -19,6 +19,10 @@ const postFiles = import.meta.glob('../../content/posts/*.md', {
   eager: true,
 });
 
+function repoPath(file: string): string {
+  return file.replace(/^(\.\.\/)+/, '');
+}
+
 function textModules(modules: Record<string, unknown>): [string, string][] {
   return Object.keys(modules)
     .sort()
@@ -31,11 +35,38 @@ function textModules(modules: Record<string, unknown>): [string, string][] {
 
 export const siteSettings = parseSiteSettings(siteFile);
 
-export const workCases: WorkCase[] = textModules(workFiles).map(([file, raw]) => parseWorkCase(raw, file));
+const workPaths = new Map<string, string>();
+export const workCases: WorkCase[] = textModules(workFiles).map(([file, raw]) => {
+  const work = parseWorkCase(raw, file);
+  workPaths.set(work.slug, repoPath(file));
+  return work;
+});
 
-export const talks: Talk[] = textModules(talkFiles).map(([file, raw]) => parseTalk(raw, file));
+const talkPaths = new Map<string, string>();
+export const talks: Talk[] = textModules(talkFiles).map(([file, raw]) => {
+  const talk = parseTalk(raw, file);
+  talkPaths.set(talk.slug, repoPath(file));
+  return talk;
+});
 
-export const posts: PostDocument[] = textModules(postFiles).map(([file, raw]) => parsePost(raw, file));
+const postPaths = new Map<string, string>();
+export const posts: PostDocument[] = textModules(postFiles).map(([file, raw]) => {
+  const post = parsePost(raw, file);
+  postPaths.set(post.slug, repoPath(file));
+  return post;
+});
+
+export function workFilePath(slug: string): string {
+  return workPaths.get(slug) ?? `content/work/${slug}.md`;
+}
+
+export function talkFilePath(slug: string): string {
+  return talkPaths.get(slug) ?? `content/talks/${slug}.md`;
+}
+
+export function postFilePath(slug: string): string {
+  return postPaths.get(slug) ?? `content/posts/${slug}.md`;
+}
 
 export const publishedPosts = posts
   .filter((post) => !post.draft)
