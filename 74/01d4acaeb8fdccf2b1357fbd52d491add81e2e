@@ -1,0 +1,149 @@
+app/layout.tsx
+  s_cd8ddbc7735baa::t_252fde4466b184 36,38-39
+  s_cd8ddbc7735baa::t_ea744333cf9d34 28-29
+  s_cd8ddbc7735baa::t_28de2ea9fb7aa7 47
+  s_cd8ddbc7735baa::t_da9345138d5b80 56-57,60-61
+  s_cd8ddbc7735baa::t_b123527576cebc 5,9-24
+lib/content/schema.ts
+  s_cd8ddbc7735baa::t_7615e0abc7e368 99-100
+  s_cd8ddbc7735baa::t_c8d3971d2483a1 68
+  s_cd8ddbc7735baa::t_8bd63c70ee7807 178-197
+  s_cd8ddbc7735baa::t_f739125f2eb257 229-230
+  s_cd8ddbc7735baa::t_0e20cf47977b31 66-67,69-71,86-95,98,101
+  s_cd8ddbc7735baa::t_189e0cae69e31c 36-37
+  s_cd8ddbc7735baa::t_4eb7416d8da784 213-214
+  s_cd8ddbc7735baa::t_8e36b003892090 271-285,288,294-305,311-313,315,323,328-337
+  s_cd8ddbc7735baa::t_af456c52993652 286-287,289-293
+  s_cd8ddbc7735baa::t_ce674c5ba4b58f 6-11
+app/api/studio/media/route.ts
+  s_cd8ddbc7735baa::t_ec8a3d44d54eae 39-41,47
+  s_cd8ddbc7735baa::t_b7dab766af5f6a 4,7-17
+app/about/page.tsx
+  s_cd8ddbc7735baa::t_84a5b63876b41f 26
+app/studio/talks/[id]/page.tsx
+  s_cd8ddbc7735baa::t_42c836d0f3ba59 14-22
+components/article-demo.tsx
+  s_cd8ddbc7735baa::t_c67789bdefb44f 28
+  s_cd8ddbc7735baa::t_008f3f328e2c11 1-27,29-80
+lib/site-graph.ts
+  s_cd8ddbc7735baa::t_8f12a819d6e979 71
+  s_cd8ddbc7735baa::t_5813c1568d4988 1-16,19-44,46-70,72-74
+  s_cd8ddbc7735baa::t_b429aa7cd8bb5c 17-18
+  s_cd8ddbc7735baa::t_7693b90de9d160 45
+app/studio/settings/page.tsx
+  s_cd8ddbc7735baa::t_bf130e929a5c81 18-26
+lib/content/demos.ts
+  s_cd8ddbc7735baa::t_f1d05e7030440c 1-49
+app/studio/posts/[id]/page.tsx
+  s_cd8ddbc7735baa::t_0e143007d1aa2a 13-20,22-29
+lib/content/render.tsx
+  s_cd8ddbc7735baa::t_6b4d03c031a6c8 119-122
+  s_cd8ddbc7735baa::t_79a37fd7754ae3 29
+  s_cd8ddbc7735baa::t_16ffaff80ba8da 10
+  s_cd8ddbc7735baa::t_6cb806e641148d 64-76
+components/templates/post-template.tsx
+  s_cd8ddbc7735baa::t_677ec39a24bf3f 19
+  s_cd8ddbc7735baa::t_90173738e88573 2
+  s_cd8ddbc7735baa::t_9f750208998eac 30
+app/media/[slug]/[file]/route.ts
+  s_cd8ddbc7735baa::t_46ff08d5acc649 11-18
+app/studio/atelier.css
+  s_cd8ddbc7735baa::t_280ceb547a9ee7 305
+  s_cd8ddbc7735baa::t_d8438954a02a66 282
+  s_cd8ddbc7735baa::t_95c81832b75a7d 178
+  s_cd8ddbc7735baa::t_ce5c11197c545e 950-1021
+  s_cd8ddbc7735baa::t_030da0717234ba 685
+  s_cd8ddbc7735baa::t_325ac1902dc2de 396
+  s_cd8ddbc7735baa::t_a8d948a3f3cd8c 467
+  s_cd8ddbc7735baa::t_ded7e9d663c8f3 783
+  s_cd8ddbc7735baa::t_79d22272cecfd2 629-631
+  s_cd8ddbc7735baa::t_8ce310afe5d107 793
+  s_cd8ddbc7735baa::t_4bc1b11e56f47d 791-792
+  s_cd8ddbc7735baa::t_d257b6f1293a3a 93,319
+  s_cd8ddbc7735baa::t_77913b2d1a7edc 210
+  s_cd8ddbc7735baa::t_07243736f55ddc 1-14,16-18,34-39,42-45,50-92,94-104,107,109-177,179-209,211-231,234-281,283-304,306-318,322-324,326,329-331,333-358,360-374,376-381,383-395,397-432,434-466,468-486,488,490-495,497-620,623-628,632-640,644-662,666-667,673-684,686-710,712-782,784-790,794-847,849-855,857-910,912,921-949,1022-1027
+  s_cd8ddbc7735baa::t_941bc3a9a3618b 320-321,325,327-328,332
+  s_cd8ddbc7735baa::t_902bb8bec5079e 15,19-33,40-41
+  s_cd8ddbc7735baa::t_7fc453c9c883fc 711
+  s_cd8ddbc7735baa::t_42b6eee0894f15 105-106,108
+  s_cd8ddbc7735baa::t_ebf0138d56b5f5 359
+  s_cd8ddbc7735baa::t_93d57654be7cad 641-643
+  s_cd8ddbc7735baa::t_94498c5fde7e94 856
+  s_cd8ddbc7735baa::t_c4a208ee0d00b7 382
+  s_cd8ddbc7735baa::t_379514d15c891d 487,489,496
+  s_cd8ddbc7735baa::t_050c173996699d 232-233
+  s_cd8ddbc7735baa::t_c906f1b140a4f4 375,848
+  s_cd8ddbc7735baa::t_faa47cca241d06 433
+  s_cd8ddbc7735baa::t_c06c6ee2f7d4ff 621-622
+  s_cd8ddbc7735baa::t_f7290d24ead12f 663-665,668-672
+  s_cd8ddbc7735baa::t_9e9066dd9a6afc 911,913-920
+  s_cd8ddbc7735baa::t_355ec54b2d014c 46-49
+app/studio/layout.tsx
+  s_cd8ddbc7735baa::t_168dd3cb67128b 9-10
+  s_cd8ddbc7735baa::t_7dd1d302eca69c 108
+  s_cd8ddbc7735baa::t_2ea03e3f1b49db 7-8,11
+  s_cd8ddbc7735baa::t_3049f179e9a22c 2
+  s_cd8ddbc7735baa::t_0a4911f9250736 4-6,16,22-105,107,109-115,117
+app/studio/work/[id]/page.tsx
+  s_cd8ddbc7735baa::t_78c938f453ad86 14-22
+app/studio/posts/[id]/editor.tsx
+  s_cd8ddbc7735baa::t_5a4f536b61626f 1117
+  s_cd8ddbc7735baa::t_b60ce080e9a045 1127
+  s_cd8ddbc7735baa::t_1b144fb95d9b40 873-880
+  s_cd8ddbc7735baa::t_fdfcdf3df1f671 635-698
+  s_cd8ddbc7735baa::t_2cd1671f47d8ae 470-471
+  s_cd8ddbc7735baa::t_122f28858bb70a 3-4,7-9,11-12,14-15,19,38,41-42,44,108-127,136,143,145-146,148-150,153-156,158-162,169-173,175,177,179-195,199-217,219-227,240-250,285,296-304,306-307,309-321,324-350,361-409,411-424,426-453,455-469,472-474,476,479-553,557,559-603,608-610,612-634,699-718,720,722-834,836-872,881-1064,1102-1116,1118-1126,1128-1136,1138-1196,1199-1247,1249-1296,1298
+  s_cd8ddbc7735baa::t_14362560c39669 163-168
+  s_cd8ddbc7735baa::t_3cb05906b0d05d 719,721
+  s_cd8ddbc7735baa::t_8f856a10c774ed 5-6,10,13,16
+  s_cd8ddbc7735baa::t_79a757a486bf6c 34-35
+  s_cd8ddbc7735baa::t_63081907dfb2e8 89-90
+  s_cd8ddbc7735baa::t_1786bfdcfd252e 1065-1101
+  s_cd8ddbc7735baa::t_2d78eb5d187e6e 103-104
+  s_cd8ddbc7735baa::t_2bcd9d76961a5c 1137
+  s_cd8ddbc7735baa::t_a7ea5f5e74e8cd 157
+  s_cd8ddbc7735baa::t_9e3ecff7041230 1197-1198
+  s_cd8ddbc7735baa::t_eb4f6bc1de3f14 43
+  s_cd8ddbc7735baa::t_7b967b54ed55e0 65-66,68-75
+  s_cd8ddbc7735baa::t_470a125305e170 554-556,558
+  s_cd8ddbc7735baa::t_85481aa71cf9a3 237-239,251-277
+  s_cd8ddbc7735baa::t_c256a7bb743fb3 39-40
+  s_cd8ddbc7735baa::t_af4d694badfa15 53-64,67,76,80-84,86-87,92-97,100
+lib/studio/drafts.ts
+  s_cd8ddbc7735baa::t_cbb1a7df48753e 135-136
+app/studio/page.tsx
+  s_cd8ddbc7735baa::t_b98c0dca22e635 14-15,18-33,50-54,57-87,89,91-171,173-235,237-270,272-290,295,297-392,394-398,400-403
+components/article-stickers.tsx
+  s_cd8ddbc7735baa::t_094b5e2b027f82 21
+  s_cd8ddbc7735baa::t_bb78e32b38b6ea 1-20,22-83
+lib/seo.ts
+  s_cd8ddbc7735baa::t_c950aa86aed010 5-6
+  s_cd8ddbc7735baa::t_65e852a0b120c0 124-125
+app/studio/record-editor.tsx
+  s_cd8ddbc7735baa::t_6d52121da8068c 3,5-23,26-32,49-65,67,72-75,79-91,93,96-206
+  s_cd8ddbc7735baa::t_ed17fc6a3815f6 24
+  s_cd8ddbc7735baa::t_e2bd6f14a80197 25
+lib/studio/published.ts
+  s_cd8ddbc7735baa::t_c1bdd55c433501 1
+  s_cd8ddbc7735baa::t_8667226457b69d 106,115
+app/globals.css
+  s_cd8ddbc7735baa::t_05f409f6853c56 279-358
+  s_cd8ddbc7735baa::t_4892f9630a1b1d 496-497
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "7401d4acaeb8fdccf2b1357fbd52d491add81e2e",
+  "prompts": {},
+  "sessions": {
+    "s_cd8ddbc7735baa": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "b27af003-350c-4d18-b52d-43fd8a475baa",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  },
+  "capture_gaps": 1
+}
