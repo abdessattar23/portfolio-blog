@@ -1,0 +1,26 @@
+vite.config.ts
+  s_ca15d3fa531b7c::t_1b24b418bfff3b 3,6-12,14-16,18-24
+  s_ca15d3fa531b7c::t_a7e3091830807a 36
+.env.example
+  s_ca15d3fa531b7c::t_8a66b45fd83d96 1-19
+.gitignore
+  s_ca15d3fa531b7c::t_55cd6bf7283231 9-11
+cloudflare-env.d.ts
+  s_ca15d3fa531b7c::t_b85124f549e6a0 1-2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "74c339213034d5ab8cb3459cdfea6ac4431459d7",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
