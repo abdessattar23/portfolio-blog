@@ -1,0 +1,26 @@
+lib/seo.ts
+  s_ca15d3fa531b7c::t_7dd22d20487683 221
+worker/index.ts
+  s_ca15d3fa531b7c::t_7f16a569f15ffb 1-4,6-42,45-46
+app/sitemap.ts
+  s_ca15d3fa531b7c::t_d7132be0682ba0 24
+  s_ca15d3fa531b7c::t_d2e2dc6b5a093b 7-9
+vite.config.ts
+  s_ca15d3fa531b7c::t_87d809e8375541 20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "66fae74f926241e7b38f443d11572bd808e4d167",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
