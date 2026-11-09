@@ -1,0 +1,27 @@
+lib/agent/content.ts
+  s_cd8ddbc7735baa::t_a650272f070d43 273-275
+app/about/page.tsx
+  s_cd8ddbc7735baa::t_0449ddf8250618 45
+app/globals.css
+  s_cd8ddbc7735baa::t_516eb565677b3f 425-435
+app/page.tsx
+  s_cd8ddbc7735baa::t_513480f893c658 109-112
+app/speaking/page.tsx
+  s_cd8ddbc7735baa::t_d218afebf1c004 34-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "fa575d61ebf740e358491d80d835c3bfd957b70b",
+  "prompts": {},
+  "sessions": {
+    "s_cd8ddbc7735baa": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "b27af003-350c-4d18-b52d-43fd8a475baa",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
