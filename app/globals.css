@@ -435,6 +435,29 @@ footer p { margin-top: 0.4rem; color: var(--muted); font-size: 0.8rem; }
   .bucket { overflow-x: auto; }
 }
 
+.studio-nav { display: flex; gap: 1rem; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.studio-nav a { color: var(--blue); font-weight: 650; text-decoration: none; }
+.studio-nav span { margin-left: auto; color: var(--muted); font-family: var(--mono); font-size: 0.78rem; }
+.studio-section { padding: 1.5rem 0; border-bottom: 1px solid var(--line); }
+.studio-section h2 { margin-bottom: 0.8rem; font-size: 1.4rem; }
+.studio-row, .studio-inline { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: 0.8rem 0; }
+.studio-row p, .studio-status { color: var(--muted); font-size: 0.85rem; }
+.studio-editor { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr); gap: 2rem; padding: 2rem 0 4rem; }
+.studio-write, .studio-side { display: grid; gap: 0.8rem; align-content: start; }
+.studio-write label, .studio-inline label { display: grid; gap: 0.3rem; font-size: 0.82rem; font-weight: 650; }
+.studio-write input, .studio-write textarea, .studio-write select, .studio-inline input { width: 100%; padding: 0.6rem 0.7rem; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface); color: var(--text); }
+.studio-markdown { min-height: 420px; font-family: var(--mono); font-size: 0.85rem; }
+.studio-check { grid-template-columns: auto 1fr; align-items: center; }
+.studio-actions { display: flex; gap: 0.7rem; }
+.studio button, .studio-inline button, .studio-actions button, .studio-row button { padding: 0.55rem 0.8rem; border: 0; border-radius: 8px; background: var(--blue); color: white; cursor: pointer; }
+.studio-alert { padding: 0.7rem 0.8rem; border-left: 3px solid var(--coral); background: var(--surface); }
+.studio-side li[data-level='ok'] { color: var(--green); }
+.studio-side li[data-level='warn'] { color: var(--coral); }
+.search-preview { display: grid; gap: 0.2rem; padding: 0.9rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.search-preview p, .search-preview span { color: var(--muted); font-size: 0.82rem; }
+.search-preview strong { color: var(--blue); font-size: 1.05rem; }
+@media (max-width: 900px) { .studio-editor { grid-template-columns: 1fr; } }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
 }
