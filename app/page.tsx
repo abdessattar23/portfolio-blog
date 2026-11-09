@@ -29,13 +29,13 @@ export default async function Home() {
       />
       <section className="hero">
         <div className="hero-copy">
-          <p className="kicker">Java · OpenTelemetry · Rabat</p>
+          <p className="kicker">Observability · Java · JVM</p>
           <h1>{SITE.name}</h1>
           <p className="hero-lead">
-            I work on Java backends, contribute to OpenTelemetry, and write about the bugs hiding between abstractions.
+            I want the mechanism. How it works, not the brochure for what it does.
           </p>
           <p className="hero-detail">
-            Mostly interested in the <span>bugs hiding between abstractions.</span>
+            Mostly <span>observability, Java, the JVM, open source, and AI.</span>
           </p>
           <div className="social-links">
             <a href={SITE.github} rel="me">GitHub</a>
@@ -45,7 +45,7 @@ export default async function Home() {
         <figure className="hero-art">
           <img
             src="/mohammed-figurine.png"
-            alt={`${SITE.fullName} (${SITE.handle}), Java and OpenTelemetry engineer`}
+            alt={`${SITE.fullName} (${SITE.handle}), writing on observability, Java, and the JVM`}
             width="1024"
             height="1536"
           />

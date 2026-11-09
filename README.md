@@ -1,6 +1,6 @@
 # Mohammed Elyagoubi — Java casebook
 
-Source for my personal portfolio and Java technical blog. The site focuses on backend engineering, OpenTelemetry Java contributions, technical writing, and speaking evidence.
+Source for my site. The writing is about observability, Java, the JVM, open source, and AI: how a system works, not the brochure for what it does. The casebook documents OpenTelemetry Java contributions with the code and the tests.
 
 ## Run locally
 

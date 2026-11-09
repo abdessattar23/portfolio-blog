@@ -332,7 +332,7 @@ export function parseSiteSettings(value: unknown): SiteSettings {
     familyName: typeof value['familyName'] === 'string' && value['familyName'].trim() ? value['familyName'].trim() : 'Elyagoubi',
     addressLocality: typeof value['addressLocality'] === 'string' && value['addressLocality'].trim() ? value['addressLocality'].trim() : locality,
     addressCountry: typeof value['addressCountry'] === 'string' && /^[A-Z]{2}$/.test(value['addressCountry'].trim()) ? value['addressCountry'].trim() : 'MA',
-    websiteName: typeof value['websiteName'] === 'string' && value['websiteName'].trim() ? value['websiteName'].trim() : `${name} — Java & OpenTelemetry Casebook`,
+    websiteName: typeof value['websiteName'] === 'string' && value['websiteName'].trim() ? value['websiteName'].trim() : `${name} — Java, JVM, and observability`,
     organizations: readOrganizations(value['organizations'], file),
     sameAs: readSameAs(value['sameAs'], file),
   };

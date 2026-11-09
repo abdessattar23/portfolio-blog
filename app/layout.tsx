@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import SiteNavigation from '../components/site-navigation';
 import ThemeToggle from '../components/theme-toggle';
+import {AgentAccess} from '../components/agent-access';
 import {buildPageMetadata, buildSiteGraphJsonLd, serializeJsonLd} from '../lib/seo';
 import {liveSiteSettings} from '../lib/studio/published';
 import {SITE} from '../lib/site';
@@ -16,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
       includeIdentityKeywords: true,
     }),
     title: {
-      default: `${site.name} (${site.handle}) | Java & OpenTelemetry`,
+      default: `${site.name} (${site.handle}) | Java, JVM & observability`,
       template: `%s | ${site.name}`,
     },
     icons: {icon: site.favicon},
@@ -39,8 +40,13 @@ export default async function Layout({children}: Readonly<{children: React.React
         <link rel="alternate" type="application/rss+xml" title={`${site.name} RSS Feed`} href={SITE.rss} />
         <link rel="alternate" type="text/plain" title="LLMs.txt Index" href={SITE.llms} />
         <link rel="alternate" type="text/plain" title="LLMs-full.txt Complete Corpus" href={SITE.llmsFull} />
+        <link rel="api-catalog" href="/.well-known/api-catalog" />
+        <link rel="service-desc" href="/openapi.json" type="application/openapi+json" />
+        <link rel="service-doc" href={SITE.llms} />
+        <link rel="describedby" href="/.well-known/ai-catalog.json" />
       </head>
       <body>
+        <AgentAccess />
         <a className="skip" href="#main">Skip to content</a>
         <div className="shell">
           <header className="site-header">

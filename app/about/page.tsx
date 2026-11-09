@@ -4,7 +4,7 @@ import {SITE} from '../../lib/site';
 
 export const metadata: Metadata = buildPageMetadata({
   title: 'About',
-  description: `About ${SITE.fullName} (${SITE.handle}) — Java backend engineer at ${SITE.employer} in ${SITE.location}, OpenTelemetry Java SDK contributor, and Devoxx Morocco speaker.`,
+  description: `${SITE.bio}`,
   path: '/about',
   type: 'profile',
   includeIdentityKeywords: true,
@@ -20,10 +20,10 @@ export default function About() {
       <section className="page-intro">
         <div className="eyebrow">ABOUT / {SITE.fullName.toUpperCase()}</div>
         <h1>
-          Java. Open source.<br />
-          <em>Shared understanding.</em>
+          How it works.<br />
+          <em>Not what it does.</em>
         </h1>
-        <p>I’m a Java backend engineer at {SITE.employer}, based in Rabat, Morocco.</p>
+        <p>I’m a Java backend engineer at {SITE.employer}, based in Rabat. The rest of the time goes into observability, the JVM, open source, and AI.</p>
       </section>
       <div className="article-layout">
         <aside>
@@ -35,7 +35,7 @@ export default function About() {
         <article className="prose">
           <h2>Working in the details</h2>
           <p>
-            Alongside my Java backend work, I contribute to the OpenTelemetry Java SDK. My public contributions cover collection behavior, executor limits, sampler configuration, and configuration error messages.
+            I contribute to the OpenTelemetry Java SDK because that is where the mechanism is public: collection behavior, executor limits, sampler configuration, and configuration errors. Same habit each time. Read how it works, then read the tests.
           </p>
           <p>
             This site keeps the explanations close to their evidence: the code, the tests, and the review discussion.

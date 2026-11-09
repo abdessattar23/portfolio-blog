@@ -1,4 +1,7 @@
 import handler from 'vinext/server/fetch-handler';
+import {AGENT_PATHS} from '../lib/agent/policy';
+import {agentResponse, decoratePublicResponse} from '../lib/agent/serve';
+import {usablePrivateJwk, webBotRequestHeaders} from '../lib/agent/signatures';
 import {SITE} from '../lib/site';
 import {studioEnv} from '../lib/studio/db';
 import {duePings, markPing} from '../lib/studio/pings';
@@ -27,14 +30,17 @@ async function cachedPublicFetch(request: Request, env: unknown, ctx: ExecutionC
   const key = new Request(url.toString(), {method: 'GET'});
   if (cache) {
     const hit = await cache.match(key);
-    if (hit) return hit;
+    if (hit) return decoratePublicResponse(hit, url.pathname);
   }
   const response = await handler.fetch(request, env, ctx);
-  if (!cache || !response.ok || response.headers.has('set-cookie')) return response;
+  if (!cache || !response.ok || response.headers.has('set-cookie')) return decoratePublicResponse(response, url.pathname);
   const seconds = url.pathname.startsWith('/media/') ? MEDIA_CACHE_SECONDS : PUBLIC_CACHE_SECONDS;
   const headers = new Headers(response.headers);
   headers.set('Cache-Control', `public, max-age=${seconds}`);
-  const stored = new Response(response.body, {status: response.status, statusText: response.statusText, headers});
+  const stored = decoratePublicResponse(
+    new Response(response.body, {status: response.status, statusText: response.statusText, headers}),
+    url.pathname,
+  );
   ctx.waitUntil(cache.put(key, stored.clone()));
   return stored;
 }
@@ -58,7 +64,7 @@ async function notifyIndexNow(): Promise<void> {
     }
     const response = await fetch('https://api.indexnow.org/indexnow', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: await indexNowHeaders(),
       body: JSON.stringify({
         host,
         key,
@@ -70,13 +76,33 @@ async function notifyIndexNow(): Promise<void> {
   }
 }
 
+async function indexNowHeaders(): Promise<Record<string, string>> {
+  const headers: Record<string, string> = {'Content-Type': 'application/json'};
+  const privateJwk = usablePrivateJwk(studioEnv().WEB_BOT_AUTH_PRIVATE_JWK);
+  if (!privateJwk) return headers;
+  try {
+    return {
+      ...headers,
+      ...(await webBotRequestHeaders({
+        authority: 'api.indexnow.org',
+        directoryUrl: `${SITE.url}${AGENT_PATHS.directory}`,
+        privateJwk,
+      })),
+    };
+  } catch {
+    return headers;
+  }
+}
+
 const worker = {
-  fetch(request: Request, env: unknown, ctx: ExecutionContext) {
+  async fetch(request: Request, env: unknown, ctx: ExecutionContext) {
     const url = new URL(request.url);
     const key = studioEnv().INDEXNOW_KEY;
     if (key && url.pathname === `/${key}.txt`) {
       return new Response(key, {headers: {'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=86400'}});
     }
+    const agent = await agentResponse(request);
+    if (agent) return agent;
     if (isPublicGet(url, request)) return cachedPublicFetch(request, env, ctx);
     return handler.fetch(request, env, ctx);
   },

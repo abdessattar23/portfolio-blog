@@ -114,7 +114,7 @@ export async function liveTalks(): Promise<Talk[]> {
   return [...map.values()];
 }
 
-export const liveSiteSettings = cache(async (): Promise<SiteSettings> => {
+export async function readLiveSiteSettings(): Promise<SiteSettings> {
   const rows = await readPublishedRows('site');
   const first = rows[0];
   if (!first) return siteSettings;
@@ -123,4 +123,6 @@ export const liveSiteSettings = cache(async (): Promise<SiteSettings> => {
   } catch {
     return siteSettings;
   }
-});
+}
+
+export const liveSiteSettings = cache(readLiveSiteSettings);

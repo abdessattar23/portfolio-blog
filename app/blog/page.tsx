@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = buildPageMetadata({
   title: 'Blog',
-  description: `Technical notes on Java, OpenTelemetry, JVM collections, concurrency, and observability by ${SITE.fullName} (${SITE.handle}).`,
+  description: `Notes on how Java, the JVM, and observability work, by ${SITE.fullName} (${SITE.handle}).`,
   path: '/blog',
 });
 
@@ -18,7 +18,7 @@ export default async function Blog() {
       <section className="page-intro">
         <div className="eyebrow">THE BLOG / TECHNICAL NOTES</div>
         <h1>Follow the reasoning<span>.</span></h1>
-        <p>Java, observability, and the details that change how code behaves.</p>
+        <p>Observability, Java, the JVM, and the mechanics underneath the feature list.</p>
         <a className="text-link" href={SITE.rss}>Subscribe with RSS ↗</a>
       </section>
       <div className="blog-list">

@@ -9,6 +9,7 @@ const secretNames = [
   'SESSION_SECRET',
   'GITHUB_CONTENT_TOKEN',
   'INDEXNOW_KEY',
+  'WEB_BOT_AUTH_PRIVATE_JWK',
 ] as const;
 
 export default defineConfig(({command, mode}) => {

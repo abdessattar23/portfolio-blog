@@ -21,7 +21,7 @@ const OG_IMAGE = {
   url: '/mohammed-figurine.png',
   width: 1024,
   height: 1536,
-  alt: `${SITE.fullName} (${SITE.handle}) — Java & OpenTelemetry engineer`,
+  alt: `${SITE.fullName} (${SITE.handle}) — observability, Java, and the JVM`,
 };
 
 export type PageMetadataInput = {
@@ -49,7 +49,7 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
 
   const fullTitle = title
     ? `${title} | ${SITE.name}`
-    : `${SITE.name} (${SITE.handle}) | Java & OpenTelemetry`;
+    : `${SITE.name} (${SITE.handle}) | Java, JVM & observability`;
   const canonicalUrl = path === '/' ? SITE.url : `${SITE.url}${path}`;
 
   const mergedKeywords = Array.from(
@@ -134,7 +134,7 @@ export function buildProfilePageJsonLd(path: '/' | '/about' = '/') {
     url: pageUrl,
     name:
       path === '/'
-        ? `${SITE.fullName} (${SITE.handle}) — Java & OpenTelemetry`
+        ? `${SITE.fullName} (${SITE.handle}) — Java, JVM & observability`
         : `About ${SITE.fullName} (${SITE.handle})`,
     description: SITE.bio,
     inLanguage: 'en',

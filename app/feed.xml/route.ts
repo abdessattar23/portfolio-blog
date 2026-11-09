@@ -45,7 +45,7 @@ export async function GET() {
     `<title>${escapeXml(SITE.name)}: technical notes</title>`,
     `<link>${SITE.url}/blog</link>`,
     `<atom:link href="${feedUrl}" rel="self" type="application/rss+xml" />`,
-    `<description>${escapeXml(`Java, OpenTelemetry, observability, and open-source engineering by ${SITE.fullName} (${SITE.handle}).`)}</description>`,
+    `<description>${escapeXml(`Observability, Java, the JVM, open source, and AI. Notes by ${SITE.fullName} (${SITE.handle}).`)}</description>`,
     '<language>en</language>',
     `<dc:creator>${escapeXml(SITE.fullName)}</dc:creator>`,
     items,
