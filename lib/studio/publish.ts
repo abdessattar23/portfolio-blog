@@ -2,6 +2,7 @@ import {SITE} from '../site';
 import {mediaBucket, studioEnv} from './db';
 import {getDraft, saveDraft, type Draft} from './drafts';
 import {commitFiles, getFileSha, renderDraftFile} from './github';
+import {publishConflict} from './guards';
 import {queuePings} from './pings';
 
 function toBase64(bytes: Uint8Array): string {
@@ -17,13 +18,8 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 export async function publishDraft(draft: Draft, message: string): Promise<void> {
   if (!studioEnv().GITHUB_CONTENT_TOKEN) throw new Error('GITHUB_CONTENT_TOKEN is not configured.');
   const rendered = renderDraftFile(draft.kind, draft.slug, draft.frontmatter, draft.body);
-  const current = await getFileSha(rendered.path);
-  if (current && current !== draft.baseSha) {
-    throw new Error('This file changed on GitHub after the draft was opened. Delete the draft and open it again.');
-  }
-  if (!current && draft.baseSha) {
-    throw new Error('The file this draft started from is no longer on GitHub.');
-  }
+  const conflict = publishConflict(await getFileSha(rendered.path), draft.baseSha);
+  if (conflict) throw new Error(conflict);
 
   const files: {path: string; text?: string; base64?: string}[] = [{path: rendered.path, text: rendered.content}];
   const seen = new Set<string>();
