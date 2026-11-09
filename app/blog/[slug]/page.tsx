@@ -30,8 +30,6 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
   const post = getPublishedPost(slug);
   if (!post) return notFound();
 
-  const Content = post.Content;
-
   return (
     <>
       <script
@@ -52,7 +50,7 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
           ))}
         </aside>
         <article className="prose">
-          {post.body ? <MarkdownView markdown={post.body} /> : Content ? <Content /> : null}
+          <MarkdownView markdown={post.body} />
         </article>
       </div>
     </>
