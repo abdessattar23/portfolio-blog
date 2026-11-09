@@ -1,0 +1,24 @@
+lib/studio/mcp-tools.ts
+  s_1427efd1f6b758::t_241f5697f88cdf 71-90
+lib/studio/mcp-server.ts
+  s_1427efd1f6b758::t_1311464b8fd175 211-212
+  s_1427efd1f6b758::t_b5270cfa630938 22-25
+ARTIFACTS.md
+  s_1427efd1f6b758::t_127c8549893fdf 69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "657b41d5ec63211fd786a8cf76708c8bdef2305b",
+  "prompts": {},
+  "sessions": {
+    "s_1427efd1f6b758": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "5d1bd439-0663-4788-956a-5b0908bcefae",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
