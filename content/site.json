@@ -35,14 +35,16 @@
     "JVM Internals",
     "Distributed Tracing",
     "Metrics Collection",
-    "Open Source Software"
+    "Open Source Software",
+    "Observability"
   ],
   "role": "Java backend engineer · Rabat, Morocco",
   "jobTitle": "Java Backend Engineer",
-  "employer": "Orange / Sofrecom",
+  "employer": "Sofrecom (Orange Group)",
   "location": "Rabat, Morocco",
-  "bio": "Java backend engineer at Orange/Sofrecom in Rabat, Morocco. Contributor to the OpenTelemetry Java SDK, writing about concurrency, collection behavior, sampler configuration, and bugs hiding between abstractions.",
+  "bio": "Java backend engineer at Sofrecom (Orange Group) in Rabat, Morocco. Contributor to the OpenTelemetry Java SDK, writing about concurrency, collection behavior, sampler configuration, and bugs hiding between abstractions.",
   "url": "https://abdessattar.dev",
   "github": "https://github.com/abdessattar23",
-  "linkedin": "https://linkedin.com/in/abdessattar23"
+  "linkedin": "https://linkedin.com/in/abdessattar23",
+  "slug": "site"
 }
