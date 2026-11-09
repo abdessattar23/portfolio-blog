@@ -218,7 +218,7 @@ export function buildBlogPostJsonLd(post: BlogPost) {
     name: post.title,
     description: post.description,
     datePublished: `${post.publishedAt}T00:00:00Z`,
-    dateModified: `${post.publishedAt}T00:00:00Z`,
+    dateModified: `${post.updatedAt}T00:00:00Z`,
     inLanguage: 'en',
     author: {'@id': ENTITY_IDS.person},
     publisher: {'@id': ENTITY_IDS.person},

@@ -17,6 +17,7 @@ export default defineConfig(({command}) => {
         config: {
           main: './worker/index.ts',
           compatibility_flags: ['nodejs_compat'],
+          triggers: {crons: ['*/5 * * * *']},
           ...(attachStorage
             ? {
                 d1_databases: [

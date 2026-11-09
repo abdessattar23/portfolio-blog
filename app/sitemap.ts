@@ -4,8 +4,9 @@ import {contributions} from '../lib/contributions';
 import {SITE} from '../lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const latestPostDate = publishedPosts[0]?.publishedAt
-    ? new Date(`${publishedPosts[0].publishedAt}T00:00:00Z`)
+  const latestPost = publishedPosts[0];
+  const latestPostDate = latestPost
+    ? new Date(`${latestPost.updatedAt}T00:00:00Z`)
     : new Date('2026-11-08T00:00:00Z');
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -20,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const postRoutes: MetadataRoute.Sitemap = publishedPosts.map((post) => ({
     url: `${SITE.url}/blog/${post.slug}`,
-    lastModified: new Date(`${post.publishedAt}T00:00:00Z`),
+    lastModified: new Date(`${post.updatedAt}T00:00:00Z`),
     changeFrequency: 'monthly',
     priority: 0.85,
   }));
