@@ -1,7 +1,7 @@
 import handler from "vinext/server/fetch-handler";
 
-const worker = {
-  fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext) {
+const worker: ExportedHandler<Record<string, never>> = {
+  fetch(request, env, ctx) {
     return handler.fetch(request, env, ctx);
   },
 };

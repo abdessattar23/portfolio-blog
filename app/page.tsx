@@ -42,23 +42,25 @@ export default function Home() {
                 <a href={SITE.rss}>RSS</a>
               </div>
             </div>
-            <article className="featured-post">
-              <div className="post-meta">
-                <time dateTime={latestPost.publishedAt}>{formatUtcDate(latestPost.publishedAt)}</time>
-                <span>{latestPost.topics.join(' / ')}</span>
-              </div>
-              <h3>
-                <a href={`/blog/${latestPost.slug}`}>{latestPost.title}</a>
-              </h3>
-              <p>{latestPost.excerpt}</p>
-              {latestPost.homeDiff && (
-                <div className="mini-diff" aria-label="Simplified change">
-                  <code className="removed">− {latestPost.homeDiff.removed}</code>
-                  <code className="added">+ {latestPost.homeDiff.added}</code>
+            {latestPost && (
+              <article className="featured-post">
+                <div className="post-meta">
+                  <time dateTime={latestPost.publishedAt}>{formatUtcDate(latestPost.publishedAt)}</time>
+                  <span>{latestPost.topics.join(' / ')}</span>
                 </div>
-              )}
-              <a className="text-link" href={`/blog/${latestPost.slug}`}>Read the note →</a>
-            </article>
+                <h3>
+                  <a href={`/blog/${latestPost.slug}`}>{latestPost.title}</a>
+                </h3>
+                <p>{latestPost.excerpt}</p>
+                {latestPost.homeDiff && (
+                  <div className="mini-diff" aria-label="Simplified change">
+                    <code className="removed">− {latestPost.homeDiff.removed}</code>
+                    <code className="added">+ {latestPost.homeDiff.added}</code>
+                  </div>
+                )}
+                <a className="text-link" href={`/blog/${latestPost.slug}`}>Read the note →</a>
+              </article>
+            )}
           </section>
         </div>
         <aside className="home-sidebar">

@@ -2,7 +2,9 @@
 
 import {useState} from 'react';
 
-const STEPS = {
+type StepIndex = 0 | 1 | 2;
+
+const STEPS: Record<'forward' | 'backward', readonly [string, string, string]> = {
   forward: [
     'Start with two entries in the same bucket. A is stale. B is live.',
     'Visit index 0: remove stale A. Live B shifts into index 0.',
@@ -13,11 +15,13 @@ const STEPS = {
     'Visit live B at index 1. Decrement the index to 0.',
     'Visit stale A at index 0 and remove it. B has already been visited.',
   ],
-} as const;
+};
+
+const NEXT_STEP: Record<StepIndex, StepIndex> = {0: 1, 1: 2, 2: 0};
 
 export default function BucketDemo() {
   const [reverse, setReverse] = useState(false);
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState<StepIndex>(0);
 
   const gone = reverse ? step === 2 : step > 0;
   const visitedB = reverse && step > 0;
@@ -60,7 +64,7 @@ export default function BucketDemo() {
       <p aria-live="polite">{notes[step]}</p>
       <div className="demo-controls">
         <span>Step {step + 1} of 3</span>
-        <button type="button" onClick={() => setStep(step === 2 ? 0 : step + 1)}>
+        <button type="button" onClick={() => setStep(NEXT_STEP[step])}>
           {step === 2 ? 'Reset example' : 'Next step'} →
         </button>
       </div>
