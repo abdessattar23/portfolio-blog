@@ -10,7 +10,7 @@ import {
   type Talk,
   type WorkCase,
 } from '../content/schema';
-import {database, studioEnv} from './db';
+import {database, readDatabase} from './db';
 
 type PublishedRow = {
   kind: string;
@@ -18,6 +18,13 @@ type PublishedRow = {
   content: string;
   updated_at: string;
 };
+
+const PUBLISHED_CACHE_MS = 60_000;
+const publishedCache = new Map<string, {at: number; rows: PublishedRow[]}>();
+
+export function clearPublishedCache(): void {
+  publishedCache.clear();
+}
 
 export async function savePublishedContent(
   kind: 'post' | 'work' | 'talk' | 'site',
@@ -33,16 +40,20 @@ export async function savePublishedContent(
     )
     .bind(kind, slug, content, new Date().toISOString())
     .run();
+  clearPublishedCache();
 }
 
 async function readPublishedRows(kind: 'post' | 'work' | 'talk' | 'site'): Promise<PublishedRow[]> {
-  if (!studioEnv().DB) return [];
+  const fresh = publishedCache.get(kind);
+  if (fresh && Date.now() - fresh.at < PUBLISHED_CACHE_MS) return fresh.rows;
+  const db = readDatabase();
+  if (!db) return [];
   try {
-    const db = await database();
     const rows = await db
       .prepare('select kind, slug, content, updated_at from published_content where kind = ?')
       .bind(kind)
       .all<PublishedRow>();
+    publishedCache.set(kind, {at: Date.now(), rows: rows.results});
     return rows.results;
   } catch {
     return [];

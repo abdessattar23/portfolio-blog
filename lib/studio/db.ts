@@ -14,6 +14,11 @@ function statements(sql: string): string[] {
     .filter((statement) => statement.length > 0);
 }
 
+/** Public reads use the binding directly. Writes call database(), which creates the tables. */
+export function readDatabase(): D1Database | undefined {
+  return env.DB;
+}
+
 export async function database() {
   const db = env.DB;
   if (!db) throw new Error('D1 binding DB is not configured. Set CLOUDFLARE_D1_ID for the production build.');
