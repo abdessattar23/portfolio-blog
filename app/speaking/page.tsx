@@ -13,6 +13,16 @@ export const metadata: Metadata = buildPageMetadata({
   keywords: ['Devoxx Morocco 2026', 'The Future of Open Source Has New Faces', 'Conference Speaker'],
 });
 
+function TalkMeta({status, event, location}: {status: string; event: string; location: string}) {
+  return (
+    <div className="talk-meta">
+      <span>{status}</span>
+      <span>{event}</span>
+      {location && location !== 'TBD' ? <span>{location}</span> : null}
+    </div>
+  );
+}
+
 export default async function Speaking() {
   const allTalks = await liveTalks();
   const upcomingTalks = allTalks.filter((talk) => talk.status === 'Upcoming');
@@ -32,31 +42,24 @@ export default async function Speaking() {
           to the conversation<span>.</span>
         </h1>
         <p>Talks about observability, Java, the JVM, and open source. The mechanism, not the brochure.</p>
-        <a className="button" href="#invite">Invite me to talk</a>
+        <a className="text-link" href="#invite">Invite me to a talk →</a>
       </section>
       <section className="invite" id="invite">
-        <div className="eyebrow">FOR ORGANIZERS</div>
-        <h2>Invite me<span>.</span></h2>
-        <p>
-          I speak at conferences, meetups, and internal engineering sessions. The subjects are observability, Java, the JVM, open source, and how a system actually works.
-        </p>
-        <p className="muted">
-          Tell me the event, the city or that it is online, the date, who is in the room, and how long you want.
-        </p>
-        <a className="button" href={SITE.linkedin} rel="me">Invite me on LinkedIn</a>
+        <div className="eyebrow">For organizers</div>
+        <div>
+          <h2>Invite me<span>.</span></h2>
+          <p>
+            I speak at conferences, meetups, and internal engineering sessions. The subjects are observability, Java, the JVM, open source, and how a system actually works.
+          </p>
+          <p className="muted">
+            Tell me the event, the city or that it is online, the date, who is in the room, and how long you want.
+          </p>
+          <a className="button" href={SITE.linkedin} rel="me">Invite me on LinkedIn</a>
+        </div>
       </section>
       {upcomingTalks.map((talk) => (
         <article className="talk" key={talk.slug}>
-          <div className="eyebrow">
-            UPCOMING<br /><br />
-            {talk.event.toUpperCase()}
-            {talk.location !== 'TBD' ? (
-              <>
-                <br />
-                {talk.location.toUpperCase()}
-              </>
-            ) : null}
-          </div>
+          <TalkMeta status="Upcoming" event={talk.event} location={talk.location} />
           <div>
             <h2>{talk.title}</h2>
             <p>{talk.summary}</p>
@@ -66,16 +69,7 @@ export default async function Speaking() {
       ))}
       {deliveredTalks.map((talk) => (
         <article className="talk" key={talk.slug}>
-          <div className="eyebrow">
-            DELIVERED<br /><br />
-            {talk.event.toUpperCase()}
-            {talk.location !== 'TBD' ? (
-              <>
-                <br />
-                {talk.location.toUpperCase()}
-              </>
-            ) : null}
-          </div>
+          <TalkMeta status="Delivered" event={talk.event} location={talk.location} />
           <div>
             <h2>{talk.title}</h2>
             <p>{talk.summary}</p>

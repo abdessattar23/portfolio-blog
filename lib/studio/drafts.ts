@@ -99,7 +99,7 @@ export function draftFilePath(kind: DraftKind, slug: string): string {
   return talkFilePath(slug);
 }
 
-async function initialContent(kind: DraftKind, slug: string): Promise<{frontmatter: string; body: string}> {
+async function initialContent(kind: DraftKind, slug: string, title?: string): Promise<{frontmatter: string; body: string}> {
   if (kind === 'post') {
     const allPosts = await livePosts();
     const post = allPosts.find((item) => item.slug === slug);
@@ -146,12 +146,12 @@ async function initialContent(kind: DraftKind, slug: string): Promise<{frontmatt
   if (kind === 'talk') {
     const allTalks = await liveTalks();
     const talk = allTalks.find((item) => item.slug === slug);
-    return {frontmatter: JSON.stringify(talk ?? {slug, status: 'Upcoming', event: '', location: '', title: slug, summary: ''}), body: ''};
+    return {frontmatter: JSON.stringify(talk ?? {slug, status: 'Upcoming', event: '', location: '', title: title?.trim() || slug, summary: ''}), body: ''};
   }
   return {frontmatter: JSON.stringify(await liveSiteSettings()), body: ''};
 }
 
-export async function openDraft(kind: DraftKind, slug: string): Promise<Draft> {
+export async function openDraft(kind: DraftKind, slug: string, title?: string): Promise<Draft> {
   const path = draftFilePath(kind, slug);
   const existing = await findDraft(kind, slug);
   if (existing) {
@@ -165,7 +165,7 @@ export async function openDraft(kind: DraftKind, slug: string): Promise<Draft> {
     return existing;
   }
 
-  const content = await initialContent(kind, slug);
+  const content = await initialContent(kind, slug, title);
   const db = await database();
   await db.prepare(
     `insert into drafts (id, slug, kind, frontmatter, body, updated_at, base_sha)

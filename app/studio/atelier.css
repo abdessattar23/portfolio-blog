@@ -448,7 +448,31 @@ body:has(.studio-atelier) {
 
 .desk-card-actions { margin-top: 1rem; }
 .desk-new-form { margin-top: 1rem; align-items: end; }
-.desk-slug-field { display: grid; gap: 0.3rem; flex: 1; font-size: 0.78rem; color: var(--ink-soft); }
+.desk-new-form .atelier-btn-primary { height: 40px; }
+.desk-talk-form {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1rem 0 1.25rem;
+}
+.desk-new-form-actions { display: flex; justify-self: start; }
+.desk-slug-field {
+  display: grid;
+  gap: 0.45rem;
+  flex: 1;
+  min-width: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+.desk-slug-field > input {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--raised);
+  color: var(--ink);
+}
 
 .atelier-slug-input {
   display: flex;
@@ -478,18 +502,29 @@ body:has(.studio-atelier) {
 .desk-item-card, .desk-compact-row, .desk-settings-callout {
   display: flex;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.15rem;
   align-items: center;
   padding: 1rem 1.1rem;
 }
+.desk-compact-row > div:first-child {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+.desk-compact-row strong { display: block; line-height: 1.35; }
 
 .desk-item-main { min-width: 0; }
 .desk-item-main h3 { margin: 0.4rem 0 0.25rem; font-size: 1.15rem; font-weight: 620; }
 .desk-item-main h3 a:hover { color: var(--amber); }
 .desk-item-foot { margin-top: 0.45rem; color: var(--ink-soft); font-size: 0.78rem; }
 .desk-bottom-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
-.desk-settings-callout { margin-top: 0.8rem; align-items: end; }
-.desk-settings-callout p { margin: 0.3rem 0 0; color: var(--ink-soft); font-size: 0.85rem; }
+.desk-settings-callout { margin-top: 1.15rem; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.15rem; }
+.desk-settings-callout > div { display: grid; gap: 0.4rem; flex: 1 1 14rem; min-width: 0; }
+.desk-settings-callout .eyebrow,
+.desk-settings-callout strong { display: block; }
+.desk-settings-callout strong { font-size: 1.02rem; line-height: 1.35; }
+.desk-settings-callout p { margin: 0; color: var(--ink-soft); font-size: 0.85rem; line-height: 1.45; }
+.desk-settings-callout form { flex: 0 0 auto; }
 
 .atelier-badge {
   display: inline-flex;
@@ -897,8 +932,9 @@ body:has(.studio-atelier) {
 .atelier-modal { padding: 1.2rem 1.25rem 1.1rem; }
 .atelier-modal h2 { margin: 0.3rem 0; font-family: var(--font-studio-sans), "IBM Plex Sans", sans-serif; font-size: 1.45rem; font-weight: 600; }
 .atelier-modal p { color: var(--ink-soft); }
-.atelier-modal-form { display: grid; gap: 0.9rem; margin-top: 0.9rem; }
-.atelier-modal-form label { display: grid; gap: 0.35rem; font-size: 0.8rem; color: var(--ink-soft); }
+.atelier-modal-form { display: grid; gap: 0.95rem; margin-top: 1rem; }
+.atelier-modal-form label { display: grid; gap: 0.45rem; font-size: 0.8rem; line-height: 1.35; color: var(--ink-soft); }
+.atelier-modal-head p { margin-top: 0.45rem; color: var(--ink-soft); line-height: 1.5; }
 .atelier-modal-actions { justify-content: flex-end; }
 
 .atelier-palette-search {

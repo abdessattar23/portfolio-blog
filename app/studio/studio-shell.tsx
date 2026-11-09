@@ -3,6 +3,7 @@
 import {useEffect, useMemo, useState} from 'react';
 import {usePathname} from 'next/navigation';
 import type {DraftKind} from '../../lib/studio/drafts';
+import {NewTalkForm} from './new-talk-form';
 
 export type BinderItem = {
   id: string;
@@ -479,34 +480,9 @@ export function StudioShell({
             <div className="atelier-modal-head">
               <span className="eyebrow">NEW TALK</span>
               <h2>Add a talk</h2>
-              <p>Choose a permanent slug. It opens as Upcoming. Publish when the title, event, and summary are ready.</p>
+              <p>Start with the title. The slug fills itself, and you can change it. It opens as Upcoming.</p>
             </div>
-            <form action="/api/studio/drafts" method="post" className="atelier-modal-form">
-              <input type="hidden" name="kind" value="talk" />
-              <label>
-                <span>Talk slug</span>
-                <div className="atelier-slug-input">
-                  <span>abdessattar.dev/speaking/</span>
-                  <input
-                    name="slug"
-                    required
-                    pattern="[a-z0-9-]+"
-                    placeholder="devoxx-morocco-2027"
-                    value={newSlug}
-                    onChange={(e) => setNewSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+/, ''))}
-                    autoFocus
-                  />
-                </div>
-              </label>
-              <div className="atelier-modal-actions">
-                <button type="button" className="atelier-btn-ghost" onClick={() => setNewTalkModal(false)}>
-                  Cancel
-                </button>
-                <button type="submit" className="atelier-btn-primary">
-                  Open the talk →
-                </button>
-              </div>
-            </form>
+            <NewTalkForm onCancel={() => setNewTalkModal(false)} submitLabel="Open the talk →" />
           </div>
         </div>
       ) : null}
