@@ -1,0 +1,23 @@
+app/studio/atelier.css
+  s_cd8ddbc7735baa::t_ff8aff66d4368c 1029-1031,1036-1042
+  s_cd8ddbc7735baa::t_508de35fb64c8a 168-174,178-179,182-183,188-193,197-199,201-202
+public/favicon.svg
+  s_cd8ddbc7735baa::t_b86871a398b55f 3
+  s_cd8ddbc7735baa::t_0e836b204c4958 1-2,4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "ad385ea877c43b656844a36cb8cba711ddc2d3d2",
+  "prompts": {},
+  "sessions": {
+    "s_cd8ddbc7735baa": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "b27af003-350c-4d18-b52d-43fd8a475baa",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
