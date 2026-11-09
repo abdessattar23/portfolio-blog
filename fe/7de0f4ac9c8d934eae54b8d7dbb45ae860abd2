@@ -1,0 +1,19 @@
+app/feed.xml/route.ts
+  s_3300b58d364bca::t_2368af6f380249 1-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "fe7de0f4ac9c8d934eae54b8d7dbb45ae860abd2",
+  "prompts": {},
+  "sessions": {
+    "s_3300b58d364bca": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
