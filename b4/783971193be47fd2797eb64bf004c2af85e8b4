@@ -1,0 +1,19 @@
+app/page.tsx
+  s_3300b58d364bca::t_f7654353bae76a 1-89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "b4783971193be47fd2797eb64bf004c2af85e8b4",
+  "prompts": {},
+  "sessions": {
+    "s_3300b58d364bca": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
