@@ -1,0 +1,33 @@
+app/speaking/page.tsx
+  s_cd8ddbc7735baa::t_5e006ae66bd2f3 36-54
+  s_cd8ddbc7735baa::t_e750e96a6dafc9 18
+lib/agent/content.ts
+  s_cd8ddbc7735baa::t_cc1b3967fe3eb6 281
+  s_cd8ddbc7735baa::t_27056a7fa98b22 197
+lib/content/schema.ts
+  s_cd8ddbc7735baa::t_3cc223c10a8e21 258
+  s_cd8ddbc7735baa::t_3d2ec48d919340 54
+app/page.tsx
+  s_cd8ddbc7735baa::t_605f13bb841203 22
+app/studio/record-editor.tsx
+  s_cd8ddbc7735baa::t_df9ab164ef07c3 16
+  s_cd8ddbc7735baa::t_8f1db2ada81785 179
+lib/agent/tools.ts
+  s_cd8ddbc7735baa::t_8d32560ef092b2 76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "6cb95df502e39a12549a9282b55943351c80f42e",
+  "prompts": {},
+  "sessions": {
+    "s_cd8ddbc7735baa": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "b27af003-350c-4d18-b52d-43fd8a475baa",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
