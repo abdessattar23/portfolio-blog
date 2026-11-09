@@ -1,0 +1,77 @@
+lib/seo.ts
+  s_ca15d3fa531b7c::t_8b9d01f64490dd 53,55
+  s_ca15d3fa531b7c::t_3c1e8bc81b40a8 131
+  s_ca15d3fa531b7c::t_a9817c9472fdad 306,313
+  s_ca15d3fa531b7c::t_20027f6cc354ed 4-5
+  s_ca15d3fa531b7c::t_d2f655127e5a80 147
+lib/content/load.ts
+  s_ca15d3fa531b7c::t_d14f23c5b64f76 1-40
+app/page.tsx
+  s_ca15d3fa531b7c::t_d63803fede6a03 5
+  s_ca15d3fa531b7c::t_fcf14c6b85c277 17
+vite-env.d.ts
+  s_ca15d3fa531b7c::t_6d6dc9ad8eb5a4 1
+.gitignore
+  s_ca15d3fa531b7c::t_5830c27afc7e85 4
+content/work/02-bounded-http-sender.md
+  s_ca15d3fa531b7c::t_799a0be12e058e 1-16
+app/llms-full.txt/route.ts
+  s_ca15d3fa531b7c::t_c5ea9ea6e526a1 3
+  s_ca15d3fa531b7c::t_44ae5205e415cc 47
+content/work/03-jaeger-interval.md
+  s_ca15d3fa531b7c::t_5b6113a816f43a 1-16
+lib/site.ts
+  s_ca15d3fa531b7c::t_8f3c002263c3bd 1,4
+content/talks/01-future-of-open-source.md
+  s_ca15d3fa531b7c::t_6ebca29c34d58a 1-10
+app/llms.txt/route.ts
+  s_ca15d3fa531b7c::t_0023cc1ddf9753 3
+  s_ca15d3fa531b7c::t_e59652a27f34fb 21
+  s_ca15d3fa531b7c::t_12f447c49cba8a 47
+content/work/01-pooled-hashmap.md
+  s_ca15d3fa531b7c::t_33e001b6be2110 1-17
+lib/contributions.ts
+  s_ca15d3fa531b7c::t_b0e1ec243296e9 1-2
+content/site.json
+  s_ca15d3fa531b7c::t_74cc4df2e4a964 1-48
+lib/content/schema.ts
+  s_ca15d3fa531b7c::t_e0d7d07b215b2f 1-231
+app/speaking/page.tsx
+  s_ca15d3fa531b7c::t_a5364ce2aceac4 40-42
+  s_ca15d3fa531b7c::t_e152edf081f69d 3
+  s_ca15d3fa531b7c::t_42d5be6137ff43 15-17
+content/talks/02-when-observability-breaks.md
+  s_ca15d3fa531b7c::t_0e0da953d31563 1-8
+lib/content/frontmatter.ts
+  s_ca15d3fa531b7c::t_f597f92e9ad1e8 1-9
+package.json
+  s_ca15d3fa531b7c::t_b75f3d5003dfe5 18-19
+content/work/04-configuration-errors.md
+  s_ca15d3fa531b7c::t_878345bcaf4cf4 1-16
+pnpm-lock.yaml
+  s_3300b58d364bca::t_0db18204d5e3e8 23-25,29,44,47,62,65,2933-2937,3070,3075,3826,3829,3831,3842-3843,5713,5718,5724,5728,5746,5760,5762,5764,5892-5893
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "981b372c1077c95b003a911617ad9dce630c4d7e",
+  "prompts": {},
+  "sessions": {
+    "s_3300b58d364bca": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    },
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
