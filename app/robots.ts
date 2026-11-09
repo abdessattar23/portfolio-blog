@@ -21,10 +21,12 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
+        disallow: ['/studio', '/api/'],
       },
       ...EXPLICIT_BOTS.map((bot) => ({
         userAgent: bot,
         allow: '/',
+        disallow: ['/studio', '/api/'],
       })),
     ],
     sitemap: `${SITE.url}/sitemap.xml`,
