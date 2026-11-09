@@ -6,3 +6,6 @@ next-env.d.ts
 .wrangler/
 *.tsbuildinfo
 .DS_Store
+.env
+.env.*
+!.env.example

@@ -1,4 +1,5 @@
-// Worker secrets, set in the Cloudflare dashboard or with `wrangler secret put`:
+// Local secrets live in .env (see .env.example). `pnpm dev` copies them onto the Worker.
+// Production secrets are set on the mohammed-java-casebook Worker:
 // GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SESSION_SECRET, GITHUB_CONTENT_TOKEN, INDEXNOW_KEY
 //
 // Storage bindings are attached during local dev. A production build attaches them
