@@ -10,19 +10,22 @@ export default async function PostDraftPage({params}: {params: Promise<{id: stri
   const draft = await getDraft(id);
   if (!draft || draft.kind !== 'post') notFound();
   const posts = await livePosts();
-  const existing = posts.filter((post) => post.slug !== draft.slug).map((post) => ({
-    slug: post.slug,
-    title: post.title,
-    description: post.description,
-  }));
+  const existing = posts
+    .filter((post) => post.slug !== draft.slug)
+    .map((post) => ({
+      slug: post.slug,
+      title: post.title,
+      description: post.description,
+    }));
+  const isPublishedAlready = posts.some((post) => post.slug === draft.slug && !post.draft);
   return (
-    <>
-      <section className="page-intro">
-        <a className="back" href="/studio">← Dashboard</a>
-        <div className="eyebrow">POST / {draft.slug}</div>
-        <h1>Edit the note<span>.</span></h1>
-      </section>
-      <PostEditor id={draft.id} slug={draft.slug} frontmatter={draft.frontmatter} body={draft.body} existing={existing} />
-    </>
+    <PostEditor
+      id={draft.id}
+      slug={draft.slug}
+      frontmatter={draft.frontmatter}
+      body={draft.body}
+      existing={existing}
+      isPublishedAlready={isPublishedAlready}
+    />
   );
 }

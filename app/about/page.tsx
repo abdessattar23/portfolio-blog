@@ -23,7 +23,7 @@ export default function About() {
           Java. Open source.<br />
           <em>Shared understanding.</em>
         </h1>
-        <p>I’m a Java backend engineer at Orange/Sofrecom, based in Rabat, Morocco.</p>
+        <p>I’m a Java backend engineer at {SITE.employer}, based in Rabat, Morocco.</p>
       </section>
       <div className="article-layout">
         <aside>

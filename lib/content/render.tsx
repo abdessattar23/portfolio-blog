@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import {unified} from 'unified';
+import {ArticleDemo} from '../../components/article-demo';
 import BucketDemo from '../../components/bucket-demo';
 import {sectionsFromMarkdown} from './schema';
 
@@ -25,7 +26,7 @@ type DemoName = keyof typeof DEMOS;
 
 export type Segment =
   | {kind: 'markdown'; text: string}
-  | {kind: 'demo'; name: string}
+  | {kind: 'demo'; name: string; body: string}
   | {kind: 'note'; title: string; text: string};
 
 function isDemoName(name: string): name is DemoName {
@@ -60,7 +61,19 @@ export function splitBlocks(markdown: string): Segment[] {
     const demoName = demo?.[1];
     if (demoName) {
       flush();
-      segments.push({kind: 'demo', name: demoName});
+      const next = lines[index + 1] ?? '';
+      if (next.trim() === '') {
+        segments.push({kind: 'demo', name: demoName, body: ''});
+        continue;
+      }
+      let closeIndex = index + 1;
+      while (closeIndex < lines.length && (lines[closeIndex] ?? '').trim() !== ':::') closeIndex += 1;
+      if (closeIndex < lines.length) {
+        segments.push({kind: 'demo', name: demoName, body: lines.slice(index + 1, closeIndex).join('\n').trim()});
+        index = closeIndex;
+        continue;
+      }
+      segments.push({kind: 'demo', name: demoName, body: ''});
       continue;
     }
     if (line.trim() === ':::note') {
@@ -103,6 +116,10 @@ export function MarkdownView({markdown}: {markdown: string}) {
 
   segments.forEach((segment, index) => {
     if (segment.kind === 'demo') {
+      if (segment.name === 'walk' || segment.name === 'compare') {
+        nodes.push(<ArticleDemo key={index} name={segment.name} body={segment.body} />);
+        return;
+      }
       if (!isDemoName(segment.name)) {
         nodes.push(<p key={index}>Unknown demo: {segment.name}</p>);
         return;

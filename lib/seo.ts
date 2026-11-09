@@ -2,6 +2,8 @@ import type {Metadata} from 'next';
 import type {BlogPost} from '../content/posts/types';
 import {type Contribution, contributions, prUrl} from './contributions';
 import {deliveredTalk} from './content/load';
+import type {SiteSettings} from './content/schema';
+import {buildIdentityGraph} from './site-graph';
 import {SITE} from './site';
 
 export const SCHEMA_CONTEXT = 'https://schema.org' as const;
@@ -119,68 +121,8 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
   };
 }
 
-export function buildSiteGraphJsonLd() {
-  return {
-    '@context': SCHEMA_CONTEXT,
-    '@graph': [
-      {
-        '@type': 'Person',
-        '@id': ENTITY_IDS.person,
-        name: SITE.fullName,
-        givenName: 'Mohammed',
-        additionalName: 'Abdessetar',
-        familyName: 'Elyagoubi',
-        alternateName: SITE.alternateNames,
-        identifier: SITE.handle,
-        url: SITE.url,
-        image: `${SITE.url}/mohammed-figurine.png`,
-        jobTitle: SITE.jobTitle,
-        description: SITE.bio,
-        homeLocation: {
-          '@type': 'Place',
-          name: SITE.location,
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: 'Rabat',
-            addressCountry: 'MA',
-          },
-        },
-        worksFor: [{'@id': ENTITY_IDS.sofrecom}, {'@id': ENTITY_IDS.orange}],
-        knowsAbout: SITE.knowsAbout,
-        sameAs: [SITE.github, SITE.linkedin],
-      },
-      {
-        '@type': 'WebSite',
-        '@id': ENTITY_IDS.website,
-        url: SITE.url,
-        name: `${SITE.name} — Java & OpenTelemetry Casebook`,
-        alternateName: [
-          SITE.fullName,
-          'Mohammed Abdessattar Elyagoubi',
-          'Mohamed Elyagoubi',
-          'Mohammed El Yagoubi',
-          SITE.handle,
-        ],
-        description: SITE.bio,
-        inLanguage: 'en',
-        author: {'@id': ENTITY_IDS.person},
-        publisher: {'@id': ENTITY_IDS.person},
-      },
-      {
-        '@type': 'Organization',
-        '@id': ENTITY_IDS.orange,
-        name: 'Orange',
-        url: 'https://www.orange.com',
-      },
-      {
-        '@type': 'Organization',
-        '@id': ENTITY_IDS.sofrecom,
-        name: 'Sofrecom',
-        url: 'https://www.sofrecom.com',
-        parentOrganization: {'@id': ENTITY_IDS.orange},
-      },
-    ],
-  };
+export function buildSiteGraphJsonLd(site: SiteSettings = SITE) {
+  return buildIdentityGraph(site);
 }
 
 export function buildProfilePageJsonLd(path: '/' | '/about' = '/') {

@@ -1,4 +1,5 @@
 import type {CSSProperties, ReactNode} from 'react';
+import {ArticleStickers} from '../article-stickers';
 import type {PostDocument} from '../../lib/content/schema';
 import {formatUtcDate} from '../../lib/site';
 
@@ -15,7 +16,7 @@ export function PostTemplate({post, children}: {post: PostDocument; children: Re
   } as CSSProperties;
 
   return (
-    <div className="template" data-template={post.template} style={style}>
+    <div className="template" data-template={post.template} data-skin={post.skin ?? 'plain'} style={style}>
       <section className="page-intro">
         <a className="back" href="/blog">← All writing</a>
         <div className="eyebrow">
@@ -26,6 +27,7 @@ export function PostTemplate({post, children}: {post: PostDocument; children: Re
         <p>{post.description}</p>
       </section>
       <div className="article-layout">
+        {post.stickers && post.stickers.length > 0 ? <ArticleStickers slug={post.slug} stickers={post.stickers} /> : null}
         <aside>
           <div className="eyebrow">{ASIDE_LABEL[post.template]}</div>
           {post.sections.map((section, index) => (

@@ -8,10 +8,12 @@ export async function GET(_request: Request, context: {params: Promise<{slug: st
   const bucket = await mediaBucket();
   const object = await bucket.get(`media/${slug}/${file.toLowerCase()}`);
   if (!object) return new Response('Not found.', {status: 404});
-  return new Response(object.body, {
-    headers: {
-      'Content-Type': object.httpMetadata?.contentType ?? 'application/octet-stream',
-      'Cache-Control': 'public, max-age=86400',
-    },
-  });
+  const contentType = object.httpMetadata?.contentType ?? 'application/octet-stream';
+  const headers: Record<string, string> = {
+    'Content-Type': contentType,
+    'Cache-Control': 'public, max-age=86400',
+    'X-Content-Type-Options': 'nosniff',
+  };
+  if (contentType === 'image/svg+xml') headers['Content-Security-Policy'] = "default-src 'none'; style-src 'unsafe-inline'; sandbox";
+  return new Response(object.body, {headers});
 }

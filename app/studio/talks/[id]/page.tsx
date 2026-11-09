@@ -11,13 +11,14 @@ export default async function TalkDraftPage({params}: {params: Promise<{id: stri
   const draft = await getDraft(id);
   if (!draft || draft.kind !== 'talk') notFound();
   return (
-    <>
-      <section className="page-intro">
-        <a className="back" href="/studio">← Dashboard</a>
-        <div className="eyebrow">TALK / {draft.slug}</div>
-        <h1>Edit the talk<span>.</span></h1>
-      </section>
-      <RecordEditor id={draft.id} slug={draft.slug} frontmatter={draft.frontmatter} fields={FIELDS} />
-    </>
+    <RecordEditor
+      id={draft.id}
+      slug={draft.slug}
+      frontmatter={draft.frontmatter}
+      fields={FIELDS}
+      eyebrow="SPEAKING & STAGE"
+      heading="Edit conference talk"
+      subtitle="Manage session status, conference venue, abstract summary, and technical takeaways."
+    />
   );
 }

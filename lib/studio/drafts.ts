@@ -132,6 +132,8 @@ async function initialContent(kind: DraftKind, slug: string): Promise<{frontmatt
         draft: post.draft,
         ...(post.accent !== undefined ? {accent: post.accent} : {}),
         ...(post.homeDiff !== undefined ? {homeDiff: post.homeDiff} : {}),
+        ...(post.skin !== undefined ? {skin: post.skin} : {}),
+        ...(post.stickers !== undefined ? {stickers: post.stickers} : {}),
       }),
       body: post.body,
     };

@@ -1,3 +1,4 @@
+import {cache} from 'react';
 import {posts, siteSettings, talks, workCases} from '../content/load';
 import {
   parsePost,
@@ -102,7 +103,7 @@ export async function liveTalks(): Promise<Talk[]> {
   return [...map.values()];
 }
 
-export async function liveSiteSettings(): Promise<SiteSettings> {
+export const liveSiteSettings = cache(async (): Promise<SiteSettings> => {
   const rows = await readPublishedRows('site');
   const first = rows[0];
   if (!first) return siteSettings;
@@ -111,4 +112,4 @@ export async function liveSiteSettings(): Promise<SiteSettings> {
   } catch {
     return siteSettings;
   }
-}
+});

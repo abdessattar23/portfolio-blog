@@ -11,13 +11,14 @@ export default async function WorkDraftPage({params}: {params: Promise<{id: stri
   const draft = await getDraft(id);
   if (!draft || draft.kind !== 'work') notFound();
   return (
-    <>
-      <section className="page-intro">
-        <a className="back" href="/studio">← Dashboard</a>
-        <div className="eyebrow">CASE / {draft.slug}</div>
-        <h1>Edit the case<span>.</span></h1>
-      </section>
-      <RecordEditor id={draft.id} slug={draft.slug} frontmatter={draft.frontmatter} fields={FIELDS} />
-    </>
+    <RecordEditor
+      id={draft.id}
+      slug={draft.slug}
+      frontmatter={draft.frontmatter}
+      fields={FIELDS}
+      eyebrow="OPEN SOURCE CASE"
+      heading="Edit engineering case"
+      subtitle="Document the upstream problem, architectural fix, verification benchmarks, and scope boundary."
+    />
   );
 }

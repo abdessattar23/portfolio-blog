@@ -15,14 +15,14 @@ export default async function SettingsPage() {
   }
   if (!draft) return <p className="studio-alert">{message}</p>;
   return (
-    <>
-      <section className="page-intro">
-        <a className="back" href="/studio">← Dashboard</a>
-        <div className="eyebrow">SETTINGS</div>
-        <h1>The site<span>.</span></h1>
-        <p>Name variants and topics go one per line.</p>
-      </section>
-      <RecordEditor id={draft.id} slug={draft.slug} frontmatter={draft.frontmatter} fields={FIELDS} />
-    </>
+    <RecordEditor
+      id={draft.id}
+      slug={draft.slug}
+      frontmatter={draft.frontmatter}
+      fields={FIELDS}
+      eyebrow="SITE IDENTITY · CONTENT/SITE.JSON"
+      heading="The site identity"
+      subtitle="Name variants and expertise topics go one per line and feed the Schema.org Person & WebSite JSON-LD graph."
+    />
   );
 }
