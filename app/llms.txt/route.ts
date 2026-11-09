@@ -1,9 +1,14 @@
-import {publishedPosts} from '../../content/posts';
-import {contributions, prUrl} from '../../lib/contributions';
-import {talks} from '../../lib/content/load';
+import {prUrl} from '../../lib/contributions';
 import {SITE} from '../../lib/site';
+import {livePublishedPosts, liveTalks, liveWorkCases} from '../../lib/studio/published';
 
-export function GET() {
+export async function GET() {
+  const [publishedPosts, contributions, talks] = await Promise.all([
+    livePublishedPosts(),
+    liveWorkCases(),
+    liveTalks(),
+  ]);
+
   const contributionItems = contributions
     .map(
       (c) =>
@@ -71,7 +76,7 @@ export function GET() {
   return new Response(markdown, {
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600, s-maxage=3600',
+      'Cache-Control': 'public, max-age=300, s-maxage=300',
     },
   });
 }

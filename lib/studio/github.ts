@@ -139,6 +139,9 @@ export async function commitFiles(message: string, files: {path: string; text?: 
   });
   const treeSha = readSha(nextTree);
   if (!treeSha) throw new Error('GitHub did not return the new tree.');
+  if (treeSha === tree) {
+    return entries[0]?.sha ?? head;
+  }
   const date = new Date().toISOString();
   const nextCommit = await github(token, `/repos/${REPO}/git/commits`, {
     method: 'POST',

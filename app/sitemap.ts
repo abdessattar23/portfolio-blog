@@ -1,9 +1,12 @@
 import type {MetadataRoute} from 'next';
-import {publishedPosts} from '../content/posts';
-import {contributions} from '../lib/contributions';
 import {SITE} from '../lib/site';
+import {livePublishedPosts, liveWorkCases} from '../lib/studio/published';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [publishedPosts, contributions] = await Promise.all([
+    livePublishedPosts(),
+    liveWorkCases(),
+  ]);
   const latestPost = publishedPosts[0];
   const latestPostDate = latestPost
     ? new Date(`${latestPost.updatedAt}T00:00:00Z`)

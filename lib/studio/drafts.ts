@@ -1,6 +1,7 @@
-import {postFilePath, posts, siteSettings, talkFilePath, talks, workCases, workFilePath} from '../content/load';
+import {postFilePath, talkFilePath, workFilePath} from '../content/load';
 import {database} from './db';
 import {getFileSha} from './github';
+import {livePosts, liveSiteSettings, liveTalks, liveWorkCases} from './published';
 
 export type DraftKind = 'post' | 'work' | 'talk' | 'site';
 
@@ -98,9 +99,10 @@ export function draftFilePath(kind: DraftKind, slug: string): string {
   return talkFilePath(slug);
 }
 
-function initialContent(kind: DraftKind, slug: string): {frontmatter: string; body: string} {
+async function initialContent(kind: DraftKind, slug: string): Promise<{frontmatter: string; body: string}> {
   if (kind === 'post') {
-    const post = posts.find((item) => item.slug === slug);
+    const allPosts = await livePosts();
+    const post = allPosts.find((item) => item.slug === slug);
     if (!post) {
       return {
         frontmatter: JSON.stringify({
@@ -135,14 +137,16 @@ function initialContent(kind: DraftKind, slug: string): {frontmatter: string; bo
     };
   }
   if (kind === 'work') {
-    const work = workCases.find((item) => item.slug === slug);
+    const allWork = await liveWorkCases();
+    const work = allWork.find((item) => item.slug === slug);
     return {frontmatter: JSON.stringify(work ?? {slug, number: 0, shortTitle: '', topic: '', title: slug, summary: '', problem: '', change: '', verification: '', boundary: ''}), body: ''};
   }
   if (kind === 'talk') {
-    const talk = talks.find((item) => item.slug === slug);
+    const allTalks = await liveTalks();
+    const talk = allTalks.find((item) => item.slug === slug);
     return {frontmatter: JSON.stringify(talk ?? {slug, status: 'Proposal', event: '', location: '', title: slug, summary: ''}), body: ''};
   }
-  return {frontmatter: JSON.stringify(siteSettings), body: ''};
+  return {frontmatter: JSON.stringify(await liveSiteSettings()), body: ''};
 }
 
 export async function openDraft(kind: DraftKind, slug: string): Promise<Draft> {
@@ -159,7 +163,7 @@ export async function openDraft(kind: DraftKind, slug: string): Promise<Draft> {
     return existing;
   }
 
-  const content = initialContent(kind, slug);
+  const content = await initialContent(kind, slug);
   const db = await database();
   await db.prepare(
     `insert into drafts (id, slug, kind, frontmatter, body, updated_at, base_sha)

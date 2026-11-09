@@ -1,8 +1,11 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
-import {contributions, getContribution, prUrl} from '../../../lib/contributions';
+import {contributions, prUrl} from '../../../lib/contributions';
 import {buildContributionJsonLd, buildPageMetadata, serializeJsonLd} from '../../../lib/seo';
 import {SITE} from '../../../lib/site';
+import {liveWorkCase} from '../../../lib/studio/published';
+
+export const dynamic = 'force-dynamic';
 
 type CasePageProps = {params: Promise<{slug: string}>};
 
@@ -12,7 +15,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({params}: CasePageProps): Promise<Metadata> {
   const {slug} = await params;
-  const c = getContribution(slug);
+  const c = await liveWorkCase(slug);
   if (!c) return {};
   return buildPageMetadata({
     title: c.title,
@@ -25,7 +28,7 @@ export async function generateMetadata({params}: CasePageProps): Promise<Metadat
 
 export default async function CasePage({params}: CasePageProps) {
   const {slug} = await params;
-  const c = getContribution(slug);
+  const c = await liveWorkCase(slug);
   if (!c) return notFound();
 
   return (

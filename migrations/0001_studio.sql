@@ -10,6 +10,14 @@ CREATE TABLE IF NOT EXISTS drafts (
 
 CREATE UNIQUE INDEX IF NOT EXISTS drafts_kind_slug_idx ON drafts(kind, slug);
 
+CREATE TABLE IF NOT EXISTS published_content (
+  kind TEXT NOT NULL CHECK (kind IN ('post', 'work', 'talk', 'site')),
+  slug TEXT NOT NULL,
+  content TEXT NOT NULL,
+  updated_at TEXT NOT NULL,
+  PRIMARY KEY (kind, slug)
+);
+
 CREATE TABLE IF NOT EXISTS pending_pings (
   url TEXT PRIMARY KEY,
   queued_at TEXT NOT NULL,

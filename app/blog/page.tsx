@@ -1,7 +1,9 @@
 import type {Metadata} from 'next';
-import {publishedPosts} from '../../content/posts';
 import {buildPageMetadata} from '../../lib/seo';
 import {SITE, formatUtcDate} from '../../lib/site';
+import {livePublishedPosts} from '../../lib/studio/published';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = buildPageMetadata({
   title: 'Blog',
@@ -9,7 +11,8 @@ export const metadata: Metadata = buildPageMetadata({
   path: '/blog',
 });
 
-export default function Blog() {
+export default async function Blog() {
+  const publishedPosts = await livePublishedPosts();
   return (
     <>
       <section className="page-intro">

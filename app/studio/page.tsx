@@ -1,5 +1,5 @@
-import {posts, talks, workCases} from '../../lib/content/load';
 import {listDrafts, type Draft} from '../../lib/studio/drafts';
+import {livePosts, liveTalks, liveWorkCases} from '../../lib/studio/published';
 import {seoHealth} from '../../lib/studio/seo';
 
 export const dynamic = 'force-dynamic';
@@ -23,13 +23,18 @@ export default async function StudioHome() {
   } catch (error) {
     storageError = error instanceof Error ? error.message : 'Storage is unavailable.';
   }
+  const [posts, workCases, talks] = await Promise.all([
+    livePosts(),
+    liveWorkCases(),
+    liveTalks(),
+  ]);
 
   return (
     <>
       <section className="page-intro">
         <div className="eyebrow">STUDIO</div>
         <h1>The desk<span>.</span></h1>
-        <p>Drafts stay here until you publish them. Publishing writes one commit and the site rebuilds.</p>
+        <p>Drafts stay here until you publish them. Publishing updates the live site immediately and commits to GitHub.</p>
       </section>
       {storageError ? <p className="studio-alert">{storageError}</p> : null}
       <section className="studio-section">
@@ -113,7 +118,7 @@ export default async function StudioHome() {
         <h2>Talks</h2>
         {talks.map((talk) => (
           <article className="studio-row" key={talk.slug}>
-            <div><strong>{talk.title}</strong><p>{talk.status}{editing(drafts, 'talk', talk.slug) ? ' · editing' : ''}</p></div>
+            <div><strong>{talk.title}</strong><p>{talk.status} · {talk.event}{editing(drafts, 'talk', talk.slug) ? ' · editing' : ''}</p></div>
             <form action="/api/studio/drafts" method="post">
               <input type="hidden" name="kind" value="talk" />
               <input type="hidden" name="slug" value={talk.slug} />

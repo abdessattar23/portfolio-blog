@@ -1,7 +1,10 @@
 import type {Metadata} from 'next';
-import {contributions, prUrl} from '../../lib/contributions';
+import {prUrl} from '../../lib/contributions';
 import {buildPageMetadata} from '../../lib/seo';
 import {SITE} from '../../lib/site';
+import {liveWorkCases} from '../../lib/studio/published';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = buildPageMetadata({
   title: 'Open-source work',
@@ -9,7 +12,8 @@ export const metadata: Metadata = buildPageMetadata({
   path: '/work',
 });
 
-export default function Work() {
+export default async function Work() {
+  const contributions = await liveWorkCases();
   return (
     <>
       <section className="page-intro">

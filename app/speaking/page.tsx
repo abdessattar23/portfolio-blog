@@ -1,7 +1,9 @@
 import type {Metadata} from 'next';
 import {buildPageMetadata, buildSpeakingEventJsonLd, serializeJsonLd} from '../../lib/seo';
-import {talks} from '../../lib/content/load';
+import {liveTalks} from '../../lib/studio/published';
 import {SITE} from '../../lib/site';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = buildPageMetadata({
   title: 'Speaking',
@@ -11,10 +13,10 @@ export const metadata: Metadata = buildPageMetadata({
   keywords: ['Devoxx Morocco 2026', 'The Future of Open Source Has New Faces', 'Conference Speaker'],
 });
 
-export default function Speaking() {
-  const delivered = talks.find((talk) => talk.status === 'Delivered');
-  const proposalTalk = talks.find((talk) => talk.status === 'Proposal');
-  if (!delivered || !proposalTalk) throw new Error('Talk records are incomplete.');
+export default async function Speaking() {
+  const allTalks = await liveTalks();
+  const deliveredTalks = allTalks.filter((talk) => talk.status === 'Delivered');
+  const proposalTalks = allTalks.filter((talk) => talk.status === 'Proposal');
 
   return (
     <>
@@ -30,25 +32,34 @@ export default function Speaking() {
         </h1>
         <p>Talks about open source and the engineering behind observability.</p>
       </section>
-      <article className="talk">
-        <div className="eyebrow">
-          DELIVERED<br /><br />
-          DEVOXX MOROCCO 2026<br />
-          CASABLANCA
-        </div>
-        <div>
-          <h2>{delivered.title}</h2>
-          <p>{delivered.summary}</p>
-          {delivered.detail ? <p className="muted">{delivered.detail}</p> : null}
-          <a className="text-link" href={SITE.linkedin} rel="me">Connect on LinkedIn ↗</a>
-        </div>
-      </article>
-      <section className="proposal">
-        <div className="eyebrow">PROPOSAL / NOT AN ACCEPTED APPEARANCE</div>
-        <h3>{proposalTalk.title}</h3>
-        <p>{proposalTalk.summary}</p>
-        <a className="text-link" href="/work">Explore the underlying contributions ↗</a>
-      </section>
+      {deliveredTalks.map((talk) => (
+        <article className="talk" key={talk.slug}>
+          <div className="eyebrow">
+            DELIVERED<br /><br />
+            {talk.event.toUpperCase()}
+            {talk.location !== 'TBD' ? (
+              <>
+                <br />
+                {talk.location.toUpperCase()}
+              </>
+            ) : null}
+          </div>
+          <div>
+            <h2>{talk.title}</h2>
+            <p>{talk.summary}</p>
+            {talk.detail ? <p className="muted">{talk.detail}</p> : null}
+            <a className="text-link" href={SITE.linkedin} rel="me">Connect on LinkedIn ↗</a>
+          </div>
+        </article>
+      ))}
+      {proposalTalks.map((talk) => (
+        <section className="proposal" key={talk.slug}>
+          <div className="eyebrow">PROPOSAL / NOT AN ACCEPTED APPEARANCE</div>
+          <h3>{talk.title}</h3>
+          <p>{talk.summary}</p>
+          <a className="text-link" href="/work">Explore the underlying contributions ↗</a>
+        </section>
+      ))}
     </>
   );
 }

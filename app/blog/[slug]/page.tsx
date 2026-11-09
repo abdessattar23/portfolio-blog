@@ -1,9 +1,12 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
-import {getPublishedPost, publishedPosts} from '../../../content/posts';
+import {publishedPosts} from '../../../content/posts';
 import {PostTemplate} from '../../../components/templates/post-template';
 import {MarkdownView} from '../../../lib/content/render';
 import {buildBlogPostJsonLd, buildPageMetadata, serializeJsonLd} from '../../../lib/seo';
+import {livePublishedPost} from '../../../lib/studio/published';
+
+export const dynamic = 'force-dynamic';
 
 type BlogPostPageProps = {params: Promise<{slug: string}>};
 
@@ -13,7 +16,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({params}: BlogPostPageProps): Promise<Metadata> {
   const {slug} = await params;
-  const post = getPublishedPost(slug);
+  const post = await livePublishedPost(slug);
   if (!post) return {};
   return buildPageMetadata({
     title: post.title,
@@ -33,7 +36,7 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
 
 export default async function BlogPostPage({params}: BlogPostPageProps) {
   const {slug} = await params;
-  const post = getPublishedPost(slug);
+  const post = await livePublishedPost(slug);
   if (!post) return notFound();
 
   return (

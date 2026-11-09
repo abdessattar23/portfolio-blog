@@ -1,5 +1,5 @@
-import {publishedPosts} from '../../content/posts';
 import {SITE} from '../../lib/site';
+import {livePublishedPosts} from '../../lib/studio/published';
 
 const XML_ENTITIES: Record<string, string> = {
   '<': '&lt;',
@@ -12,7 +12,8 @@ const XML_ENTITIES: Record<string, string> = {
 const escapeXml = (value: string) =>
   value.replace(/[<>&"']/g, (char) => XML_ENTITIES[char] ?? char);
 
-export function GET() {
+export async function GET() {
+  const publishedPosts = await livePublishedPosts();
   const feedUrl = `${SITE.url}${SITE.rss}`;
 
   const items = publishedPosts

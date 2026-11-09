@@ -1,9 +1,9 @@
 import type {Metadata} from 'next';
-import {publishedPosts} from '../content/posts';
-import {contributions} from '../lib/contributions';
 import {buildPageMetadata, buildProfilePageJsonLd, serializeJsonLd} from '../lib/seo';
-import {deliveredTalk} from '../lib/content/load';
 import {SITE, formatUtcDate} from '../lib/site';
+import {livePublishedPosts, liveTalks, liveWorkCases} from '../lib/studio/published';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = buildPageMetadata({
   description: SITE.bio,
@@ -12,9 +12,14 @@ export const metadata: Metadata = buildPageMetadata({
   includeIdentityKeywords: true,
 });
 
-export default function Home() {
+export default async function Home() {
+  const [publishedPosts, contributions, talks] = await Promise.all([
+    livePublishedPosts(),
+    liveWorkCases(),
+    liveTalks(),
+  ]);
   const latestPost = publishedPosts[0];
-  const featuredTalk = deliveredTalk();
+  const featuredTalk = talks.find((talk) => talk.status === 'Delivered') ?? talks[0];
 
   return (
     <>
@@ -93,12 +98,14 @@ export default function Home() {
             </div>
             <a className="text-link" href="/work">All contributions →</a>
           </section>
-          <section className="speaking-summary" aria-labelledby="speaking-heading">
-            <h2 id="speaking-heading">Speaking</h2>
-            <p className="event-meta">Devoxx Morocco · 2026</p>
-            <h3>{featuredTalk.title}</h3>
-            <a className="text-link" href="/speaking">Talk details →</a>
-          </section>
+          {featuredTalk && (
+            <section className="speaking-summary" aria-labelledby="speaking-heading">
+              <h2 id="speaking-heading">Speaking</h2>
+              <p className="event-meta">{featuredTalk.event}</p>
+              <h3>{featuredTalk.title}</h3>
+              <a className="text-link" href="/speaking">Talk details →</a>
+            </section>
+          )}
         </aside>
       </div>
     </>
