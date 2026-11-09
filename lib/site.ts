@@ -46,7 +46,7 @@ export const SITE = {
   employer: 'Orange / Sofrecom',
   location: 'Rabat, Morocco',
   bio: 'Java backend engineer at Orange/Sofrecom in Rabat, Morocco. Contributor to the OpenTelemetry Java SDK, writing about concurrency, collection behavior, sampler configuration, and bugs hiding between abstractions.',
-  url: 'https://abdessattar23.dev',
+  url: 'https://abdessattar.dev',
   github: 'https://github.com/abdessattar23',
   linkedin: 'https://linkedin.com/in/abdessattar23',
   rss: '/feed.xml',

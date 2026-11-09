@@ -13,13 +13,12 @@ const links = [
 
 export default function SiteNavigation() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => setOpen(false), [pathname]);
+  const [openPath, setOpenPath] = useState<string | null>(null);
+  const open = openPath === pathname;
 
   useEffect(() => {
     function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') setOpenPath(null);
     }
 
     window.addEventListener('keydown', closeOnEscape);
@@ -34,7 +33,7 @@ export default function SiteNavigation() {
         aria-expanded={open}
         aria-controls="primary-navigation"
         aria-label={open ? 'Close navigation' : 'Open navigation'}
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => setOpenPath(open ? null : pathname)}
       >
         <span aria-hidden="true" />
         <span aria-hidden="true" />

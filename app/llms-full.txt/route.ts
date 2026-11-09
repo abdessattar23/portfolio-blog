@@ -1,49 +1,6 @@
-import {createElement} from 'react';
-import {renderToStaticMarkup} from 'react-dom/server';
 import {publishedPosts} from '../../content/posts';
 import {contributions, prUrl} from '../../lib/contributions';
 import {SITE} from '../../lib/site';
-
-const HTML_ENTITIES: Record<string, string> = {
-  '&amp;': '&',
-  '&lt;': '<',
-  '&gt;': '>',
-  '&quot;': '"',
-  '&#x27;': "'",
-  '&apos;': "'",
-};
-
-function decodeEntities(text: string): string {
-  return text.replace(/&(amp|lt|gt|quot|#x27|apos);/g, (match) => HTML_ENTITIES[match] ?? match);
-}
-
-function jsxContentToMarkdown(html: string): string {
-  return decodeEntities(
-    html
-      .replace(/<div class="demo"[\s\S]*?<\/div><\/div>/g, '')
-      .replace(
-        /<pre><code>([\s\S]*?)<\/code><\/pre>/g,
-        (_, code: string) => `\n\`\`\`java\n${decodeEntities(code).trim()}\n\`\`\`\n\n`,
-      )
-      .replace(
-        /<div class="note"><h3>([\s\S]*?)<\/h3><p>([\s\S]*?)<\/p><\/div>/g,
-        '\n> **$1:** $2\n\n',
-      )
-      .replace(/<h2[^>]*>([\s\S]*?)<\/h2>/g, '\n#### $1\n\n')
-      .replace(/<h3[^>]*>([\s\S]*?)<\/h3>/g, '\n##### $1\n\n')
-      .replace(/<p[^>]*>([\s\S]*?)<\/p>/g, '$1\n\n')
-      .replace(/<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g, (_, href: string, label: string) => {
-        const fullUrl = href.startsWith('/') ? `${SITE.url}${href}` : href;
-        return `[${label}](${fullUrl})`;
-      })
-      .replace(/<code>([\s\S]*?)<\/code>/g, '`$1`')
-      .replace(/<(em|i)>([\s\S]*?)<\/\1>/g, '*$2*')
-      .replace(/<(strong|b)>([\s\S]*?)<\/\1>/g, '**$2**')
-      .replace(/<[^>]+>/g, '')
-      .replace(/\n{3,}/g, '\n\n')
-      .trim(),
-  );
-}
 
 export function GET() {
   const contributionSections = contributions
@@ -69,8 +26,6 @@ export function GET() {
 
   const postSections = publishedPosts
     .map((post) => {
-      const renderedHtml = renderToStaticMarkup(createElement(post.Content));
-      const bodyMarkdown = jsxContentToMarkdown(renderedHtml);
       const diffBlock = post.homeDiff
         ? `\n- **Core Diff Summary**: \`- ${post.homeDiff.removed}\` → \`+ ${post.homeDiff.added}\``
         : '';
@@ -83,7 +38,7 @@ export function GET() {
         `- **Topics**: ${post.topics.join(', ')}`,
         `- **Description**: ${post.description}${diffBlock}`,
         '',
-        bodyMarkdown,
+        post.excerpt,
       ].join('\n');
     })
     .join('\n\n---\n\n');
@@ -120,7 +75,7 @@ export function GET() {
     '',
     contributionSections,
     '',
-    '## 3. Technical Blog Notes (Full Text)',
+    '## 3. Technical Blog Notes',
     '',
     postSections,
     '',
