@@ -2,7 +2,7 @@ import {cloudflare} from '@cloudflare/vite-plugin';
 import vinext from 'vinext';
 import {defineConfig, loadEnv} from 'vite';
 
-const localDatabaseId = '00000000-0000-0000-0000-000000000001';
+const portfolioBlogDatabaseId = 'ff403fa8-190f-4d84-acb2-3c4c9f007c57';
 const secretNames = [
   'GITHUB_CLIENT_ID',
   'GITHUB_CLIENT_SECRET',
@@ -13,8 +13,8 @@ const secretNames = [
 
 export default defineConfig(({command, mode}) => {
   const fileEnv = loadEnv(mode, process.cwd(), '');
-  const databaseId = fileEnv.CLOUDFLARE_D1_ID || process.env.CLOUDFLARE_D1_ID;
-  const attachStorage = command === 'serve' || Boolean(databaseId);
+  const databaseId = fileEnv.CLOUDFLARE_D1_ID || process.env.CLOUDFLARE_D1_ID || portfolioBlogDatabaseId;
+  const attachStorage = true;
   const vars: Record<string, string> = {};
   if (command === 'serve') {
     for (const name of secretNames) {
@@ -40,7 +40,7 @@ export default defineConfig(({command, mode}) => {
                   {
                     binding: 'DB',
                     database_name: 'portfolio-blog',
-                    database_id: databaseId ?? localDatabaseId,
+                    database_id: databaseId,
                   },
                 ],
                 r2_buckets: [{binding: 'MEDIA', bucket_name: 'portfolio-blog-media'}],
