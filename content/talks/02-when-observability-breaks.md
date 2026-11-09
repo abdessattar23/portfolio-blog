@@ -1,6 +1,6 @@
 ---
 slug: when-observability-breaks
-status: Delivered
+status: Upcoming
 event: "A JUG for Everyone : The Voice of Tech"
 location: London
 title: "Stop Chasing the DOM: Browser Automation Through the Accessibility Tree"
