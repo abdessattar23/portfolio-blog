@@ -17,7 +17,7 @@ pnpm dev
 npm run new:post -- "Your article title"
 ```
 
-The generator creates a hidden draft and registers it with the homepage, blog index, article route, and RSS feed. Edit the generated file, then set `draft` to `false` when it is ready. See [BLOGGING.md](./BLOGGING.md) for the full workflow.
+The generator asks for a template and writes a hidden Markdown draft. Published posts show up on the homepage, the blog index, the article route, and the RSS feed. See [BLOGGING.md](./BLOGGING.md).
 
 ## Build
 

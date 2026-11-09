@@ -1,12 +1,59 @@
-import {existsSync, readFileSync, writeFileSync} from 'node:fs';
+import {existsSync, writeFileSync} from 'node:fs';
+import {createInterface} from 'node:readline/promises';
+import {stdin as input, stdout as output} from 'node:process';
 import {resolve} from 'node:path';
+import {POST_TEMPLATES, type PostTemplate} from '../lib/content/schema';
 
-const capitalize = (word: string): string =>
-  word.charAt(0).toUpperCase() + word.slice(1);
+const SKELETONS: Record<PostTemplate, string> = {
+  'deep-dive': `State the concrete problem in one paragraph.
 
-const title = process.argv.slice(2).join(' ').trim();
+## The mechanism {#mechanism}
+
+Explain what the code actually does, close to the source.
+`,
+  'bug-story': `State the bug in one paragraph.
+
+## The problem {#problem}
+
+What broke, and where.
+
+## The change {#change}
+
+What the merged diff does.
+
+## The tests {#tests}
+
+What the regression tests prove.
+
+## Scope {#scope}
+
+What this note does not claim.
+`,
+  til: `One thing I learned, in a few paragraphs. Keep it specific.
+`,
+  'talk-notes': `Who the talk was for, and the one idea I wanted them to leave with.
+
+## What I said {#said}
+
+The argument, without the slides.
+
+## What I would add {#add}
+
+What the room changed.
+`,
+};
+
+function isTemplate(value: string): value is PostTemplate {
+  return (POST_TEMPLATES as readonly string[]).includes(value);
+}
+
+const args = process.argv.slice(2);
+const maybeTemplate = args.at(-1);
+const templateFromArgs = maybeTemplate !== undefined && isTemplate(maybeTemplate) ? maybeTemplate : undefined;
+const title = (templateFromArgs ? args.slice(0, -1) : args).join(' ').trim();
+
 if (!title) {
-  console.error('Usage: npm run new:post -- "Your article title"');
+  console.error('Usage: npm run new:post -- "Your article title" [deep-dive|bug-story|til|talk-notes]');
   process.exit(1);
 }
 
@@ -21,32 +68,44 @@ if (!slug) {
   process.exit(1);
 }
 
-const [firstWord = 'post', ...restWords] = slug.split('-');
-const exportName = `${firstWord}${restWords.map(capitalize).join('')}Post`;
-const componentName = [firstWord, ...restWords].map(capitalize).join('');
-const postPath = resolve('content', 'posts', `${slug}.tsx`);
-const registryPath = resolve('content', 'posts', 'index.ts');
-const templatePath = resolve('templates', 'blog-post.tsx.txt');
-
+const postPath = resolve('content', 'posts', `${slug}.md`);
 if (existsSync(postPath)) {
-  console.error(`A post already exists at content/posts/${slug}.tsx`);
+  console.error(`A post already exists at content/posts/${slug}.md`);
   process.exit(1);
 }
 
-const escapedTitle = title.replaceAll('\\', '\\\\').replaceAll("'", "\\'");
-const post = readFileSync(templatePath, 'utf8')
-  .replaceAll('__SLUG__', slug)
-  .replaceAll('__TITLE__', escapedTitle)
-  .replaceAll('__DATE__', new Date().toISOString().slice(0, 10))
-  .replaceAll('__EXPORT_NAME__', exportName)
-  .replaceAll('__COMPONENT_NAME__', componentName);
+const template = templateFromArgs ?? await chooseTemplate();
+const today = new Date().toISOString().slice(0, 10);
+const escapedTitle = title.replaceAll('"', '\\"');
+const document = `---
+slug: ${slug}
+title: "${escapedTitle}"
+description: TODO
+excerpt: TODO
+publishedAt: ${today}
+updatedAt: ${today}
+topics:
+  - Java
+template: ${template}
+draft: true
+---
 
-const registry = readFileSync(registryPath, 'utf8')
-  .replace('// new-post-import', `import {${exportName}} from './${slug}';\n// new-post-import`)
-  .replace('  // new-post-entry', `  ${exportName},\n  // new-post-entry`);
+${SKELETONS[template]}`;
 
-writeFileSync(postPath, post);
-writeFileSync(registryPath, registry);
+writeFileSync(postPath, document);
+console.log(`Created draft: content/posts/${slug}.md`);
+console.log('Replace every TODO, then set draft: false to publish it.');
 
-console.log(`Created draft: content/posts/${slug}.tsx`);
-console.log('Write the article, replace every TODO, then set draft: false to publish it.');
+async function chooseTemplate(): Promise<PostTemplate> {
+  const prompt = createInterface({input, output});
+  try {
+    const answer = (await prompt.question(`Template (${POST_TEMPLATES.join(', ')}): `)).trim();
+    if (!isTemplate(answer)) {
+      console.error(`Choose one of: ${POST_TEMPLATES.join(', ')}`);
+      process.exit(1);
+    }
+    return answer;
+  } finally {
+    prompt.close();
+  }
+}
