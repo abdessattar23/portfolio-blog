@@ -41,6 +41,7 @@ export function StudioShell({
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [paletteQuery, setPaletteQuery] = useState('');
   const [newPostModal, setNewPostModal] = useState(false);
+  const [newTalkModal, setNewTalkModal] = useState(false);
   const [newSlug, setNewSlug] = useState('');
   const [mode, setMode] = useState<'light' | 'dark'>('light');
 
@@ -71,6 +72,7 @@ export function StudioShell({
       } else if (event.key === 'Escape') {
         if (paletteOpen) setPaletteOpen(false);
         else if (newPostModal) setNewPostModal(false);
+        else if (newTalkModal) setNewTalkModal(false);
         else if (zenMode) setZenMode(false);
       }
     }
@@ -96,7 +98,7 @@ export function StudioShell({
       window.removeEventListener('studio:set-zen', handleZenEvent);
       window.removeEventListener('studio:open-new-post', handleNewPostEvent);
     };
-  }, [paletteOpen, newPostModal, zenMode]);
+  }, [paletteOpen, newPostModal, newTalkModal, zenMode]);
 
   function toggleBinder() {
     setBinderOpen((open) => {
@@ -370,7 +372,17 @@ export function StudioShell({
             <div className="binder-section">
               <div className="binder-section-head">
                 <span>Speaking & Talks</span>
-                <span>{talks.length}</span>
+                <button
+                  type="button"
+                  className="binder-add-btn"
+                  onClick={() => {
+                    setNewSlug('');
+                    setNewTalkModal(true);
+                  }}
+                  title="Start a new talk"
+                >
+                  +
+                </button>
               </div>
               <ul className="binder-list">
                 {talks.map((talk) => {
@@ -461,6 +473,44 @@ export function StudioShell({
         </div>
       ) : null}
 
+      {newTalkModal ? (
+        <div className="atelier-modal-backdrop" onClick={() => setNewTalkModal(false)}>
+          <div className="atelier-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Start a new talk">
+            <div className="atelier-modal-head">
+              <span className="eyebrow">NEW TALK</span>
+              <h2>Add a talk</h2>
+              <p>Choose a permanent slug. It opens as Upcoming. Publish when the title, event, and summary are ready.</p>
+            </div>
+            <form action="/api/studio/drafts" method="post" className="atelier-modal-form">
+              <input type="hidden" name="kind" value="talk" />
+              <label>
+                <span>Talk slug</span>
+                <div className="atelier-slug-input">
+                  <span>abdessattar.dev/speaking/</span>
+                  <input
+                    name="slug"
+                    required
+                    pattern="[a-z0-9-]+"
+                    placeholder="devoxx-morocco-2027"
+                    value={newSlug}
+                    onChange={(e) => setNewSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+/, ''))}
+                    autoFocus
+                  />
+                </div>
+              </label>
+              <div className="atelier-modal-actions">
+                <button type="button" className="atelier-btn-ghost" onClick={() => setNewTalkModal(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="atelier-btn-primary">
+                  Open the talk →
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      ) : null}
+
       {/* Command Palette */}
       {paletteOpen ? (
         <div className="atelier-modal-backdrop" onClick={() => setPaletteOpen(false)}>
@@ -491,6 +541,21 @@ export function StudioShell({
                 <div>
                   <strong>+ Create a new blog post…</strong>
                   <small>Start a fresh Markdown draft</small>
+                </div>
+                <span className="atelier-palette-tag">Action</span>
+              </button>
+              <button
+                type="button"
+                className="atelier-palette-item"
+                onClick={() => {
+                  setPaletteOpen(false);
+                  setNewSlug('');
+                  setNewTalkModal(true);
+                }}
+              >
+                <div>
+                  <strong>+ Add a talk…</strong>
+                  <small>Start an Upcoming speaking draft</small>
                 </div>
                 <span className="atelier-palette-tag">Action</span>
               </button>

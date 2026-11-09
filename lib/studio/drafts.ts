@@ -146,7 +146,7 @@ async function initialContent(kind: DraftKind, slug: string): Promise<{frontmatt
   if (kind === 'talk') {
     const allTalks = await liveTalks();
     const talk = allTalks.find((item) => item.slug === slug);
-    return {frontmatter: JSON.stringify(talk ?? {slug, status: 'Proposal', event: '', location: '', title: slug, summary: ''}), body: ''};
+    return {frontmatter: JSON.stringify(talk ?? {slug, status: 'Upcoming', event: '', location: '', title: slug, summary: ''}), body: ''};
   }
   return {frontmatter: JSON.stringify(await liveSiteSettings()), body: ''};
 }

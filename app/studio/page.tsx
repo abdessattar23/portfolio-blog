@@ -347,6 +347,17 @@ export default async function StudioHome() {
               <h2>Talks ({talks.length})</h2>
             </div>
           </div>
+          <form className="desk-new-form" action="/api/studio/drafts" method="post">
+            <input type="hidden" name="kind" value="talk" />
+            <label className="desk-slug-field">
+              <span>New talk slug</span>
+              <div className="atelier-slug-input">
+                <span>/speaking/</span>
+                <input name="slug" required pattern="[a-z0-9-]+" placeholder="devoxx-morocco-2027" />
+              </div>
+            </label>
+            <button type="submit" className="atelier-btn-primary">New talk →</button>
+          </form>
           <div className="desk-compact-list">
             {talks.map((talk) => {
               const openDraft = editing(drafts, 'talk', talk.slug);
