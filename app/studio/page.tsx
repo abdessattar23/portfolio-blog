@@ -1,7 +1,15 @@
 import {posts, talks, workCases} from '../../lib/content/load';
 import {listDrafts, type Draft} from '../../lib/studio/drafts';
+import {seoHealth} from '../../lib/studio/seo';
 
 export const dynamic = 'force-dynamic';
+
+const DESTINATIONS = {
+  post: 'posts',
+  work: 'work',
+  talk: 'talks',
+  site: 'settings',
+} as const;
 
 function editing(drafts: Draft[], kind: Draft['kind'], slug: string) {
   return drafts.some((draft) => draft.kind === kind && draft.slug === slug);
@@ -32,21 +40,53 @@ export default async function StudioHome() {
           <button type="submit">Open draft</button>
         </form>
       </section>
+      {drafts.length > 0 ? (
+        <section className="studio-section">
+          <h2>Active drafts</h2>
+          {drafts.map((draft) => {
+            const href = draft.kind === 'site' ? '/studio/settings' : `/studio/${DESTINATIONS[draft.kind]}/${draft.id}`;
+            return (
+              <article className="studio-row" key={draft.id}>
+                <div>
+                  <strong>{draft.slug}</strong>
+                  <p>{draft.kind} · updated {new Date(draft.updatedAt).toLocaleString('en-GB', {timeZone: 'UTC'})} UTC</p>
+                </div>
+                <div className="studio-actions">
+                  <a className="button" href={href}>Continue</a>
+                  <form action={`/api/studio/drafts/${draft.id}`} method="post">
+                    <input type="hidden" name="_action" value="delete" />
+                    <button type="submit">Discard</button>
+                  </form>
+                </div>
+              </article>
+            );
+          })}
+        </section>
+      ) : null}
       <section className="studio-section">
         <h2>Posts</h2>
-        {posts.map((post) => (
-          <article className="studio-row" key={post.slug}>
-            <div>
-              <strong>{post.title}</strong>
-              <p>{post.draft ? 'Unpublished file' : 'Published'}{editing(drafts, 'post', post.slug) ? ' · editing' : ''} · {post.template}</p>
-            </div>
-            <form action="/api/studio/drafts" method="post">
-              <input type="hidden" name="kind" value="post" />
-              <input type="hidden" name="slug" value={post.slug} />
-              <button type="submit">Edit</button>
-            </form>
-          </article>
-        ))}
+        {posts.map((post) => {
+          const warnings = seoHealth(post).filter((item) => item.level === 'warn');
+          return (
+            <article className="studio-row" key={post.slug}>
+              <div>
+                <strong>{post.title}</strong>
+                <p>
+                  {post.draft ? 'Unpublished file' : 'Published'}
+                  {editing(drafts, 'post', post.slug) ? ' · editing' : ''}
+                  {' · '}
+                  {post.template}
+                  {warnings.length > 0 ? ` · ${warnings.length} SEO note${warnings.length === 1 ? '' : 's'}` : ' · SEO ok'}
+                </p>
+              </div>
+              <form action="/api/studio/drafts" method="post">
+                <input type="hidden" name="kind" value="post" />
+                <input type="hidden" name="slug" value={post.slug} />
+                <button type="submit">Edit</button>
+              </form>
+            </article>
+          );
+        })}
       </section>
       <section className="studio-section">
         <h2>Open source</h2>

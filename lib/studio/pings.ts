@@ -1,5 +1,7 @@
 import {database} from './db';
 
+const DEPLOY_SETTLE_MS = 3 * 60 * 1000;
+
 export async function queuePings(urls: string[]): Promise<void> {
   const db = await database();
   const queuedAt = new Date().toISOString();
@@ -13,13 +15,17 @@ export async function queuePings(urls: string[]): Promise<void> {
 
 export async function duePings(): Promise<{url: string; attempts: number}[]> {
   const db = await database();
-  const rows = await db.prepare('select url, attempts from pending_pings where attempts < 12 order by queued_at').all<{url: string; attempts: number}>();
+  const cutoff = new Date(Date.now() - DEPLOY_SETTLE_MS).toISOString();
+  const rows = await db
+    .prepare('select url, attempts from pending_pings where attempts < 12 and queued_at <= ? order by queued_at')
+    .bind(cutoff)
+    .all<{url: string; attempts: number}>();
   return rows.results;
 }
 
 export async function markPing(url: string, attempts: number, done: boolean): Promise<void> {
   const db = await database();
-  if (done) {
+  if (done || attempts >= 12) {
     await db.prepare('delete from pending_pings where url = ?').bind(url).run();
     return;
   }

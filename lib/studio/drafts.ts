@@ -70,6 +70,18 @@ export async function saveDraft(draft: Draft): Promise<void> {
   ).bind(draft.id, draft.slug, draft.kind, draft.frontmatter, draft.body, draft.updatedAt, draft.baseSha).run();
 }
 
+export async function updateDraftContent(id: string, slug: string, frontmatter: string, body: string): Promise<void> {
+  const db = await database();
+  await db.prepare(
+    'update drafts set slug = ?, frontmatter = ?, body = ?, updated_at = ? where id = ?',
+  ).bind(slug, frontmatter, body, new Date().toISOString(), id).run();
+}
+
+export async function updateDraftBaseSha(id: string, baseSha: string | null): Promise<void> {
+  const db = await database();
+  await db.prepare('update drafts set base_sha = ?, updated_at = ? where id = ?').bind(baseSha, new Date().toISOString(), id).run();
+}
+
 export async function deleteDraft(id: string): Promise<void> {
   const db = await database();
   await db.prepare('delete from drafts where id = ?').bind(id).run();
@@ -79,12 +91,20 @@ function today(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+export function draftFilePath(kind: DraftKind, slug: string): string {
+  if (kind === 'site') return 'content/site.json';
+  if (kind === 'post') return postFilePath(slug);
+  if (kind === 'work') return workFilePath(slug);
+  return talkFilePath(slug);
+}
+
 function initialContent(kind: DraftKind, slug: string): {frontmatter: string; body: string} {
   if (kind === 'post') {
     const post = posts.find((item) => item.slug === slug);
     if (!post) {
       return {
         frontmatter: JSON.stringify({
+          slug,
           title: slug,
           description: '',
           excerpt: '',
@@ -99,6 +119,7 @@ function initialContent(kind: DraftKind, slug: string): {frontmatter: string; bo
     }
     return {
       frontmatter: JSON.stringify({
+        slug: post.slug,
         title: post.title,
         description: post.description,
         excerpt: post.excerpt,
@@ -125,19 +146,36 @@ function initialContent(kind: DraftKind, slug: string): {frontmatter: string; bo
 }
 
 export async function openDraft(kind: DraftKind, slug: string): Promise<Draft> {
+  const path = draftFilePath(kind, slug);
   const existing = await findDraft(kind, slug);
-  if (existing) return existing;
+  if (existing) {
+    if (existing.baseSha === null) {
+      const healedSha = await getFileSha(path);
+      if (healedSha) {
+        await updateDraftBaseSha(existing.id, healedSha);
+        return {...existing, baseSha: healedSha};
+      }
+    }
+    return existing;
+  }
+
   const content = initialContent(kind, slug);
-  const path = kind === 'site' ? 'content/site.json' : kind === 'post' ? postFilePath(slug) : kind === 'work' ? workFilePath(slug) : talkFilePath(slug);
-  const draft: Draft = {
-    id: crypto.randomUUID(),
+  const db = await database();
+  await db.prepare(
+    `insert into drafts (id, slug, kind, frontmatter, body, updated_at, base_sha)
+     values (?, ?, ?, ?, ?, ?, ?)
+     on conflict(kind, slug) do nothing`,
+  ).bind(
+    crypto.randomUUID(),
     slug,
     kind,
-    frontmatter: content.frontmatter,
-    body: content.body,
-    updatedAt: new Date().toISOString(),
-    baseSha: await getFileSha(path),
-  };
-  await saveDraft(draft);
-  return draft;
+    content.frontmatter,
+    content.body,
+    new Date().toISOString(),
+    await getFileSha(path),
+  ).run();
+
+  const resolved = await findDraft(kind, slug);
+  if (!resolved) throw new Error('Could not open draft.');
+  return resolved;
 }

@@ -1,5 +1,5 @@
 import {isRefusal, requireOwnerApi} from '../../../../../lib/studio/auth';
-import {deleteDraft, getDraft, saveDraft} from '../../../../../lib/studio/drafts';
+import {deleteDraft, getDraft, updateDraftContent} from '../../../../../lib/studio/drafts';
 
 export async function GET(request: Request, context: {params: Promise<{id: string}>}) {
   const owner = await requireOwnerApi(request);
@@ -23,14 +23,19 @@ export async function PUT(request: Request, context: {params: Promise<{id: strin
     return new Response('A draft needs frontmatter and a body.', {status: 400});
   }
   const slug = typeof record.slug === 'string' && /^[a-z0-9-]+$/.test(record.slug) ? record.slug : draft.slug;
-  await saveDraft({
-    ...draft,
-    slug,
-    frontmatter: record.frontmatter,
-    body: record.body,
-    updatedAt: new Date().toISOString(),
-  });
+  await updateDraftContent(id, slug, record.frontmatter, record.body);
   return Response.json({ok: true});
+}
+
+export async function POST(request: Request, context: {params: Promise<{id: string}>}) {
+  const owner = await requireOwnerApi(request);
+  if (isRefusal(owner)) return owner;
+  const {id} = await context.params;
+  const form = await request.formData();
+  if (String(form.get('_action') ?? '') === 'delete') {
+    await deleteDraft(id);
+  }
+  return Response.redirect(new URL('/studio', request.url), 303);
 }
 
 export async function DELETE(request: Request, context: {params: Promise<{id: string}>}) {

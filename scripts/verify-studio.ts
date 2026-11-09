@@ -1,7 +1,8 @@
 import {readFileSync, readdirSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {findDuplicates} from '../lib/content/duplicates';
-import {parsePost, parseSiteSettings, parseTalk, parseWorkCase} from '../lib/content/schema';
+import {splitBlocks} from '../lib/content/render';
+import {parsePost, parseSiteSettings, parseTalk, parseWorkCase, sectionsFromMarkdown} from '../lib/content/schema';
 import {publishConflict} from '../lib/studio/guards';
 import {signSession, verifySession} from '../lib/studio/session';
 
@@ -24,6 +25,16 @@ if (!note || !note.sections.some((section) => section.id === 'mechanism') || !no
   throw new Error('The PooledHashMap note did not keep its sections and demo.');
 }
 if (note.draft) throw new Error('The PooledHashMap note should be published.');
+
+const fencedSections = sectionsFromMarkdown('## Real heading {#real}\n\n```bash\n## not a heading\n```\n');
+if (fencedSections.length !== 1 || fencedSections[0]?.id !== 'real') {
+  throw new Error('Headings inside fenced code blocks must be ignored.');
+}
+
+const unclosedNote = splitBlocks('Intro\n\n:::note\nTitle\nBody without closing fence\n\nAfter paragraph');
+if (unclosedNote.some((segment) => segment.kind === 'note')) {
+  throw new Error('An unclosed :::note must not swallow the rest of the document as a note block.');
+}
 
 const clash = findDuplicates(
   {slug: 'pooled-hashmap', title: note.title, description: note.description},
@@ -49,4 +60,4 @@ if (await verifySession(`${owner}x`, secret)) throw new Error('A tampered sessio
 const stranger = await signSession('someone-else', secret);
 if (await verifySession(stranger, secret)) throw new Error('Another GitHub account should be refused.');
 
-console.log(`Verified ${posts.length} post, ${work.length} cases, ${talks.length} talks, session checks, and publish guards.`);
+console.log(`Verified ${posts.length} post, ${work.length} cases, ${talks.length} talks, markdown fences, session checks, and publish guards.`);

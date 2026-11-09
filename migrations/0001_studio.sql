@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS drafts (
   base_sha TEXT
 );
 
+CREATE UNIQUE INDEX IF NOT EXISTS drafts_kind_slug_idx ON drafts(kind, slug);
+
 CREATE TABLE IF NOT EXISTS pending_pings (
   url TEXT PRIMARY KEY,
   queued_at TEXT NOT NULL,

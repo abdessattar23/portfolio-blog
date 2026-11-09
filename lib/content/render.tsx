@@ -23,7 +23,7 @@ const DEMOS = {
 
 type DemoName = keyof typeof DEMOS;
 
-type Segment =
+export type Segment =
   | {kind: 'markdown'; text: string}
   | {kind: 'demo'; name: string}
   | {kind: 'note'; title: string; text: string};
@@ -36,6 +36,7 @@ export function splitBlocks(markdown: string): Segment[] {
   const lines = markdown.split(/\r?\n/);
   const segments: Segment[] = [];
   const buffer: string[] = [];
+  let inFence = false;
 
   function flush() {
     const text = buffer.join('\n');
@@ -45,6 +46,16 @@ export function splitBlocks(markdown: string): Segment[] {
 
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index] ?? '';
+    if (/^(`{3,}|~{3,})/.test(line.trim())) {
+      inFence = !inFence;
+      buffer.push(line);
+      continue;
+    }
+    if (inFence) {
+      buffer.push(line);
+      continue;
+    }
+
     const demo = /^:::demo\{name="([a-z0-9-]+)"\}\s*$/.exec(line);
     const demoName = demo?.[1];
     if (demoName) {
@@ -53,16 +64,18 @@ export function splitBlocks(markdown: string): Segment[] {
       continue;
     }
     if (line.trim() === ':::note') {
-      flush();
-      const title = (lines[index + 1] ?? '').replace(/^#+\s*/, '').trim();
-      const note: string[] = [];
-      index += 2;
-      while (index < lines.length && (lines[index] ?? '').trim() !== ':::') {
-        note.push(lines[index] ?? '');
-        index += 1;
+      let closeIndex = index + 2;
+      while (closeIndex < lines.length && (lines[closeIndex] ?? '').trim() !== ':::') {
+        closeIndex += 1;
       }
-      segments.push({kind: 'note', title, text: note.join('\n').trim()});
-      continue;
+      if (closeIndex < lines.length) {
+        flush();
+        const title = (lines[index + 1] ?? '').replace(/^#+\s*/, '').trim();
+        const note = lines.slice(index + 2, closeIndex).join('\n').trim();
+        segments.push({kind: 'note', title, text: note});
+        index = closeIndex;
+        continue;
+      }
     }
     buffer.push(line);
   }
@@ -102,7 +115,7 @@ export function MarkdownView({markdown}: {markdown: string}) {
       nodes.push(
         <div className="note" key={index}>
           <h3>{segment.title}</h3>
-          <p>{segment.text}</p>
+          <div dangerouslySetInnerHTML={{__html: renderMarkdownToHtml(segment.text, false)}} />
         </div>,
       );
       return;

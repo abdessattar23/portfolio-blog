@@ -88,7 +88,7 @@ export function renderDraftFile(kind: 'post' | 'work' | 'talk' | 'site', slug: s
     parseSiteSettings(parsed);
     return {path: 'content/site.json', content: `${JSON.stringify(parsed, null, 2)}\n`};
   }
-  const data = withoutEmpty(parsed);
+  const data = withoutEmpty({slug, ...parsed, slug});
   const content = markdownDocument(data, body);
   if (kind === 'post') {
     const post = parsePost(content, `${slug}.md`);

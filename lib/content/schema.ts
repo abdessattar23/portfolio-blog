@@ -131,7 +131,13 @@ export function slugifyHeading(title: string): string {
 
 export function sectionsFromMarkdown(body: string): PostSection[] {
   const sections: PostSection[] = [];
+  let inFence = false;
   for (const line of body.split(/\r?\n/)) {
+    if (/^(`{3,}|~{3,})/.test(line.trim())) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
     const match = /^##\s+(.+?)\s*(?:\{#([a-z0-9-]+)\})?\s*$/.exec(line);
     const title = match?.[1]?.trim();
     if (!title) continue;
