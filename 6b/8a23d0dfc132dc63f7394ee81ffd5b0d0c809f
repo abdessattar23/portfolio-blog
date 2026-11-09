@@ -1,0 +1,37 @@
+lib/content/duplicates.ts
+  s_ca15d3fa531b7c::t_ff253ff9adf11f 1-46
+app/og/[slug]/route.ts
+  s_ca15d3fa531b7c::t_b473a7170ed724 1-60
+app/globals.css
+  s_ca15d3fa531b7c::t_18c87b0d786cb9 271-278
+lib/content/schema.ts
+  s_ca15d3fa531b7c::t_62dcb533a449b7 156
+components/templates/post-template.tsx
+  s_ca15d3fa531b7c::t_e96d318642264a 1-42
+app/blog/[slug]/page.tsx
+  s_ca15d3fa531b7c::t_4efa228a88e084 4
+  s_ca15d3fa531b7c::t_2feaf6ba2166bd 45-47
+  s_ca15d3fa531b7c::t_aed999edc2511c 25-30
+lib/seo.ts
+  s_ca15d3fa531b7c::t_ba7052229487f7 106
+  s_ca15d3fa531b7c::t_7ebdb3d6d084bd 69
+  s_ca15d3fa531b7c::t_b64abd028354d5 45
+  s_ca15d3fa531b7c::t_e4b2a495ac1bba 213
+  s_ca15d3fa531b7c::t_8a4882196cea0c 33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "6b8a23d0dfc132dc63f7394ee81ffd5b0d0c809f",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
