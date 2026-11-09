@@ -51,7 +51,7 @@ export type WorkCase = {
   noteSlug?: string;
 };
 
-export type TalkStatus = 'Delivered' | 'Proposal';
+export type TalkStatus = 'Upcoming' | 'Delivered' | 'Proposal';
 
 export type Talk = {
   slug: string;
@@ -255,7 +255,7 @@ export function parseTalk(raw: string, file: string): Talk {
   const {data} = readDocument(raw, file);
   if (!isRecord(data)) fail(file, 'frontmatter must be an object');
   const status = readString(data, 'status', file);
-  if (status !== 'Delivered' && status !== 'Proposal') fail(file, 'status must be Delivered or Proposal');
+  if (status !== 'Upcoming' && status !== 'Delivered' && status !== 'Proposal') fail(file, 'status must be Upcoming, Delivered, or Proposal');
   const detail = readOptionalString(data, 'detail', file);
   return {
     slug: readString(data, 'slug', file),

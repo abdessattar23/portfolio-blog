@@ -13,7 +13,7 @@ const FIELD_META: Record<string, {label: string; hint?: string; multiline?: bool
   verification: {label: 'Verification & benchmarks', hint: 'JMH benchmarks, unit tests, production evidence', multiline: true, rows: 3},
   boundary: {label: 'Scope boundary & trade-offs', hint: 'Where this optimization stops or what it trades off', multiline: true, rows: 3},
   noteSlug: {label: 'Linked blog note slug (optional)', hint: 'Slug of the companion deep-dive post'},
-  status: {label: 'Status', hint: 'Delivered or Proposal'},
+  status: {label: 'Status', hint: 'Upcoming, Delivered, or Proposal'},
   event: {label: 'Conference / Event', hint: 'Event name and year'},
   detail: {label: 'Session detail & abstract', hint: 'Extended narrative or takeaways', multiline: true, rows: 4},
   name: {label: 'Short display name', hint: 'Used in page titles and headers'},
@@ -176,6 +176,7 @@ export function RecordEditor({
                         setStatus('Editing');
                       }}
                     >
+                      <option value="Upcoming">Upcoming</option>
                       <option value="Delivered">Delivered</option>
                       <option value="Proposal">Proposal</option>
                     </select>

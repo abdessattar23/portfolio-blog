@@ -15,6 +15,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default async function Speaking() {
   const allTalks = await liveTalks();
+  const upcomingTalks = allTalks.filter((talk) => talk.status === 'Upcoming');
   const deliveredTalks = allTalks.filter((talk) => talk.status === 'Delivered');
   const proposalTalks = allTalks.filter((talk) => talk.status === 'Proposal');
 
@@ -32,6 +33,25 @@ export default async function Speaking() {
         </h1>
         <p>Talks about open source and the engineering behind observability.</p>
       </section>
+      {upcomingTalks.map((talk) => (
+        <article className="talk" key={talk.slug}>
+          <div className="eyebrow">
+            UPCOMING<br /><br />
+            {talk.event.toUpperCase()}
+            {talk.location !== 'TBD' ? (
+              <>
+                <br />
+                {talk.location.toUpperCase()}
+              </>
+            ) : null}
+          </div>
+          <div>
+            <h2>{talk.title}</h2>
+            <p>{talk.summary}</p>
+            {talk.detail ? <p className="muted">{talk.detail}</p> : null}
+          </div>
+        </article>
+      ))}
       {deliveredTalks.map((talk) => (
         <article className="talk" key={talk.slug}>
           <div className="eyebrow">

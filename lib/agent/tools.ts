@@ -73,7 +73,7 @@ export const AGENT_TOOLS: readonly ToolSpec[] = [
   {
     name: 'list_talks',
     title: 'List talks',
-    description: 'List talks and proposals. Proposals are not accepted appearances.',
+    description: 'List talks. Upcoming means scheduled. Proposals are not accepted appearances.',
     inputSchema: emptySchema,
   },
 ];

@@ -194,7 +194,7 @@ function workMarkdown(corpus: AgentCorpus, item: WorkCase): string {
 
 function homeMarkdown(corpus: AgentCorpus): string {
   const latest = corpus.posts[0];
-  const delivered = corpus.talks.find((talk) => talk.status === 'Delivered') ?? corpus.talks[0];
+  const delivered = corpus.talks.find((talk) => talk.status === 'Upcoming') ?? corpus.talks.find((talk) => talk.status === 'Delivered') ?? corpus.talks[0];
   const lines = [
     `# ${corpus.site.name}`,
     '',
@@ -278,6 +278,7 @@ export function pageMarkdown(corpus: AgentCorpus, pathname: string): string | nu
       lines.push(`## ${talk.title}`, '', `${talk.status} — ${talk.event}${place}`, '', talk.summary);
       if (talk.detail) lines.push('', talk.detail);
       if (talk.status === 'Proposal') lines.push('', 'This is a proposal, not an accepted appearance.');
+      if (talk.status === 'Upcoming') lines.push('', 'This talk is scheduled and has not been delivered yet.');
       lines.push('');
     }
     return lines.join('\n');

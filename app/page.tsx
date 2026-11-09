@@ -19,7 +19,7 @@ export default async function Home() {
     liveTalks(),
   ]);
   const latestPost = publishedPosts[0];
-  const featuredTalk = talks.find((talk) => talk.status === 'Delivered') ?? talks[0];
+  const featuredTalk = talks.find((talk) => talk.status === 'Upcoming') ?? talks.find((talk) => talk.status === 'Delivered') ?? talks[0];
 
   return (
     <>
