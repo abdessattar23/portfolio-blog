@@ -1,0 +1,21 @@
+lib/seo.ts
+  s_ca15d3fa531b7c::t_2c9a2942d19056 1-338
+lib/site.ts
+  s_ca15d3fa531b7c::t_57ba5410887950 1-37,42-43,45-48,53-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "7921773a496194c287513a26f75075535abf7bed",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
