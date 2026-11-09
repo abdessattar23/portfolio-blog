@@ -1,0 +1,21 @@
+app/llms.txt/route.ts
+  s_ca15d3fa531b7c::t_d030d16e5dab28 1-76
+app/llms-full.txt/route.ts
+  s_ca15d3fa531b7c::t_9e41f3a07750e5 1-139
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "84d599d04ac63fea4de6f7425f377f9840a2e1ec",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
