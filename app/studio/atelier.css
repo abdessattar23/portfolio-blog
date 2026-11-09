@@ -165,27 +165,41 @@ body:has(.studio-atelier) {
 
 .atelier-pill-primary,
 .atelier-btn-primary,
-.atelier-btn-publish {
+.atelier-btn-publish,
+.studio-atelier a.atelier-pill-primary,
+.studio-atelier a.atelier-btn-primary,
+.studio-atelier a.atelier-btn-publish {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   height: 34px;
   padding: 0 0.85rem;
   border-radius: 999px;
-  background: var(--ink);
-  color: var(--sheet);
+  background: #171717;
+  color: #ffffff;
   font-size: 0.84rem;
   font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
 }
-
-.atelier-btn-publish { background: #171717; color: #ffffff; }
 
 .atelier-btn-secondary,
 .atelier-btn-ghost,
-.atelier-btn-danger {
+.atelier-btn-danger,
+.studio-atelier a.atelier-btn-secondary,
+.studio-atelier a.atelier-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   height: 34px;
   padding: 0 0.75rem;
   border-radius: 999px;
-  border-color: var(--line-strong);
-  background: transparent;
+  border-color: #bdbdbd;
+  background: #ffffff;
+  color: #171717;
   font-size: 0.82rem;
+  line-height: 1;
+  text-decoration: none;
 }
 
 .atelier-btn-danger { color: var(--clay); border-color: color-mix(in srgb, var(--clay) 45%, transparent); }
@@ -1012,9 +1026,20 @@ body:has(.studio-atelier[data-mode='dark']) { background: #111111; }
 .studio-atelier[data-mode='dark'] .atelier-btn-primary,
 .studio-atelier[data-mode='dark'] .atelier-pill-primary,
 .studio-atelier[data-mode='dark'] .atelier-btn-publish,
+.studio-atelier[data-mode='dark'] a.atelier-btn-primary,
+.studio-atelier[data-mode='dark'] a.atelier-pill-primary,
+.studio-atelier[data-mode='dark'] a.atelier-btn-publish,
 .studio-atelier[data-mode='dark'] .workbench-tools button[data-active='true'] {
   background: #f4f4f4;
   color: #111111;
+}
+.studio-atelier[data-mode='dark'] .atelier-btn-secondary,
+.studio-atelier[data-mode='dark'] .atelier-btn-ghost,
+.studio-atelier[data-mode='dark'] a.atelier-btn-secondary,
+.studio-atelier[data-mode='dark'] a.atelier-btn-ghost {
+  background: transparent;
+  color: #f3f3f3;
+  border-color: #4a4a4a;
 }
 .studio-atelier[data-mode='dark'] .studio-atelier .search-preview strong,
 .studio-atelier[data-mode='dark'] .search-preview strong { color: #9eb6ff; }
