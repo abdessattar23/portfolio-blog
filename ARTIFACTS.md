@@ -66,7 +66,7 @@ Article pages own the title. A Markdown h1 is dropped, and the first h2 is dropp
 
 ## MCP
 
-These tools are on the authenticated `/studio/mcp` server. The public `/mcp` server does not get them.
+These tools are on the authenticated `/studio/mcp` server. The public `/mcp` server does not get them. The server tells clients that the tool list can change. ChatGPT keeps the list it saved when the app was added, so refresh that app after a deploy to load tools that were not in the original 14.
 
 | Tool | Effect |
 | --- | --- |

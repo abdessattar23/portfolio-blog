@@ -19,11 +19,13 @@ import {
 import {callStudioTool, STUDIO_TOOLS} from './mcp-tools';
 
 const INSTRUCTIONS = [
+  'Interactive artifacts: list_artifacts, read_artifact, preview_artifact, create_artifact, update_artifact, attach_artifact.',
+  'An artifact is versioned JSON for a figure, never executable code. A conceptual simulation is not a measurement.',
+  'create_artifact, update_artifact, and attach_artifact do not publish.',
+  'Call publish_draft, unpublish_post, delete_draft, or delete_artifact only when he explicitly asks, with confirm true.',
   'Private studio for Mohammed Elyagoubi at abdessattar.dev.',
   'Employer is Sofrecom (Orange Group) at sofrecom.com. Orange Group is the parent and has no URL. Never use orange.com.',
   'Search and read before writing. Drafts stay private until publish_draft.',
-  'Call publish_draft, unpublish_post, delete_draft, or delete_artifact only when he explicitly asks, with confirm true.',
-  'Artifacts are versioned JSON descriptions, never executable code. A conceptual simulation is not a measurement. create_artifact, update_artifact, and attach_artifact do not publish.',
   'A new talk needs a title. Leave slug empty unless he wants a specific URL.',
   'The public /mcp server is read-only.',
 ].join(' ');
@@ -206,8 +208,8 @@ async function handleMcp(request: Request, origin: string, secret: string): Prom
       id,
       result: {
         protocolVersion,
-        capabilities: {tools: {listChanged: false}},
-        serverInfo: {name: 'abdessattar-studio', version: '1.0.0'},
+        capabilities: {tools: {listChanged: true}},
+        serverInfo: {name: 'abdessattar-studio', version: '1.1.0'},
         instructions: INSTRUCTIONS,
       },
     });

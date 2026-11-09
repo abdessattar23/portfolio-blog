@@ -68,6 +68,26 @@ function tool(
 }
 
 export const STUDIO_TOOLS: readonly StudioTool[] = [
+  tool('list_artifacts', 'List interactive artifacts', 'Use this to see reusable interactive figures before editing or inserting one. Returns id, title, classification, view, and source. This does not publish.', {}, [], true),
+  tool('read_artifact', 'Read an interactive artifact', 'Use this to read one interactive artifact JSON document by id.', {id: {type: 'string', description: 'Artifact id, such as virtual-thread-pool.'}}, ['id'], true),
+  tool('preview_artifact', 'Preview an interactive artifact', 'Use this to validate interactive artifact JSON. Returns errors, the fallback text, and the markdown fence. It does not return HTML and does not save.', {
+    id: {type: 'string', description: 'Saved artifact id. Omit when document is provided.'},
+    document: {type: 'object', description: 'Artifact JSON, version 1. Describes a view. No JavaScript, HTML, or raw SVG.', additionalProperties: true},
+  }, [], true),
+  tool('create_artifact', 'Create an interactive artifact', 'Use this to save a new version 1 interactive artifact. Fails if the id exists. This does not publish and does not edit an article.', {
+    document: {type: 'object', description: 'Artifact JSON, version 1.', additionalProperties: true},
+  }, ['document'], false),
+  tool('update_artifact', 'Update an interactive artifact', 'Use this to replace an existing interactive artifact document. The id inside the document must already exist. This does not publish.', {
+    document: {type: 'object', description: 'Replacement artifact JSON, version 1.', additionalProperties: true},
+  }, ['document'], false),
+  tool('attach_artifact', 'Attach an interactive artifact', 'Use this to insert an interactive artifact fence into a note draft. It does not publish. If the fence is already there, the draft is left unchanged.', {
+    id: {type: 'string', description: 'Artifact id to insert.'},
+    draft_id: idSchema,
+  }, ['id', 'draft_id'], false),
+  tool('delete_artifact', 'Delete an interactive artifact', 'Use this only when the owner explicitly asks to delete a studio artifact. Requires confirm true. Refuses while a note still references the id. Does not delete the git catalog and does not publish.', {
+    id: {type: 'string', description: 'Artifact id.'},
+    confirm: confirmSchema,
+  }, ['id', 'confirm'], false, true),
   tool('list_drafts', 'List drafts', 'Use this to see private unpublished work before editing it. Returns id, kind, slug, title, and updatedAt.', {kind: kindSchema}, [], true),
   tool('read_draft', 'Read a draft', 'Use this to read one private draft, including its fields and markdown body, before changing it.', {id: idSchema}, ['id'], true),
   tool('create_draft', 'Create or open a draft', 'Use this to start a note, case, talk, or site draft. A talk slug is optional and is derived from the title unless slug is set. If that slug is already open, the existing draft is returned unchanged.', {
@@ -98,26 +118,6 @@ export const STUDIO_TOOLS: readonly StudioTool[] = [
   }, ['slug', 'filename', 'content_type', 'data_base64'], false),
   tool('list_images', 'List images', 'Use this to list images already stored for a slug.', {slug: {type: 'string', description: 'Note slug.'}}, ['slug'], true),
   tool('check_seo', 'Check note SEO', 'Use this on a note draft before publishing. It checks title length, description length, topics, and image alt text.', {id: idSchema}, ['id'], true),
-  tool('list_artifacts', 'List artifacts', 'Use this to see reusable figures before editing or inserting one. Returns id, title, classification, view, and source. This does not publish.', {}, [], true),
-  tool('read_artifact', 'Read an artifact', 'Use this to read one artifact JSON document by id.', {id: {type: 'string', description: 'Artifact id, such as virtual-thread-pool.'}}, ['id'], true),
-  tool('preview_artifact', 'Preview an artifact', 'Use this to validate artifact JSON. Returns errors, the fallback text, and the markdown fence. It does not return HTML and does not save.', {
-    id: {type: 'string', description: 'Saved artifact id. Omit when document is provided.'},
-    document: {type: 'object', description: 'Artifact JSON, version 1. Describes a view. No JavaScript, HTML, or raw SVG.', additionalProperties: true},
-  }, [], true),
-  tool('create_artifact', 'Create an artifact', 'Use this to save a new version 1 artifact. Fails if the id exists. This does not publish and does not edit an article.', {
-    document: {type: 'object', description: 'Artifact JSON, version 1.', additionalProperties: true},
-  }, ['document'], false),
-  tool('update_artifact', 'Update an artifact', 'Use this to replace an existing artifact document. The id inside the document must already exist. This does not publish.', {
-    document: {type: 'object', description: 'Replacement artifact JSON, version 1.', additionalProperties: true},
-  }, ['document'], false),
-  tool('attach_artifact', 'Attach an artifact to a draft', 'Use this to insert an artifact fence into a note draft. It does not publish. If the fence is already there, the draft is left unchanged.', {
-    id: {type: 'string', description: 'Artifact id to insert.'},
-    draft_id: idSchema,
-  }, ['id', 'draft_id'], false),
-  tool('delete_artifact', 'Delete an artifact', 'Use this only when the owner explicitly asks to delete a studio artifact. Requires confirm true. Refuses while a note still references the id. Does not delete the git catalog and does not publish.', {
-    id: {type: 'string', description: 'Artifact id.'},
-    confirm: confirmSchema,
-  }, ['id', 'confirm'], false, true),
 ];
 
 const TEMPLATES = new Set(['deep-dive', 'bug-story', 'til', 'talk-notes']);
