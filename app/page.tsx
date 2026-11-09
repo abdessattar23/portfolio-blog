@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import {publishedPosts} from '../content/posts';
 import {contributions} from '../lib/contributions';
 import {buildPageMetadata, buildProfilePageJsonLd, serializeJsonLd} from '../lib/seo';
+import {deliveredTalk} from '../lib/content/load';
 import {SITE, formatUtcDate} from '../lib/site';
 
 export const metadata: Metadata = buildPageMetadata({
@@ -13,7 +14,7 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function Home() {
   const latestPost = publishedPosts[0];
-  const featuredTalk = SITE.speaking[0];
+  const featuredTalk = deliveredTalk();
 
   return (
     <>

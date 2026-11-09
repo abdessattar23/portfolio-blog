@@ -1,7 +1,8 @@
 import type {Metadata} from 'next';
 import type {BlogPost} from '../content/posts/types';
 import {type Contribution, contributions, prUrl} from './contributions';
-import {KNOWS_ABOUT, NAME_VARIANTS, SITE} from './site';
+import {deliveredTalk} from './content/load';
+import {SITE} from './site';
 
 export const SCHEMA_CONTEXT = 'https://schema.org' as const;
 export const OTEL_JAVA_REPO_URL =
@@ -49,9 +50,9 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
 
   const mergedKeywords = Array.from(
     new Set([
-      ...KNOWS_ABOUT,
+      ...SITE.knowsAbout,
       ...(includeIdentityKeywords
-        ? [...NAME_VARIANTS, 'Orange Maroc', 'Sofrecom', 'Rabat', 'Devoxx Morocco']
+        ? [...SITE.alternateNames, 'Orange Maroc', 'Sofrecom', 'Rabat', 'Devoxx Morocco']
         : [SITE.name, SITE.fullName, 'Mohammed Abdessattar Elyagoubi', SITE.handle]),
       ...keywords,
     ]),
@@ -127,7 +128,7 @@ export function buildSiteGraphJsonLd() {
         givenName: 'Mohammed',
         additionalName: 'Abdessetar',
         familyName: 'Elyagoubi',
-        alternateName: NAME_VARIANTS,
+        alternateName: SITE.alternateNames,
         identifier: SITE.handle,
         url: SITE.url,
         image: `${SITE.url}/mohammed-figurine.png`,
@@ -143,7 +144,7 @@ export function buildSiteGraphJsonLd() {
           },
         },
         worksFor: [{'@id': ENTITY_IDS.sofrecom}, {'@id': ENTITY_IDS.orange}],
-        knowsAbout: KNOWS_ABOUT,
+        knowsAbout: SITE.knowsAbout,
         sameAs: [SITE.github, SITE.linkedin],
       },
       {
@@ -302,14 +303,14 @@ export function buildContributionJsonLd(contribution: Contribution) {
 
 export function buildSpeakingEventJsonLd() {
   const speakingUrl = `${SITE.url}/speaking`;
-  const devoxxTalk = SITE.speaking[0];
+  const devoxxTalk = deliveredTalk();
 
   return {
     '@context': SCHEMA_CONTEXT,
     '@type': 'EducationEvent',
     '@id': `${speakingUrl}#devoxx-morocco-2026`,
     name: devoxxTalk.title,
-    description: `${devoxxTalk.summary} ${devoxxTalk.detail}`,
+    description: devoxxTalk.detail ? `${devoxxTalk.summary} ${devoxxTalk.detail}` : devoxxTalk.summary,
     url: speakingUrl,
     inLanguage: 'en',
     eventStatus: 'https://schema.org/EventScheduled',

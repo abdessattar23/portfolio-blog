@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import {buildPageMetadata, buildSpeakingEventJsonLd, serializeJsonLd} from '../../lib/seo';
+import {talks} from '../../lib/content/load';
 import {SITE} from '../../lib/site';
 
 export const metadata: Metadata = buildPageMetadata({
@@ -11,7 +12,9 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function Speaking() {
-  const [deliveredTalk, proposalTalk] = SITE.speaking;
+  const delivered = talks.find((talk) => talk.status === 'Delivered');
+  const proposalTalk = talks.find((talk) => talk.status === 'Proposal');
+  if (!delivered || !proposalTalk) throw new Error('Talk records are incomplete.');
 
   return (
     <>
@@ -34,9 +37,9 @@ export default function Speaking() {
           CASABLANCA
         </div>
         <div>
-          <h2>{deliveredTalk.title}</h2>
-          <p>{deliveredTalk.summary}</p>
-          <p className="muted">{deliveredTalk.detail}</p>
+          <h2>{delivered.title}</h2>
+          <p>{delivered.summary}</p>
+          {delivered.detail ? <p className="muted">{delivered.detail}</p> : null}
           <a className="text-link" href={SITE.linkedin} rel="me">Connect on LinkedIn ↗</a>
         </div>
       </article>

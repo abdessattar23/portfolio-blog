@@ -1,5 +1,6 @@
 import {publishedPosts} from '../../content/posts';
 import {contributions, prUrl} from '../../lib/contributions';
+import {talks} from '../../lib/content/load';
 import {SITE} from '../../lib/site';
 
 export function GET() {
@@ -43,7 +44,7 @@ export function GET() {
     })
     .join('\n\n---\n\n');
 
-  const speakingSections = SITE.speaking
+  const speakingSections = talks
     .map(
       (talk) =>
         `### ${talk.title}\n- **Event**: ${talk.event}${talk.location !== 'TBD' ? ` (${talk.location})` : ''}\n- **Status**: ${talk.status}\n- **Summary**: ${talk.summary}`,

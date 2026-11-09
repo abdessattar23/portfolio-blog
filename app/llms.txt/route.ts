@@ -1,5 +1,6 @@
 import {publishedPosts} from '../../content/posts';
 import {contributions, prUrl} from '../../lib/contributions';
+import {talks} from '../../lib/content/load';
 import {SITE} from '../../lib/site';
 
 export function GET() {
@@ -17,7 +18,7 @@ export function GET() {
     )
     .join('\n');
 
-  const speakingItems = SITE.speaking
+  const speakingItems = talks
     .map(
       (talk) =>
         `- **${talk.title}** — ${talk.event}${talk.location !== 'TBD' ? `, ${talk.location}` : ''} [${talk.status}]: ${talk.summary}`,
@@ -43,7 +44,7 @@ export function GET() {
     `- [Home](${SITE.url}/): Overview of ${SITE.name}'s Java backend engineering work, OpenTelemetry Java SDK contributions, and writing.`,
     `- [Open Source Casebook](${SITE.url}/work): Evidence-backed engineering records of merged pull requests in \`open-telemetry/opentelemetry-java\`.`,
     `- [Technical Blog](${SITE.url}/blog): Deep-dive notes on Java concurrency, collections, observability internals, and regression testing.`,
-    `- [Speaking](${SITE.url}/speaking): Conference talks and proposals (${SITE.speaking.map((s) => s.event).join(', ')}).`,
+    `- [Speaking](${SITE.url}/speaking): Conference talks and proposals (${talks.map((item) => item.event).join(', ')}).`,
     `- [About](${SITE.url}/about): Biography, transliteration reference, and contact links.`,
     `- [Full LLM Context Corpus](${SITE.url}${SITE.llmsFull}): Single-file complete Markdown corpus containing full PR analyses and full-text blog notes.`,
     '',
