@@ -1,0 +1,39 @@
+worker/index.ts
+  s_ca15d3fa531b7c::t_70f64de3a5ebf1 3-4
+tsconfig.json
+  s_ca15d3fa531b7c::t_5fe8db8989a56a 11,13-15
+app/page.tsx
+  s_ca15d3fa531b7c::t_579276754e58eb 45-49,51-63
+scripts/new-post.ts
+  s_ca15d3fa531b7c::t_e4832c1bb4e9aa 4-5,24
+eslint.config.mjs
+  s_ca15d3fa531b7c::t_baca5e38836210 8-14
+components/bucket-demo.tsx
+  s_ca15d3fa531b7c::t_91c71d913c0e73 5-7,18-20,24,67
+package.json
+  s_3300b58d364bca::t_235852bd013df5 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "34d281f1504b94d9e3ac6e49273f990c7b924118",
+  "prompts": {},
+  "sessions": {
+    "s_3300b58d364bca": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    },
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
