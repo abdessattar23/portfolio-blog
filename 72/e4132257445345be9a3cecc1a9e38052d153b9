@@ -1,0 +1,29 @@
+app/api/studio/health/route.ts
+  s_ca15d3fa531b7c::t_6cb1d5c7b13c71 1,4-6
+app/api/auth/logout/route.ts
+  s_ca15d3fa531b7c::t_04c6730c934366 1-10
+app/api/auth/callback/route.ts
+  s_ca15d3fa531b7c::t_833ee638869eb1 1-58
+app/api/auth/login/route.ts
+  s_ca15d3fa531b7c::t_899f30f2dd66ad 1-21
+app/robots.ts
+  s_ca15d3fa531b7c::t_460990fc1b8589 24,29
+lib/studio/auth.ts
+  s_ca15d3fa531b7c::t_d1f97e530dd905 1-104
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "72e4132257445345be9a3cecc1a9e38052d153b9",
+  "prompts": {},
+  "sessions": {
+    "s_ca15d3fa531b7c": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "8c31e518-6c7a-42e5-8000-739a08449860",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
