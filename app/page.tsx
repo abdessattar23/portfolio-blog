@@ -30,7 +30,7 @@ export default async function Home() {
       <section className="hero">
         <div className="hero-copy">
           <p className="kicker">Observability · Java · JVM</p>
-          <h1>{SITE.name}</h1>
+          <h1>{SITE.name}<span>.</span></h1>
           <p className="hero-lead">
             I want the mechanism. How it works, not the brochure for what it does.
           </p>

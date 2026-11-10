@@ -10,6 +10,7 @@
   --blue: #3155d9;
   --blue-hover: #1f3fae;
   --coral: #f06a45;
+  --rose: #c4456a;
   --green: #207640;
   --red: #b5483b;
   --code-bg: #20252b;
@@ -30,6 +31,7 @@
   --blue: #8aa3ff;
   --blue-hover: #b1c0ff;
   --coral: #ff8765;
+  --rose: #ffb0c6;
   --green: #6ed28a;
   --red: #f08b7e;
   --code-bg: #0f1216;
@@ -130,7 +132,7 @@ h1, h2, h3 { font-weight: 720; letter-spacing: -0.035em; }
 
 .kicker {
   margin-bottom: 1.35rem;
-  color: var(--muted);
+  color: var(--rose);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -143,6 +145,7 @@ h1, h2, h3 { font-weight: 720; letter-spacing: -0.035em; }
   line-height: 0.91;
   letter-spacing: -0.075em;
 }
+.hero h1 span { color: var(--rose); }
 
 .hero-lead {
   max-width: 720px;
@@ -285,7 +288,7 @@ footer p { margin-top: 0.4rem; color: var(--muted); font-size: 0.8rem; }
 .footer-links a { font-size: 0.82rem; }
 
 .template { --post-accent: var(--blue); }
-.template .page-intro h1 span { color: var(--post-accent); }
+.template .page-intro h1 span { color: var(--rose); }
 .template .note { border-left-color: var(--post-accent); }
 .template[data-template='bug-story'] { --post-accent: var(--coral); }
 .template[data-template='til'] .article-layout { grid-template-columns: minmax(0, 680px); }
@@ -382,9 +385,9 @@ footer p { margin-top: 0.4rem; color: var(--muted); font-size: 0.8rem; }
   line-height: 1.05;
   letter-spacing: -0.045em;
 }
-.page-intro h1 span, .page-intro h1 em { color: var(--blue); font-style: normal; }
+.page-intro h1 span, .page-intro h1 em { color: var(--rose); font-style: normal; }
 .page-intro > p { max-width: 680px; margin: 1.25rem 0; color: var(--muted); font-size: 1.08rem; line-height: 1.75; }
-.eyebrow { color: var(--muted); font-size: 0.72rem; font-weight: 680; letter-spacing: 0.09em; text-transform: uppercase; }
+.eyebrow { color: var(--rose); font-size: 0.72rem; font-weight: 680; letter-spacing: 0.09em; text-transform: uppercase; }
 .back { display: inline-block; margin-bottom: 2rem; color: var(--blue); font-size: 0.85rem; }
 .case-list { padding-bottom: 4rem; }
 
@@ -532,7 +535,7 @@ a.button:hover,
   border-bottom: 1px solid var(--line);
 }
 .invite h2 { margin: 0 0 0.85rem; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; }
-.invite h2 span { color: var(--blue); }
+.invite h2 span { color: var(--rose); }
 .invite p { max-width: 68ch; margin: 0 0 0.85rem; line-height: 1.7; }
 .invite p.muted { margin-bottom: 1.15rem; }
 .invite .button { margin-top: 0.2rem; }
@@ -566,7 +569,7 @@ a.button:hover,
 .talk-schedule li > p { max-width: 68ch; margin: 0.35rem 0 0; color: var(--muted); }
 .speaking-close { margin-top: 0.5rem; padding: 2.3rem 0 3rem; border-top: 1px solid var(--line-strong); }
 .speaking-close h2 { margin: 0.35rem 0 0.75rem; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.08; }
-.speaking-close h2 span { color: var(--blue); }
+.speaking-close h2 span { color: var(--rose); }
 .speaking-close p { max-width: 64ch; margin: 0 0 0.75rem; }
 .speaking-close .button { margin-top: 0.35rem; }
 
