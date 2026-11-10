@@ -1,6 +1,6 @@
 'use client';
 
-import type {ReactNode} from 'react';
+import {useEffect, useRef, type ReactNode} from 'react';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
 import remarkGfm from 'remark-gfm';
@@ -112,10 +112,12 @@ export function renderMarkdownToHtml(markdown: string, lead = false): string {
   const cleaned = markdown.replace(/^(##\s+.+?)\s*\{#[a-z0-9-]+\}\s*$/gm, '$1');
   const ids = sectionsFromMarkdown(markdown).map((section) => section.id);
   let heading = 0;
-  let html = String(processor.processSync(cleaned)).replace(/<h2>/g, () => {
+  let html = String(processor.processSync(cleaned)).replace(/<h2>([\s\S]*?)<\/h2>/g, (_match, inner: string) => {
     const id = ids[heading] ?? `section-${heading}`;
     heading += 1;
-    return `<h2 id="${id}">`;
+    const plain = inner.replace(/<[^>]+>/g, '').trim();
+    const ending = /^one more question\.?$/i.test(plain);
+    return `<h2 id="${id}"${ending ? ' class="one-more"' : ''}>${inner}</h2>`;
   });
   if (lead) html = html.replace('<p>', '<p class="lead">');
   return html;
@@ -163,10 +165,57 @@ export function MarkdownView({
     }
     const lead = !seenMarkdown;
     seenMarkdown = true;
-    nodes.push(
-      <div key={index} dangerouslySetInnerHTML={{__html: renderMarkdownToHtml(segment.text, lead)}} />,
-    );
+    nodes.push(<ProseHtml key={index} html={renderMarkdownToHtml(segment.text, lead)} />);
   });
 
   return <>{nodes}</>;
+}
+
+function ProseHtml({html}: {html: string}) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    const frames: HTMLDivElement[] = [];
+    root.querySelectorAll('pre').forEach((pre) => {
+      if (pre.parentElement?.classList.contains('code-frame')) return;
+      const code = pre.querySelector('code');
+      const language = [...(code?.classList ?? [])]
+        .find((name) => name.startsWith('language-'))
+        ?.slice('language-'.length);
+      const frame = document.createElement('div');
+      frame.className = 'code-frame';
+      const bar = document.createElement('div');
+      bar.className = 'code-bar';
+      const label = document.createElement('span');
+      label.textContent = language || 'code';
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-copy';
+      button.textContent = 'Copy';
+      button.addEventListener('click', () => {
+        const text = code?.textContent ?? '';
+        void navigator.clipboard.writeText(text).then(() => {
+          button.textContent = 'Copied';
+          window.setTimeout(() => {
+            button.textContent = 'Copy';
+          }, 1400);
+        }).catch(() => {
+          button.textContent = 'Copy failed';
+        });
+      });
+      bar.append(label, button);
+      pre.replaceWith(frame);
+      frame.append(bar, pre);
+      frames.push(frame);
+    });
+    return () => {
+      frames.forEach((frame) => {
+        const pre = frame.querySelector('pre');
+        if (pre) frame.replaceWith(pre);
+        else frame.remove();
+      });
+    };
+  }, [html]);
+  return <div ref={ref} dangerouslySetInnerHTML={{__html: html}} />;
 }

@@ -84,6 +84,16 @@ export default async function Home() {
                 <a className="text-link" href={`/blog/${latestPost.slug}`}>Read the note →</a>
               </article>
             )}
+            {publishedPosts.length > 1 ? (
+              <ul className="home-note-list">
+                {publishedPosts.slice(1, 4).map((post) => (
+                  <li key={post.slug}>
+                    <a href={`/blog/${post.slug}`}>{post.title}</a>
+                    <span>{formatUtcDate(post.publishedAt)}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </section>
         </div>
         <aside className="home-sidebar">

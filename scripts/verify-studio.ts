@@ -18,7 +18,7 @@ const talks = files('content/talks').map((name) => parseTalk(readFileSync(resolv
 const site = parseSiteSettings(JSON.parse(readFileSync(resolve(root, 'content/site.json'), 'utf8')));
 
 if (site.url !== 'https://abdessattar.dev') throw new Error(`Unexpected site url ${site.url}`);
-if (posts.length === 0 || work.length !== 4 || talks.length !== 2) throw new Error('Content counts changed unexpectedly.');
+if (posts.length === 0 || work.length !== 4 || talks.length !== 3) throw new Error('Content counts changed unexpectedly.');
 
 const note = posts.find((post) => post.slug === 'pooled-hashmap');
 if (!note || !note.sections.some((section) => section.id === 'mechanism') || !note.body.includes(':::demo{name="bucket"}')) {
