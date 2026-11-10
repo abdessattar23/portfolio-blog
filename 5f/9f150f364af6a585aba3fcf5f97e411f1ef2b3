@@ -1,0 +1,113 @@
+app/page.tsx
+  s_79bbb7f5c8fb7f::t_69c9facf05d691 20-21
+  s_79bbb7f5c8fb7f::t_d085b96ac7e84c 53
+  s_79bbb7f5c8fb7f::t_833e052bac9feb 4,8-17
+  s_79bbb7f5c8fb7f::t_c72503f1b7043c 46-47
+  s_79bbb7f5c8fb7f::t_c8d6c679f35ff6 33
+  s_79bbb7f5c8fb7f::t_86d8f0112e59c8 38
+app/blog/page.tsx
+  s_79bbb7f5c8fb7f::t_f1db2972c9d90a 4,8-16
+lib/site-graph.ts
+  s_79bbb7f5c8fb7f::t_3d2c2cd4d385a9 54
+app/layout.tsx
+  s_79bbb7f5c8fb7f::t_12f3e017a2e2b6 18,21-22,24
+  s_79bbb7f5c8fb7f::t_4b1198acec0694 40
+  s_79bbb7f5c8fb7f::t_6fa3650867bdd2 53
+  s_79bbb7f5c8fb7f::t_6c07613caa925b 5
+app/speaking/page.tsx
+  s_79bbb7f5c8fb7f::t_5885bdacc5db8b 9-19
+  s_79bbb7f5c8fb7f::t_3b3aa763794b37 3
+app/feed.xml/route.ts
+  s_79bbb7f5c8fb7f::t_4457eafd802e32 48
+  s_79bbb7f5c8fb7f::t_1d01d42a39b35c 33
+  s_79bbb7f5c8fb7f::t_be94af100c7e25 45
+  s_79bbb7f5c8fb7f::t_e64254a184bfc0 50
+  s_79bbb7f5c8fb7f::t_0e00dd9ccd9e6e 2
+  s_79bbb7f5c8fb7f::t_b7caa836c12004 16
+lib/seo.ts
+  s_79bbb7f5c8fb7f::t_dab69a5cf335c7 168-170,175-176
+  s_79bbb7f5c8fb7f::t_9c5bc6a7e1f482 80
+  s_79bbb7f5c8fb7f::t_6d115f1093be77 44,46-54,58,60-61,68,70
+  s_79bbb7f5c8fb7f::t_95e916e80dcab6 193
+  s_79bbb7f5c8fb7f::t_783b3a451ee14d 32
+  s_79bbb7f5c8fb7f::t_34a1a7bb029a44 5
+  s_79bbb7f5c8fb7f::t_4a30f8568e6c5c 6,10
+  s_79bbb7f5c8fb7f::t_d3e029867572a5 91,94-96
+  s_79bbb7f5c8fb7f::t_7ce5f617583f0f 106,108
+  s_79bbb7f5c8fb7f::t_3639ee8a48f536 129-132,138-139,141-143
+  s_79bbb7f5c8fb7f::t_6825442b0293a7 147-151,162-163
+content/site.json
+  s_79bbb7f5c8fb7f::t_044ee9b8ce0d6f 3-4
+app/studio/posts/[id]/editor.tsx
+  s_79bbb7f5c8fb7f::t_c1015b0a32cb5f 27
+  s_79bbb7f5c8fb7f::t_b162bc745bd779 95,99
+  s_79bbb7f5c8fb7f::t_3cb88f56c1f6c5 59
+  s_79bbb7f5c8fb7f::t_df3ee63050b1a0 244-254
+  s_79bbb7f5c8fb7f::t_d9b6255d8ba090 466,468-469
+  s_79bbb7f5c8fb7f::t_242f1de4c36b40 1077-1084,1087
+app/studio/record-editor.tsx
+  s_79bbb7f5c8fb7f::t_8f8bad97db13d2 19-23
+app/work/[slug]/page.tsx
+  s_79bbb7f5c8fb7f::t_d5c5f891c79e8f 6
+  s_79bbb7f5c8fb7f::t_d94eb137309004 18,26
+app/blog/[slug]/page.tsx
+  s_79bbb7f5c8fb7f::t_336fed350bea01 21,24,30
+  s_79bbb7f5c8fb7f::t_1a40804b192254 42,50
+  s_79bbb7f5c8fb7f::t_f0c91bb73d0b03 7,9
+scripts/verify-studio.ts
+  s_79bbb7f5c8fb7f::t_68051dfff4a446 5
+  s_79bbb7f5c8fb7f::t_246f7a07a76caf 73-78,85-86
+  s_79bbb7f5c8fb7f::t_b80a88af0c203e 7
+  s_79bbb7f5c8fb7f::t_ef899e6b5eb90e 79-84
+  s_79bbb7f5c8fb7f::t_1bd3b3501a8c36 26-27
+  s_79bbb7f5c8fb7f::t_8680b083492ee2 39-42,45,47
+  s_79bbb7f5c8fb7f::t_a94d7006eb4de7 6
+  s_79bbb7f5c8fb7f::t_03cca7fd7e3a27 34
+  s_79bbb7f5c8fb7f::t_ebef1f5c27c445 23-25,28-33,35-38,43-44,46,48-65
+content/posts/pooled-hashmap.md
+  s_79bbb7f5c8fb7f::t_439296eaeb28d1 4-5
+app/work/page.tsx
+  s_79bbb7f5c8fb7f::t_13b5c7327274c3 4,8-16
+lib/content/schema.ts
+  s_79bbb7f5c8fb7f::t_62310f0dca788e 315-335
+  s_79bbb7f5c8fb7f::t_b69df9ca0515c9 345-350
+  s_79bbb7f5c8fb7f::t_3c7731308a5525 380-381
+  s_79bbb7f5c8fb7f::t_3655ad3c7898c5 95,100-105
+  s_79bbb7f5c8fb7f::t_eb8b2b528eedd8 208
+  s_79bbb7f5c8fb7f::t_96c400ce526276 207,209-213
+  s_79bbb7f5c8fb7f::t_3e47c1c6e16799 25
+  s_79bbb7f5c8fb7f::t_2c8b7f9ce2ff80 231
+  s_79bbb7f5c8fb7f::t_e0e151413fbaf4 244
+app/studio/settings/page.tsx
+  s_79bbb7f5c8fb7f::t_4c24e7f38c1ae4 25
+  s_79bbb7f5c8fb7f::t_97cf8cd1fa7634 6
+lib/content/load.ts
+  s_79bbb7f5c8fb7f::t_b48c939cfb4e87 1
+  s_79bbb7f5c8fb7f::t_29e32e293d0aa6 38-43,45-46
+  s_79bbb7f5c8fb7f::t_075a514a0ae23b 44
+app/about/page.tsx
+  s_79bbb7f5c8fb7f::t_6307ca0dd6efa8 4,6-16,18-19,24
+lib/studio/drafts.ts
+  s_79bbb7f5c8fb7f::t_ab6e23dfb64a24 126
+lib/search-appearance.ts
+  s_79bbb7f5c8fb7f::t_9be5fc7ef805e7 1-48
+lib/studio/published.ts
+  s_79bbb7f5c8fb7f::t_64379f21696ad4 2
+  s_79bbb7f5c8fb7f::t_31334dd7a8b21b 121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "5f9f150f364af6a585aba3fcf5f97e411f1ef2b3",
+  "prompts": {},
+  "sessions": {
+    "s_79bbb7f5c8fb7f": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "5b88ce25-cfc1-4669-8ab3-32ec0636c679",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
