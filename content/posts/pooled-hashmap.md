@@ -1,8 +1,8 @@
 ---
 slug: pooled-hashmap
 title: Why walking a bucket backwards can keep a metric alive
-description: A technical note on removal during iteration, based on the merged
-  OpenTelemetry Java contribution
+seoTitle: "Fixing skipped metrics in OpenTelemetry Java’s PooledHashMap"
+description: "How forward iteration skipped entries in OpenTelemetry Java’s PooledHashMap, and why reversing the traversal fixed it."
 excerpt: Removal, shifting indices, and the regression test that makes a subtle
   collection bug visible. A technical note based on OpenTelemetry Java PR
 publishedAt: 2026-11-08

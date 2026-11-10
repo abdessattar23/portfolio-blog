@@ -3,7 +3,7 @@ import {notFound} from 'next/navigation';
 import {contributions, prUrl} from '../../../lib/contributions';
 import {buildContributionJsonLd, buildPageMetadata, serializeJsonLd} from '../../../lib/seo';
 import {SITE} from '../../../lib/site';
-import {liveWorkCase} from '../../../lib/studio/published';
+import {liveSiteSettings, liveWorkCase} from '../../../lib/studio/published';
 
 export const dynamic = 'force-dynamic';
 
@@ -15,7 +15,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({params}: CasePageProps): Promise<Metadata> {
   const {slug} = await params;
-  const c = await liveWorkCase(slug);
+  const [c, site] = await Promise.all([liveWorkCase(slug), liveSiteSettings()]);
   if (!c) return {};
   return buildPageMetadata({
     title: c.title,
@@ -23,6 +23,7 @@ export async function generateMetadata({params}: CasePageProps): Promise<Metadat
     path: `/work/${c.slug}`,
     type: 'article',
     keywords: [c.shortTitle, ...c.topic.split(' · '), `PR #${c.number}`, 'opentelemetry-java'],
+    site,
   });
 }
 

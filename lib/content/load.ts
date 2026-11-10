@@ -1,4 +1,4 @@
-import {parsePost, parseSiteSettings, parseTalk, parseWorkCase, type PostDocument, type Talk, type WorkCase} from './schema';
+import {mergeSiteSettings, parsePost, parseSiteSettings, parseTalk, parseWorkCase, type PostDocument, type SiteSettings, type Talk, type WorkCase} from './schema';
 import siteFile from '../../content/site.json';
 
 const workFiles = import.meta.glob('../../content/work/*.md', {
@@ -34,6 +34,15 @@ function textModules(modules: Record<string, unknown>): [string, string][] {
 }
 
 export const siteSettings = parseSiteSettings(siteFile);
+
+function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+export function resolveSiteSettings(override?: unknown): SiteSettings {
+  if (!isPlainRecord(override)) return siteSettings;
+  return mergeSiteSettings(siteFile, override);
+}
 
 const workPaths = new Map<string, string>();
 export const workCases: WorkCase[] = textModules(workFiles).map(([file, raw]) => {

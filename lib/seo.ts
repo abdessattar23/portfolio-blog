@@ -2,9 +2,12 @@ import type {Metadata} from 'next';
 import type {BlogPost} from '../content/posts/types';
 import {type Contribution, contributions, prUrl} from './contributions';
 import {deliveredTalk} from './content/load';
-import type {SiteSettings} from './content/schema';
+import {postSearchTitle, type SiteSettings} from './content/schema';
+import {bareDocumentTitle, homeDocumentTitle, withSiteTitle} from './search-appearance';
 import {buildIdentityGraph} from './site-graph';
 import {SITE} from './site';
+
+export {homeDocumentTitle, siteIcons} from './search-appearance';
 
 export const SCHEMA_CONTEXT = 'https://schema.org' as const;
 export const OTEL_JAVA_REPO_URL =
@@ -17,13 +20,6 @@ export const ENTITY_IDS = {
   sofrecom: `${SITE.url}/#org-sofrecom`,
 } as const;
 
-const OG_IMAGE = {
-  url: '/mohammed-figurine.png',
-  width: 1024,
-  height: 1536,
-  alt: `${SITE.fullName} (${SITE.handle}) — observability, Java, and the JVM`,
-};
-
 export type PageMetadataInput = {
   title?: string;
   description: string;
@@ -33,6 +29,7 @@ export type PageMetadataInput = {
   keywords?: readonly string[];
   includeIdentityKeywords?: boolean;
   image?: {url: string; width: number; height: number; alt: string};
+  site?: SiteSettings;
 };
 
 export function buildPageMetadata(input: PageMetadataInput): Metadata {
@@ -44,29 +41,33 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
     publishedTime,
     keywords = [],
     includeIdentityKeywords = false,
-    image = OG_IMAGE,
+    site = SITE,
   } = input;
-
-  const fullTitle = title
-    ? `${title} | ${SITE.name}`
-    : `${SITE.name} (${SITE.handle}) | Java, JVM & observability`;
-  const canonicalUrl = path === '/' ? SITE.url : `${SITE.url}${path}`;
+  const image = input.image ?? {
+    url: '/mohammed-figurine.png',
+    width: 1024,
+    height: 1536,
+    alt: `${site.fullName} (${site.handle}) — observability, Java, and the JVM`,
+  };
+  const bareTitle = title === undefined ? undefined : bareDocumentTitle(title, site);
+  const documentTitle = bareTitle === undefined ? homeDocumentTitle(site) : withSiteTitle(bareTitle, site);
+  const canonicalUrl = path === '/' ? site.url : `${site.url}${path}`;
 
   const mergedKeywords = Array.from(
     new Set([
-      ...SITE.knowsAbout,
+      ...site.knowsAbout,
       ...(includeIdentityKeywords
-        ? [...SITE.alternateNames, 'Orange Maroc', 'Sofrecom', 'Rabat', 'Devoxx Morocco']
-        : [SITE.name, SITE.fullName, 'Mohammed Abdessattar Elyagoubi', SITE.handle]),
+        ? [...site.alternateNames, 'Orange Maroc', 'Sofrecom', 'Rabat', 'Devoxx Morocco']
+        : [site.name, site.fullName, 'Mohammed Abdessattar Elyagoubi', site.handle]),
       ...keywords,
     ]),
   );
 
   const baseOg = {
     url: canonicalUrl,
-    title: fullTitle,
+    title: documentTitle,
     description,
-    siteName: `${SITE.name} (${SITE.handle})`,
+    siteName: site.websiteName,
     locale: 'en_US',
     images: [image],
   };
@@ -76,7 +77,7 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
       ? {
           ...baseOg,
           type: 'article',
-          authors: [SITE.fullName],
+          authors: [site.fullName],
           ...(publishedTime !== undefined
             ? {publishedTime: `${publishedTime}T00:00:00Z`}
             : {}),
@@ -87,12 +88,12 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
         };
 
   return {
-    ...(title !== undefined ? {title} : {}),
+    ...(bareTitle !== undefined ? {title: bareTitle} : {}),
     description,
     keywords: mergedKeywords,
-    authors: [{name: SITE.fullName, url: SITE.url}],
-    creator: SITE.fullName,
-    publisher: SITE.fullName,
+    authors: [{name: site.fullName, url: site.url}],
+    creator: site.fullName,
+    publisher: site.fullName,
     alternates: {
       canonical: path,
       types: {
@@ -102,9 +103,9 @@ export function buildPageMetadata(input: PageMetadataInput): Metadata {
     openGraph,
     twitter: {
       card: 'summary_large_image',
-      title: fullTitle,
+      title: documentTitle,
       description,
-      creator: `@${SITE.handle}`,
+      creator: `@${site.handle}`,
       images: [image.url],
     },
     robots: {
@@ -125,27 +126,29 @@ export function buildSiteGraphJsonLd(site: SiteSettings = SITE) {
   return buildIdentityGraph(site);
 }
 
-export function buildProfilePageJsonLd(path: '/' | '/about' = '/') {
-  const pageUrl = path === '/' ? SITE.url : `${SITE.url}${path}`;
+export function buildProfilePageJsonLd(path: '/' | '/about' = '/', site: SiteSettings = SITE) {
+  const pageUrl = path === '/' ? site.url : `${site.url}${path}`;
+  const person = `${site.url}/#person`;
+  const website = `${site.url}/#website`;
   return {
     '@context': SCHEMA_CONTEXT,
     '@type': 'ProfilePage',
     '@id': `${pageUrl}#profilepage`,
     url: pageUrl,
-    name:
-      path === '/'
-        ? `${SITE.fullName} (${SITE.handle}) — Java, JVM & observability`
-        : `About ${SITE.fullName} (${SITE.handle})`,
-    description: SITE.bio,
+    name: path === '/' ? homeDocumentTitle(site) : `About ${site.fullName}`,
+    description: site.bio,
     inLanguage: 'en',
-    isPartOf: {'@id': ENTITY_IDS.website},
-    mainEntity: {'@id': ENTITY_IDS.person},
-    about: {'@id': ENTITY_IDS.person},
+    isPartOf: {'@id': website},
+    mainEntity: {'@id': person},
+    about: {'@id': person},
   };
 }
 
-export function buildBlogPostJsonLd(post: BlogPost) {
-  const postUrl = `${SITE.url}/blog/${post.slug}`;
+export function buildBlogPostJsonLd(post: BlogPost, site: SiteSettings = SITE) {
+  const postUrl = `${site.url}/blog/${post.slug}`;
+  const person = `${site.url}/#person`;
+  const website = `${site.url}/#website`;
+  const headline = postSearchTitle(post);
   const linkedContribution = contributions.find(
     (c) => c.noteSlug === post.slug || c.slug === post.slug,
   );
@@ -156,21 +159,21 @@ export function buildBlogPostJsonLd(post: BlogPost) {
     '@id': `${postUrl}#article`,
     url: postUrl,
     mainEntityOfPage: postUrl,
-    headline: post.title,
-    name: post.title,
+    headline,
+    name: headline,
     description: post.description,
     datePublished: `${post.publishedAt}T00:00:00Z`,
     dateModified: `${post.updatedAt}T00:00:00Z`,
     inLanguage: 'en',
-    author: {'@id': ENTITY_IDS.person},
-    publisher: {'@id': ENTITY_IDS.person},
-    isPartOf: {'@id': ENTITY_IDS.website},
+    author: {'@id': person},
+    publisher: {'@id': person},
+    isPartOf: {'@id': website},
     keywords: [
       ...post.topics,
       'OpenTelemetry Java',
       'Java',
-      SITE.fullName,
-      SITE.handle,
+      site.fullName,
+      site.handle,
     ],
     about: [
       {
@@ -187,7 +190,7 @@ export function buildBlogPostJsonLd(post: BlogPost) {
               url: prUrl(linkedContribution.number),
               codeRepository: OTEL_JAVA_REPO_URL,
               programmingLanguage: 'Java',
-              author: {'@id': ENTITY_IDS.person},
+              author: {'@id': person},
             },
           ]
         : []),

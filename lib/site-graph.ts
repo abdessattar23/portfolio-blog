@@ -51,7 +51,7 @@ export function buildIdentityGraph(site: SiteSettings) {
         '@id': website,
         url: site.url,
         name: site.websiteName,
-        alternateName: [...new Set([site.fullName, site.handle, ...site.alternateNames])],
+        ...(site.websiteAlternateName !== site.websiteName ? {alternateName: [site.websiteAlternateName]} : {}),
         description: site.bio,
         inLanguage: 'en',
         author: {'@id': person},

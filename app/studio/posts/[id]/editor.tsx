@@ -24,6 +24,7 @@ import {seoHealth} from '../../../../lib/studio/seo';
 type Fields = {
   slug: string;
   title: string;
+  seoTitle?: string;
   description: string;
   excerpt: string;
   publishedAt: string;
@@ -55,6 +56,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 type DraftJson = {
   slug?: unknown;
   title?: unknown;
+  seoTitle?: unknown;
   description?: unknown;
   excerpt?: unknown;
   publishedAt?: unknown;
@@ -90,9 +92,11 @@ function readFields(raw: string, fallbackSlug: string): Fields {
       : undefined;
   const skin = typeof data.skin === 'string' && isSkin(data.skin) && data.skin !== 'plain' ? data.skin : undefined;
   const stickers = Array.isArray(data.stickers) ? data.stickers.filter((item): item is ArticleSticker => typeof item === 'string' && isSticker(item)) : [];
+  const seoTitle = typeof data.seoTitle === 'string' && data.seoTitle.trim() !== '' ? data.seoTitle : undefined;
   return {
     slug: typeof data.slug === 'string' && data.slug.trim() !== '' ? data.slug.trim() : fallbackSlug,
     title: typeof data.title === 'string' ? data.title : '',
+    ...(seoTitle !== undefined ? {seoTitle} : {}),
     description: typeof data.description === 'string' ? data.description : '',
     excerpt: typeof data.excerpt === 'string' ? data.excerpt : '',
     publishedAt: typeof data.publishedAt === 'string' ? data.publishedAt : '',
@@ -233,6 +237,17 @@ export function PostEditor({
 
   function update(next: Partial<Fields>) {
     setFields((current) => ({...current, ...next, slug}));
+    setDirty(true);
+    setStatus('Editing');
+  }
+
+  function updateSeoTitle(value: string) {
+    setFields((current) => {
+      const next: Fields = {...current, slug};
+      if (value.trim()) next.seoTitle = value;
+      else delete next.seoTitle;
+      return next;
+    });
     setDirty(true);
     setStatus('Editing');
   }
@@ -448,9 +463,10 @@ export function PostEditor({
   }, [markdown, cursorMetrics.wordsBefore]);
 
   const headings = useMemo(() => extractHeadings(markdown), [markdown]);
+  const searchTitle = fields.seoTitle?.trim() || fields.title;
   const notes = useMemo(
-    () => seoHealth({title: fields.title, description: fields.description, topics: fields.topics, body: markdown}),
-    [fields.title, fields.description, fields.topics, markdown],
+    () => seoHealth({title: searchTitle, description: fields.description, topics: fields.topics, body: markdown}),
+    [searchTitle, fields.description, fields.topics, markdown],
   );
   const duplicates = useMemo(
     () => findDuplicates({slug, title: fields.title, description: fields.description}, existing),
@@ -1058,9 +1074,17 @@ export function PostEditor({
               {inspectorTab === 'seo' ? (
                 <div className="inspector-panel">
                   <span className="eyebrow">SEARCH & SYNDICATION</span>
+                  <label className="inspector-field">
+                    <span>Search title</span>
+                    <input
+                      value={fields.seoTitle ?? ''}
+                      placeholder="Optional. Falls back to the editorial title."
+                      onChange={(event) => updateSeoTitle(event.target.value)}
+                    />
+                  </label>
                   <div className="search-preview">
                     <p>abdessattar.dev › blog › {slug}</p>
-                    <strong>{fields.title || 'Untitled note'}</strong>
+                    <strong>{searchTitle || 'Untitled note'}</strong>
                     <span>{fields.description || 'No description set yet.'}</span>
                   </div>
 

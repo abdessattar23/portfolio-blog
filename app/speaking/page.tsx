@@ -1,18 +1,22 @@
 import type {Metadata} from 'next';
 import {buildPageMetadata, buildSpeakingEventJsonLd, serializeJsonLd} from '../../lib/seo';
-import {liveTalks} from '../../lib/studio/published';
+import {liveSiteSettings, liveTalks} from '../../lib/studio/published';
 import {SITE} from '../../lib/site';
 import type {Talk} from '../../lib/content/schema';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = buildPageMetadata({
-  title: 'Speaking',
-  description: `Conference talks by ${SITE.fullName} (${SITE.handle}) on open source and observability engineering, including Devoxx Morocco 2026.`,
-  path: '/speaking',
-  includeIdentityKeywords: true,
-  keywords: ['Devoxx Morocco 2026', 'The Future of Open Source Has New Faces', 'Conference Speaker'],
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await liveSiteSettings();
+  return buildPageMetadata({
+    title: 'Speaking',
+    description: `Conference talks by ${site.fullName} (${site.handle}) on open source and observability engineering, including Devoxx Morocco 2026.`,
+    path: '/speaking',
+    includeIdentityKeywords: true,
+    keywords: ['Devoxx Morocco 2026', 'The Future of Open Source Has New Faces', 'Conference Speaker'],
+    site,
+  });
+}
 
 function readableSummary(summary: string): string | null {
   const text = summary.trim();

@@ -1,21 +1,27 @@
 import type {Metadata} from 'next';
 import {buildPageMetadata, buildProfilePageJsonLd, serializeJsonLd} from '../../lib/seo';
 import {SITE} from '../../lib/site';
+import {liveSiteSettings} from '../../lib/studio/published';
 
-export const metadata: Metadata = buildPageMetadata({
-  title: 'About',
-  description: `${SITE.bio}`,
-  path: '/about',
-  type: 'profile',
-  includeIdentityKeywords: true,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await liveSiteSettings();
+  return buildPageMetadata({
+    title: 'About',
+    description: site.bio,
+    path: '/about',
+    type: 'profile',
+    includeIdentityKeywords: true,
+    site,
+  });
+}
 
-export default function About() {
+export default async function About() {
+  const site = await liveSiteSettings();
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildProfilePageJsonLd('/about'))}}
+        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildProfilePageJsonLd('/about', site))}}
       />
       <section className="page-intro">
         <div className="eyebrow">ABOUT / {SITE.fullName.toUpperCase()}</div>

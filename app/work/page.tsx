@@ -1,16 +1,19 @@
 import type {Metadata} from 'next';
 import {prUrl} from '../../lib/contributions';
 import {buildPageMetadata} from '../../lib/seo';
-import {SITE} from '../../lib/site';
-import {liveWorkCases} from '../../lib/studio/published';
+import {liveSiteSettings, liveWorkCases} from '../../lib/studio/published';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = buildPageMetadata({
-  title: 'Open-source work',
-  description: `Merged contributions to the OpenTelemetry Java SDK by ${SITE.fullName} (${SITE.handle}): problem analysis, diffs, and regression tests.`,
-  path: '/work',
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await liveSiteSettings();
+  return buildPageMetadata({
+    title: 'Open-source work',
+    description: `Merged contributions to the OpenTelemetry Java SDK by ${site.fullName} (${site.handle}): problem analysis, diffs, and regression tests.`,
+    path: '/work',
+    site,
+  });
+}
 
 export default async function Work() {
   const contributions = await liveWorkCases();

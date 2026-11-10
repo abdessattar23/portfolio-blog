@@ -1,8 +1,7 @@
 import {cache} from 'react';
-import {posts, siteSettings, talks, workCases} from '../content/load';
+import {posts, resolveSiteSettings, siteSettings, talks, workCases} from '../content/load';
 import {
   parsePost,
-  parseSiteSettings,
   parseTalk,
   parseWorkCase,
   type PostDocument,
@@ -119,7 +118,7 @@ export async function readLiveSiteSettings(): Promise<SiteSettings> {
   const first = rows[0];
   if (!first) return siteSettings;
   try {
-    return parseSiteSettings(JSON.parse(first.content));
+    return resolveSiteSettings(JSON.parse(first.content));
   } catch {
     return siteSettings;
   }

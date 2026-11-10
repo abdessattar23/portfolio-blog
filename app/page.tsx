@@ -1,19 +1,24 @@
 import type {Metadata} from 'next';
 import {buildPageMetadata, buildProfilePageJsonLd, serializeJsonLd} from '../lib/seo';
 import {SITE, formatUtcDate} from '../lib/site';
-import {livePublishedPosts, liveTalks, liveWorkCases} from '../lib/studio/published';
+import {livePublishedPosts, liveSiteSettings, liveTalks, liveWorkCases} from '../lib/studio/published';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = buildPageMetadata({
-  description: SITE.bio,
-  path: '/',
-  type: 'profile',
-  includeIdentityKeywords: true,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await liveSiteSettings();
+  return buildPageMetadata({
+    description: site.bio,
+    path: '/',
+    type: 'profile',
+    includeIdentityKeywords: true,
+    site,
+  });
+}
 
 export default async function Home() {
-  const [publishedPosts, contributions, talks] = await Promise.all([
+  const [site, publishedPosts, contributions, talks] = await Promise.all([
+    liveSiteSettings(),
     livePublishedPosts(),
     liveWorkCases(),
     liveTalks(),
@@ -25,12 +30,12 @@ export default async function Home() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildProfilePageJsonLd('/'))}}
+        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildProfilePageJsonLd('/', site))}}
       />
       <section className="hero">
         <div className="hero-copy">
           <p className="kicker">Observability · Java · JVM</p>
-          <h1>{SITE.name}<span>.</span></h1>
+          <h1>{site.websiteName}<span>.</span></h1>
           <p className="hero-lead">
             I want the mechanism. How it works, not the brochure for what it does.
           </p>
@@ -38,14 +43,14 @@ export default async function Home() {
             Mostly <span>observability, Java, the JVM, open source, and AI.</span>
           </p>
           <div className="social-links">
-            <a href={SITE.github} rel="me">GitHub</a>
-            <a href={SITE.linkedin} rel="me">LinkedIn</a>
+            <a href={site.github} rel="me">GitHub</a>
+            <a href={site.linkedin} rel="me">LinkedIn</a>
           </div>
         </div>
         <figure className="hero-art">
           <img
             src="/mohammed-figurine.png"
-            alt={`${SITE.fullName} (${SITE.handle}), writing on observability, Java, and the JVM`}
+            alt={`${site.fullName} (${site.handle}), writing on observability, Java, and the JVM`}
             width="1024"
             height="1536"
           />

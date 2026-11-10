@@ -22,6 +22,7 @@ export type HomeDiff = {
 export type PostDocument = {
   slug: string;
   title: string;
+  seoTitle?: string;
   description: string;
   excerpt: string;
   publishedAt: string;
@@ -91,9 +92,17 @@ export type SiteSettings = {
   addressLocality: string;
   addressCountry: string;
   websiteName: string;
+  websiteAlternateName: string;
   organizations: SiteOrganization[];
   sameAs: string[];
 };
+
+export const PREFERRED_WEBSITE_NAME = 'Mohammed Abdessetar';
+
+export function postSearchTitle(post: Pick<PostDocument, 'title' | 'seoTitle'>): string {
+  const seoTitle = post.seoTitle?.trim();
+  return seoTitle ? seoTitle : post.title;
+}
 
 const DEFAULT_ORGANIZATIONS: SiteOrganization[] = [
   {name: 'Orange Group'},
@@ -195,6 +204,13 @@ function readStickers(record: Record<string, unknown>, file: string): ArticleSti
   return stickers.length > 0 ? stickers : undefined;
 }
 
+function readSeoTitle(record: Record<string, unknown>, file: string): string | undefined {
+  const value = record['seoTitle'];
+  if (value === undefined || value === '') return undefined;
+  if (typeof value !== 'string' || value.trim() === '') fail(file, 'expected a string for seoTitle');
+  return value.trim();
+}
+
 function readHomeDiff(record: Record<string, unknown>, file: string): HomeDiff | undefined {
   const value = record.homeDiff;
   if (value === undefined) return undefined;
@@ -212,6 +228,7 @@ export function parsePost(raw: string, file: string): PostDocument {
   const homeDiff = readHomeDiff(data, file);
   const skin = readSkin(data, file);
   const stickers = readStickers(data, file);
+  const seoTitle = readSeoTitle(data, file);
   const post: PostDocument = {
     slug: readString(data, 'slug', file),
     title: readString(data, 'title', file),
@@ -224,6 +241,7 @@ export function parsePost(raw: string, file: string): PostDocument {
     sections: sectionsFromMarkdown(body),
     body,
     draft: readBoolean(data, 'draft', file, false),
+    ...(seoTitle !== undefined ? {seoTitle} : {}),
     ...(accent !== undefined ? {accent} : {}),
     ...(homeDiff !== undefined ? {homeDiff} : {}),
     ...(skin !== undefined ? {skin} : {}),
@@ -294,6 +312,27 @@ function readOrganizations(value: unknown, file: string): SiteOrganization[] {
   });
 }
 
+function legacyDerivedWebsiteName(name: string): string {
+  return `${name} — Java, JVM, and observability`;
+}
+
+function readWebsiteName(value: unknown, name: string): string {
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    if (trimmed && trimmed !== legacyDerivedWebsiteName(name)) return trimmed;
+  }
+  return PREFERRED_WEBSITE_NAME;
+}
+
+function readWebsiteAlternateName(value: unknown, url: string): string {
+  if (typeof value === 'string' && value.trim()) return value.trim();
+  try {
+    return new URL(url).hostname.replace(/^www\./i, '');
+  } catch {
+    return 'abdessattar.dev';
+  }
+}
+
 function readSameAs(value: unknown, file: string): string[] {
   if (value === undefined) return [];
   if (!Array.isArray(value)) fail(file, 'sameAs must be a list');
@@ -301,6 +340,12 @@ function readSameAs(value: unknown, file: string): string[] {
     if (typeof item !== 'string' || !item.trim().startsWith('https://')) fail(file, 'sameAs entries must be https URLs');
     return item.trim();
   });
+}
+
+export function mergeSiteSettings(base: unknown, override: unknown): SiteSettings {
+  const baseRecord = isRecord(base) ? base : {};
+  const extra = isRecord(override) ? override : {};
+  return parseSiteSettings({...baseRecord, ...extra});
 }
 
 export function parseSiteSettings(value: unknown): SiteSettings {
@@ -332,7 +377,8 @@ export function parseSiteSettings(value: unknown): SiteSettings {
     familyName: typeof value['familyName'] === 'string' && value['familyName'].trim() ? value['familyName'].trim() : 'Elyagoubi',
     addressLocality: typeof value['addressLocality'] === 'string' && value['addressLocality'].trim() ? value['addressLocality'].trim() : locality,
     addressCountry: typeof value['addressCountry'] === 'string' && /^[A-Z]{2}$/.test(value['addressCountry'].trim()) ? value['addressCountry'].trim() : 'MA',
-    websiteName: typeof value['websiteName'] === 'string' && value['websiteName'].trim() ? value['websiteName'].trim() : `${name} — Java, JVM, and observability`,
+    websiteName: readWebsiteName(value['websiteName'], name),
+    websiteAlternateName: readWebsiteAlternateName(value['websiteAlternateName'], url),
     organizations: readOrganizations(value['organizations'], file),
     sameAs: readSameAs(value['sameAs'], file),
   };

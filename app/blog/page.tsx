@@ -1,15 +1,19 @@
 import type {Metadata} from 'next';
 import {buildPageMetadata} from '../../lib/seo';
 import {SITE, formatUtcDate} from '../../lib/site';
-import {livePublishedPosts} from '../../lib/studio/published';
+import {livePublishedPosts, liveSiteSettings} from '../../lib/studio/published';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = buildPageMetadata({
-  title: 'Blog',
-  description: `Notes on how Java, the JVM, and observability work, by ${SITE.fullName} (${SITE.handle}).`,
-  path: '/blog',
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await liveSiteSettings();
+  return buildPageMetadata({
+    title: 'Blog',
+    description: `Notes on how Java, the JVM, and observability work, by ${site.fullName} (${site.handle}).`,
+    path: '/blog',
+    site,
+  });
+}
 
 export default async function Blog() {
   const publishedPosts = await livePublishedPosts();

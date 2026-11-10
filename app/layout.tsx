@@ -2,7 +2,7 @@ import type {Metadata} from 'next';
 import SiteNavigation from '../components/site-navigation';
 import ThemeToggle from '../components/theme-toggle';
 import {AgentAccess} from '../components/agent-access';
-import {buildPageMetadata, buildSiteGraphJsonLd, serializeJsonLd} from '../lib/seo';
+import {buildPageMetadata, buildSiteGraphJsonLd, homeDocumentTitle, serializeJsonLd, siteIcons} from '../lib/seo';
 import {liveSiteSettings} from '../lib/studio/published';
 import {SITE} from '../lib/site';
 import './globals.css';
@@ -15,12 +15,13 @@ export async function generateMetadata(): Promise<Metadata> {
       description: site.bio,
       path: '/',
       includeIdentityKeywords: true,
+      site,
     }),
     title: {
-      default: `${site.name} (${site.handle}) | Java, JVM & observability`,
-      template: `%s | ${site.name}`,
+      default: homeDocumentTitle(site),
+      template: `%s | ${site.websiteName}`,
     },
-    icons: {icon: site.favicon},
+    icons: siteIcons(site.favicon),
   };
 }
 
@@ -36,8 +37,7 @@ export default async function Layout({children}: Readonly<{children: React.React
           type="application/ld+json"
           dangerouslySetInnerHTML={{__html: serializeJsonLd(buildSiteGraphJsonLd(site))}}
         />
-        <link rel="icon" href={site.favicon} />
-        <link rel="alternate" type="application/rss+xml" title={`${site.name} RSS Feed`} href={SITE.rss} />
+        <link rel="alternate" type="application/rss+xml" title={`${site.websiteName} RSS Feed`} href={SITE.rss} />
         <link rel="alternate" type="text/plain" title="LLMs.txt Index" href={SITE.llms} />
         <link rel="alternate" type="text/plain" title="LLMs-full.txt Complete Corpus" href={SITE.llmsFull} />
         <link rel="api-catalog" href="/.well-known/api-catalog" />
@@ -50,7 +50,7 @@ export default async function Layout({children}: Readonly<{children: React.React
         <a className="skip" href="#main">Skip to content</a>
         <div className="shell">
           <header className="site-header">
-            <a className="wordmark" href="/" aria-label={`${site.fullName} home`}>{site.handle}</a>
+            <a className="wordmark" href="/" aria-label={`${site.websiteName} home`}>{site.websiteName}</a>
             <div className="header-right">
               <SiteNavigation />
               <ThemeToggle />

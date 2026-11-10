@@ -1,5 +1,5 @@
 import {SITE} from '../../lib/site';
-import {livePublishedPosts} from '../../lib/studio/published';
+import {livePublishedPosts, liveSiteSettings} from '../../lib/studio/published';
 
 const XML_ENTITIES: Record<string, string> = {
   '<': '&lt;',
@@ -13,7 +13,7 @@ const escapeXml = (value: string) =>
   value.replace(/[<>&"']/g, (char) => XML_ENTITIES[char] ?? char);
 
 export async function GET() {
-  const publishedPosts = await livePublishedPosts();
+  const [site, publishedPosts] = await Promise.all([liveSiteSettings(), livePublishedPosts()]);
   const feedUrl = `${SITE.url}${SITE.rss}`;
 
   const items = publishedPosts
@@ -30,7 +30,7 @@ export async function GET() {
         `<link>${url}</link>`,
         `<guid isPermaLink="true">${url}</guid>`,
         `<pubDate>${pubDate}</pubDate>`,
-        `<dc:creator>${escapeXml(SITE.fullName)}</dc:creator>`,
+        `<dc:creator>${escapeXml(site.fullName)}</dc:creator>`,
         categories,
         `<description>${escapeXml(post.excerpt)}</description>`,
         '</item>',
@@ -42,12 +42,12 @@ export async function GET() {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">',
     '<channel>',
-    `<title>${escapeXml(SITE.name)}: technical notes</title>`,
+    `<title>${escapeXml(site.websiteName)}: technical notes</title>`,
     `<link>${SITE.url}/blog</link>`,
     `<atom:link href="${feedUrl}" rel="self" type="application/rss+xml" />`,
-    `<description>${escapeXml(`Observability, Java, the JVM, open source, and AI. Notes by ${SITE.fullName} (${SITE.handle}).`)}</description>`,
+    `<description>${escapeXml(`Observability, Java, the JVM, open source, and AI. Notes by ${site.fullName} (${site.handle}).`)}</description>`,
     '<language>en</language>',
-    `<dc:creator>${escapeXml(SITE.fullName)}</dc:creator>`,
+    `<dc:creator>${escapeXml(site.fullName)}</dc:creator>`,
     items,
     '</channel>',
     '</rss>',

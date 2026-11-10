@@ -4,8 +4,9 @@ import {publishedPosts} from '../../../content/posts';
 import {PostTemplate} from '../../../components/templates/post-template';
 import {artifactsForMarkdown} from '../../../lib/artifacts/resolve';
 import {MarkdownView} from '../../../lib/content/render';
+import {postSearchTitle} from '../../../lib/content/schema';
 import {buildBlogPostJsonLd, buildPageMetadata, serializeJsonLd} from '../../../lib/seo';
-import {livePublishedPost} from '../../../lib/studio/published';
+import {livePublishedPost, liveSiteSettings} from '../../../lib/studio/published';
 
 export const dynamic = 'force-dynamic';
 
@@ -17,15 +18,16 @@ export function generateStaticParams() {
 
 export async function generateMetadata({params}: BlogPostPageProps): Promise<Metadata> {
   const {slug} = await params;
-  const post = await livePublishedPost(slug);
+  const [post, site] = await Promise.all([livePublishedPost(slug), liveSiteSettings()]);
   if (!post) return {};
   return buildPageMetadata({
-    title: post.title,
+    title: postSearchTitle(post),
     description: post.description,
     path: `/blog/${post.slug}`,
     type: 'article',
     publishedTime: post.publishedAt,
     keywords: post.topics,
+    site,
     image: {
       url: `/og/${post.slug}`,
       width: 1200,
@@ -37,7 +39,7 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
 
 export default async function BlogPostPage({params}: BlogPostPageProps) {
   const {slug} = await params;
-  const post = await livePublishedPost(slug);
+  const [post, site] = await Promise.all([livePublishedPost(slug), liveSiteSettings()]);
   if (!post) return notFound();
   const artifacts = await artifactsForMarkdown(post.body);
 
@@ -45,7 +47,7 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildBlogPostJsonLd(post))}}
+        dangerouslySetInnerHTML={{__html: serializeJsonLd(buildBlogPostJsonLd(post, site))}}
       />
       <PostTemplate post={post}>
         <MarkdownView markdown={post.body} title={post.title} artifacts={artifacts} />

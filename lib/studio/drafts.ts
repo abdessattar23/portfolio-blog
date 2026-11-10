@@ -123,6 +123,7 @@ async function initialContent(kind: DraftKind, slug: string, title?: string): Pr
       frontmatter: JSON.stringify({
         slug: post.slug,
         title: post.title,
+        ...(post.seoTitle !== undefined ? {seoTitle: post.seoTitle} : {}),
         description: post.description,
         excerpt: post.excerpt,
         publishedAt: post.publishedAt,
