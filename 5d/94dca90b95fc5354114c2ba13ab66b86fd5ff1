@@ -1,0 +1,43 @@
+app/page.tsx
+  s_cd8ddbc7735baa::t_a1f600b0ad44f1 87-96
+app/speaking/page.tsx
+  s_cd8ddbc7735baa::t_2ff59f5c7e0acb 5,17-23,25-40,49-51,59-60,66,68-77,79-116,118-142
+lib/content/render.tsx
+  s_cd8ddbc7735baa::t_b15f3d00f05b4e 3
+  s_cd8ddbc7735baa::t_66f2d40272b7d3 168
+  s_cd8ddbc7735baa::t_a84c8f7ce44edf 115,118-120
+  s_cd8ddbc7735baa::t_e2acae5d9ac4c8 173-221
+app/globals.css
+  s_cd8ddbc7735baa::t_8283e40d9b9163 198-202
+  s_cd8ddbc7735baa::t_0621b4ee1c947a 381
+  s_cd8ddbc7735baa::t_fab6738cb36fa3 378-380,382-384
+  s_cd8ddbc7735baa::t_3cfe28342248df 574
+  s_cd8ddbc7735baa::t_8a1fd5820162dd 540-572
+  s_cd8ddbc7735baa::t_0bad4544736af4 123
+  s_cd8ddbc7735baa::t_3a77ba5f4be077 729
+  s_cd8ddbc7735baa::t_528128b53a60f8 443-466,468
+  s_cd8ddbc7735baa::t_0a4849a87255fd 593
+  s_cd8ddbc7735baa::t_772a00aa3b2c61 185-188
+  s_cd8ddbc7735baa::t_2af41e6eac7899 215-224
+  s_cd8ddbc7735baa::t_f8a5851ee3e89f 721-722
+  s_cd8ddbc7735baa::t_3690b607e946e2 420,422-427
+  s_cd8ddbc7735baa::t_7a7f0e9ec41cd3 401-402
+scripts/verify-studio.ts
+  s_cd8ddbc7735baa::t_ba7ac163e43fa9 21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "5d94dca90b95fc5354114c2ba13ab66b86fd5ff1",
+  "prompts": {},
+  "sessions": {
+    "s_cd8ddbc7735baa": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "b27af003-350c-4d18-b52d-43fd8a475baa",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
