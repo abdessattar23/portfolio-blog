@@ -41,7 +41,7 @@ const idSchema = {type: 'string', description: 'Draft id returned by list_drafts
 const confirmSchema = {type: 'boolean', description: 'Must be true. Set it only after the owner explicitly asks for this action.'};
 const fieldsSchema = {
   type: 'object',
-  description: 'Frontmatter fields to merge. For a talk: title, status (Upcoming, Delivered, Proposal), event, location, summary, detail. For a note: title, description, excerpt, topics, template, draft, skin, stickers, accent, homeDiff. For a case: number, shortTitle, topic, title, summary, problem, change, verification, boundary, noteSlug. For site: the site.json keys. Employer stays Sofrecom (Orange Group) at sofrecom.com.',
+  description: 'Frontmatter fields to merge. For a talk: title, status (Upcoming, Delivered, Proposal), event, location, summary, detail. For a note: title, description, excerpt, topics, template, draft, skin, stickers, accent, homeDiff, bannerImage, bannerAlt. For a case: number, shortTitle, topic, title, summary, problem, change, verification, boundary, noteSlug. For site: the site.json keys. Employer stays Sofrecom (Orange Group) at sofrecom.com.',
   additionalProperties: true,
 };
 
