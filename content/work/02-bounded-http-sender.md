@@ -13,6 +13,5 @@ verification: |
   Added tests check the pool bound and rejection policy, successful responses, I/O failures, and rejected execution reaching the error callback.
 boundary: |
   The original proposal mentioned CallerRunsPolicy. The merged implementation uses AbortPolicy. No production performance improvement is claimed here.
----
-
 noteSlug: how-http-client-creates-too-many-threads
+---
