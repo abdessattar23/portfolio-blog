@@ -78,6 +78,9 @@ export default async function Speaking() {
           <TalkFacts talk={featured} />
           {featuredSummary ? <p>{featuredSummary}</p> : null}
           {featured.detail ? <p className="muted">{featured.detail}</p> : null}
+          {featured.slug === "future-of-open-source" ? (
+            <p>Start with the work behind the talk: <a href="/blog/pooled-hashmap">a collection iteration bug</a>, <a href="/blog/how-http-client-creates-too-many-threads">a bounded HTTP sender</a>, <a href="/work/jaeger-interval">a configuration key mismatch</a>, and <a href="/work/configuration-errors">safer configuration errors</a>.</p>
+          ) : null}
           <a className="text-link" href={SITE.linkedin} rel="me">Connect on LinkedIn ↗</a>
         </article>
       ) : null}
@@ -142,7 +145,7 @@ export default async function Speaking() {
         <p className="muted">
           Tell me the event, the city or that it is online, the date, who is in the room, and how long you want.
         </p>
-        <a className="button" href={SITE.linkedin} rel="me">Contact me on LinkedIn</a>
+        <a className="button" href="mailto:elyagoubiabdessetarmoh@gmail.com">Email me</a>
       </section>
     </>
   );

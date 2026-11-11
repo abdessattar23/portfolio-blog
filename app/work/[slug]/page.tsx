@@ -68,7 +68,7 @@ export default async function CasePage({params}: CasePageProps) {
           <a className="button" href={prUrl(c.number)}>Open the merged contribution ↗</a>
           {c.noteSlug && (
             <p>
-              <a href={`/blog/${c.noteSlug}`}>Read the technical note with an interactive bucket example →</a>
+              <a href={`/blog/${c.noteSlug}`}>Read the technical note →</a>
             </p>
           )}
         </article>

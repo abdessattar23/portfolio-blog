@@ -35,6 +35,7 @@ export default async function About() {
         <aside>
           <div className="eyebrow">FIND ME</div>
           <a href={SITE.github} rel="me">GitHub (@{SITE.handle}) ↗</a>
+          <a href="mailto:elyagoubiabdessetarmoh@gmail.com">Email ↗</a>
           <a href={SITE.linkedin} rel="me">LinkedIn ↗</a>
           <a href={SITE.llms}>llms.txt ↗</a>
         </aside>
@@ -52,8 +53,10 @@ export default async function About() {
           <a className="text-link" href="/speaking">View speaking ↗</a>
           <h2>Get in touch</h2>
           <p>
-            For technical conversations or speaking inquiries, reach me on <a href={SITE.linkedin} rel="me">LinkedIn</a>. For discussions about a specific contribution, its GitHub pull request provides the context.
+            For technical conversations or speaking inquiries, email me at <a href="mailto:elyagoubiabdessetarmoh@gmail.com">elyagoubiabdessetarmoh@gmail.com</a>. For discussions about a specific contribution, its GitHub pull request provides the context.
           </p>
+          <h2>About this site</h2>
+          <p>A technical note on the public pages, private Studio, and analytics boundary is in preparation.</p>
           <h2>Name &amp; citation</h2>
           <p className="muted">
             Full name: <strong>{SITE.fullName}</strong>. Depending on French or English transliteration from Arabic, my name also appears in conference programs and commit records as{' '}
