@@ -27,6 +27,11 @@ export function PostTemplate({post, children}: {post: PostDocument; children: Re
         <h1>{post.title}<span>.</span></h1>
         <p>{post.description}</p>
       </section>
+      {post.bannerImage ? (
+        <figure className="article-banner">
+          <img src={post.bannerImage} alt={post.bannerAlt ?? post.title} loading="eager" decoding="async" />
+        </figure>
+      ) : null}
       <div className="article-layout">
         {post.stickers && post.stickers.length > 0 ? <ArticleStickers slug={post.slug} stickers={post.stickers} /> : null}
         <aside>
