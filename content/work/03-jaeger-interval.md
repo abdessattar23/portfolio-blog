@@ -14,3 +14,5 @@ verification: |
 boundary: |
   This is a declarative configuration fix for the Jaeger remote sampler, not a change to all sampling behavior.
 ---
+
+noteSlug: jaeger-interval
