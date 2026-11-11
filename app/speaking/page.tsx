@@ -145,7 +145,7 @@ export default async function Speaking() {
         <p className="muted">
           Tell me the event, the city or that it is online, the date, who is in the room, and how long you want.
         </p>
-        <a className="button" href={SITE.linkedin} rel="me">Contact me on LinkedIn</a>
+        <a className="button" href="mailto:elyagoubiabdessattar@gmail.com">Email me</a>
       </section>
     </>
   );
