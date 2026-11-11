@@ -13,5 +13,4 @@ verification: |
   Regression tests use sentinel credential values and assert the expected redacted exception messages.
 boundary: |
   The fix covers the identified configuration error paths. It is not a claim that every possible logging path is secret-free.
-noteSlug: configuration-errors
 ---
