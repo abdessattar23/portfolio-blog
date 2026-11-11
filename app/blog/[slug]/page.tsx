@@ -28,12 +28,9 @@ export async function generateMetadata({params}: BlogPostPageProps): Promise<Met
     publishedTime: post.publishedAt,
     keywords: post.topics,
     site,
-    image: {
-      url: `/og/${post.slug}`,
-      width: 1200,
-      height: 630,
-      alt: post.title,
-    },
+    image: post.bannerImage
+      ? {url: post.bannerImage, width: 1200, height: 675, alt: post.bannerAlt ?? post.title}
+      : {url: `/og/${post.slug}`, width: 1200, height: 630, alt: post.title},
   });
 }
 
