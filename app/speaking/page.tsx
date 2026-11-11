@@ -78,6 +78,9 @@ export default async function Speaking() {
           <TalkFacts talk={featured} />
           {featuredSummary ? <p>{featuredSummary}</p> : null}
           {featured.detail ? <p className="muted">{featured.detail}</p> : null}
+          {featured.slug === "future-of-open-source" ? (
+            <p>Start with the work behind the talk: <a href="/blog/pooled-hashmap">a collection iteration bug</a>, <a href="/blog/how-http-client-creates-too-many-threads">a bounded HTTP sender</a>, <a href="/blog/jaeger-interval">a configuration key mismatch</a>, and <a href="/blog/configuration-errors">safer configuration errors</a>.</p>
+          ) : null}
           <a className="text-link" href={SITE.linkedin} rel="me">Connect on LinkedIn ↗</a>
         </article>
       ) : null}
