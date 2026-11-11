@@ -14,3 +14,5 @@ verification: |
 boundary: |
   The fix covers the identified configuration error paths. It is not a claim that every possible logging path is secret-free.
 ---
+
+noteSlug: configuration-errors
