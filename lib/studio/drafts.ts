@@ -131,6 +131,8 @@ async function initialContent(kind: DraftKind, slug: string, title?: string): Pr
         topics: post.topics,
         template: post.template,
         draft: post.draft,
+        ...(post.bannerImage !== undefined ? {bannerImage: post.bannerImage} : {}),
+        ...(post.bannerAlt !== undefined ? {bannerAlt: post.bannerAlt} : {}),
         ...(post.accent !== undefined ? {accent: post.accent} : {}),
         ...(post.homeDiff !== undefined ? {homeDiff: post.homeDiff} : {}),
         ...(post.skin !== undefined ? {skin: post.skin} : {}),
