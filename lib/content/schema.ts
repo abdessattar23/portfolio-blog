@@ -32,6 +32,8 @@ export type PostDocument = {
   sections: PostSection[];
   body: string;
   draft: boolean;
+  bannerImage?: string;
+  bannerAlt?: string;
   accent?: string;
   homeDiff?: HomeDiff;
   skin?: PostSkin;
@@ -229,6 +231,11 @@ export function parsePost(raw: string, file: string): PostDocument {
   const skin = readSkin(data, file);
   const stickers = readStickers(data, file);
   const seoTitle = readSeoTitle(data, file);
+  const bannerImage = readOptionalString(data, 'bannerImage', file);
+  const bannerAlt = readOptionalString(data, 'bannerAlt', file);
+  if (bannerImage && (!/^(\/(?!\/)|https:\/\/)/.test(bannerImage) || /[<>"'\s]/.test(bannerImage))) {
+    fail(file, 'bannerImage must be an absolute local path or HTTPS URL without markup');
+  }
   const post: PostDocument = {
     slug: readString(data, 'slug', file),
     title: readString(data, 'title', file),
@@ -241,6 +248,8 @@ export function parsePost(raw: string, file: string): PostDocument {
     sections: sectionsFromMarkdown(body),
     body,
     draft: readBoolean(data, 'draft', file, false),
+    ...(bannerImage !== undefined ? {bannerImage} : {}),
+    ...(bannerAlt !== undefined ? {bannerAlt} : {}),
     ...(seoTitle !== undefined ? {seoTitle} : {}),
     ...(accent !== undefined ? {accent} : {}),
     ...(homeDiff !== undefined ? {homeDiff} : {}),
