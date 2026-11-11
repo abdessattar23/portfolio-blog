@@ -32,6 +32,8 @@ type Fields = {
   topics: string[];
   template: PostTemplate;
   draft: boolean;
+  bannerImage?: string;
+  bannerAlt?: string;
   accent?: string;
   homeDiff?: HomeDiff;
   skin?: PostSkin;
@@ -64,6 +66,8 @@ type DraftJson = {
   topics?: unknown;
   template?: unknown;
   draft?: unknown;
+  bannerImage?: unknown;
+  bannerAlt?: unknown;
   accent?: unknown;
   homeDiff?: unknown;
   skin?: unknown;
@@ -104,6 +108,8 @@ function readFields(raw: string, fallbackSlug: string): Fields {
     topics,
     template,
     draft: data.draft !== false,
+    ...(typeof data.bannerImage === 'string' && data.bannerImage.trim() ? {bannerImage: data.bannerImage.trim()} : {}),
+    ...(typeof data.bannerAlt === 'string' && data.bannerAlt.trim() ? {bannerAlt: data.bannerAlt.trim()} : {}),
     ...(accent !== undefined ? {accent} : {}),
     ...(homeDiff !== undefined ? {homeDiff} : {}),
     ...(skin !== undefined ? {skin} : {}),
@@ -180,6 +186,7 @@ export function PostEditor({
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const bannerFileInputRef = useRef<HTMLInputElement | null>(null);
 
   const serializedFrontmatter = useMemo(() => JSON.stringify({...fields, slug}), [fields, slug]);
 
@@ -301,7 +308,7 @@ export function PostEditor({
     setStatus('Editing');
   }
 
-  async function upload(file: File) {
+  async function upload(file: File, asBanner = false) {
     setStatus('Uploading image…');
     const form = new FormData();
     form.set('file', file);
@@ -313,7 +320,11 @@ export function PostEditor({
     }
     const payload: unknown = await response.json();
     if (typeof payload === 'object' && payload !== null && 'url' in payload && typeof payload.url === 'string') {
-      insertSnippet(`\n![${file.name.replace(/\.[^.]+$/, '')}](${payload.url})\n`);
+      if (asBanner) {
+        update({bannerImage: payload.url, bannerAlt: fields.bannerAlt || 'More concurrency compared with a clear limit'});
+      } else {
+        insertSnippet(`\n![${file.name.replace(/\.[^.]+$/, '')}](${payload.url})\n`);
+      }
       setStatus('Editing');
     }
   }
@@ -486,6 +497,8 @@ export function PostEditor({
       sections: sectionsFromMarkdown(markdown),
       body: markdown,
       draft: fields.draft,
+      ...(fields.bannerImage ? {bannerImage: fields.bannerImage} : {}),
+      ...(fields.bannerAlt ? {bannerAlt: fields.bannerAlt} : {}),
       ...(fields.accent ? {accent: fields.accent} : {}),
       ...(fields.homeDiff ? {homeDiff: fields.homeDiff} : {}),
       ...(fields.skin ? {skin: fields.skin} : {}),
@@ -966,6 +979,24 @@ export function PostEditor({
                         onChange={(event) => update({updatedAt: event.target.value})}
                       />
                     </label>
+                  </div>
+
+                  <div className="inspector-group-box">
+                    <span className="eyebrow">ARTICLE BANNER (OPTIONAL)</span>
+                    <label className="inspector-field">
+                      <span>Banner image URL</span>
+                      <input type="text" placeholder="/media/article/banner.webp" value={fields.bannerImage ?? ''}
+                        onChange={(event) => update({bannerImage: event.target.value.trim() || undefined})} />
+                    </label>
+                    <label className="inspector-field">
+                      <span>Banner alt text</span>
+                      <input type="text" placeholder="Describe the banner for accessibility" value={fields.bannerAlt ?? ''}
+                        onChange={(event) => update({bannerAlt: event.target.value || undefined})} />
+                    </label>
+                    <button type="button" className="atelier-btn-ghost" onClick={() => bannerFileInputRef.current?.click()}>Upload banner image</button>
+                    {fields.bannerImage ? <button type="button" className="atelier-btn-ghost" onClick={() => update({bannerImage: undefined})}>Remove banner</button> : null}
+                    <input ref={bannerFileInputRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden
+                      onChange={(event) => {const file = event.target.files?.[0]; if (file) void upload(file, true); event.target.value = '';}} />
                   </div>
 
                   <label className="inspector-field">
