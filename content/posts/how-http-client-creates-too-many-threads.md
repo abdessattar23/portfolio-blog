@@ -222,3 +222,6 @@ But leaving the decision to **Integer.MAX_VALUE** is probably not a design decis
 - [Java ThreadPoolExecutor documentation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/ThreadPoolExecutor.html)
 - [Java SynchronousQueue documentation](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/SynchronousQueue.html)
 - [OpenJDK JEP 444: Virtual Threads](https://openjdk.org/jeps/444)
+
+
+[View the contribution record](/work/bounded-http-sender)
