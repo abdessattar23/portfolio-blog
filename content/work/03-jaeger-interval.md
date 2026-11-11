@@ -13,5 +13,4 @@ verification: |
   The merged change updates description assertions. The review discussion explains why the existing toString-based comparison previously missed the interval mismatch.
 boundary: |
   This is a declarative configuration fix for the Jaeger remote sampler, not a change to all sampling behavior.
-noteSlug: jaeger-interval
 ---
