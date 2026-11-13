@@ -1,0 +1,161 @@
+components/templates/post-template.tsx
+  s_79bbb7f5c8fb7f::t_9b116ac8053837 50
+app/studio/studio-shell.tsx
+  s_79bbb7f5c8fb7f::t_93d00d6b1d7c88 258-270
+  s_79bbb7f5c8fb7f::t_27541020703b5a 116
+app/studio/analytics/dashboard.tsx
+  s_79bbb7f5c8fb7f::t_20c1e94bd33446 48
+  s_79bbb7f5c8fb7f::t_3bde352825a6dc 1-14,26-31,34-47,49-50,55,60-120,130,132-135,137-159,173-230,372-486,512-522
+  s_79bbb7f5c8fb7f::t_40e4949bf75a81 15-25
+  s_79bbb7f5c8fb7f::t_8e464ada958dfc 259
+  s_79bbb7f5c8fb7f::t_abb75d51955e89 136
+  s_79bbb7f5c8fb7f::t_d103c38bf1295d 487-491
+  s_79bbb7f5c8fb7f::t_b08cd74aa92eab 256
+  s_79bbb7f5c8fb7f::t_555dc38817cc32 343-371
+  s_79bbb7f5c8fb7f::t_8d4a2ba3ca5e06 250
+  s_79bbb7f5c8fb7f::t_e5e4d62f5872d0 236-240
+  s_79bbb7f5c8fb7f::t_95681ce93ba6e9 231-235,241-249,253-255,257-258,260-342
+  s_79bbb7f5c8fb7f::t_fe4f688fff101b 51-54,56-59
+  s_79bbb7f5c8fb7f::t_b4a6c329471d5f 172
+  s_79bbb7f5c8fb7f::t_92fafa2d43df5b 121-129,131
+  s_79bbb7f5c8fb7f::t_9d506b452e2275 33
+  s_79bbb7f5c8fb7f::t_267c0bda9b6a34 492-511
+  s_79bbb7f5c8fb7f::t_6666ac07c8f025 171
+  s_79bbb7f5c8fb7f::t_69e3a78d4cb5bc 32
+  s_79bbb7f5c8fb7f::t_2ae7aac60b1057 251-252
+  s_79bbb7f5c8fb7f::t_e0302b12401a94 160-170
+lib/studio/analytics-model.ts
+  s_79bbb7f5c8fb7f::t_0f52512289e525 36-42,46-65
+  s_79bbb7f5c8fb7f::t_ac27afaf2bed79 334-338
+  s_79bbb7f5c8fb7f::t_9a31176b7c5da3 286-287
+  s_79bbb7f5c8fb7f::t_0567fc79bfefda 426-439
+  s_79bbb7f5c8fb7f::t_176330bfbce3f2 227-228,231-237,239-242,245-247
+  s_79bbb7f5c8fb7f::t_39c046f530e05b 290
+  s_79bbb7f5c8fb7f::t_09132658ea34e2 159,161,171
+  s_79bbb7f5c8fb7f::t_ab1deb9d16f070 186-192
+  s_79bbb7f5c8fb7f::t_ee393db767157f 69
+  s_79bbb7f5c8fb7f::t_8b942b06a3fd46 219-222
+  s_79bbb7f5c8fb7f::t_0b959052ed4c1e 96
+  s_79bbb7f5c8fb7f::t_1f2a262a9b6a75 70-71
+  s_79bbb7f5c8fb7f::t_51fadf3d5a684c 366-373,376-377,380-381
+  s_79bbb7f5c8fb7f::t_b4c749c7434638 440-441
+  s_79bbb7f5c8fb7f::t_ddedebc8bdc175 1-35,66-68,72-95,97-158,160,162-170,172-185,193-204,207-218,223-226,229-230,238,243-244,248-285,288-289,291-333,339-344,350-365,374-375,378-379,382-425,442-443
+  s_79bbb7f5c8fb7f::t_0da25337ee839c 444-447
+  s_79bbb7f5c8fb7f::t_8c3c6bfba2ee50 345-349
+  s_79bbb7f5c8fb7f::t_158566072bbb87 43-45
+  s_79bbb7f5c8fb7f::t_e77ac2b666540c 205-206
+app/layout.tsx
+  s_79bbb7f5c8fb7f::t_93f8bf8cd0fd76 52
+  s_79bbb7f5c8fb7f::t_a5c17752b4f339 51
+  s_79bbb7f5c8fb7f::t_82cad6ff9bf478 4
+  s_79bbb7f5c8fb7f::t_0ac09427f83d15 5
+components/public-tracker.tsx
+  s_79bbb7f5c8fb7f::t_3be69625a6c2ed 29
+  s_79bbb7f5c8fb7f::t_714560f10ac907 6
+  s_79bbb7f5c8fb7f::t_d842628675a48a 63-68,73
+  s_79bbb7f5c8fb7f::t_32bab9fdaa65fe 22
+  s_79bbb7f5c8fb7f::t_1d7b88f965985d 1-5,7-21,23-28,30-62,69-72,74-94
+scripts/verify-analytics.ts
+  s_79bbb7f5c8fb7f::t_62976d08fc6bdd 90-91,93,96-99,101
+  s_79bbb7f5c8fb7f::t_9bee7beef27f67 1,3-4
+  s_79bbb7f5c8fb7f::t_65375af68054dd 77-80,87-89,92,94-95,100,102-105
+  s_79bbb7f5c8fb7f::t_4d9e32f822fb49 5-6
+  s_79bbb7f5c8fb7f::t_d54e23364b5cda 2
+  s_79bbb7f5c8fb7f::t_e3fee4f23a80e0 81-86
+  s_79bbb7f5c8fb7f::t_6a2c7eec345572 9
+  s_79bbb7f5c8fb7f::t_22ad3506f59576 7-8,10-73,76
+  s_79bbb7f5c8fb7f::t_fcdd6ad948ba25 74-75
+lib/studio/umami.ts
+  s_79bbb7f5c8fb7f::t_cbaf3736de6376 218-221
+  s_79bbb7f5c8fb7f::t_c1f4a844f0d466 239-241,243-287
+  s_79bbb7f5c8fb7f::t_9120ea9be330f1 108
+  s_79bbb7f5c8fb7f::t_bdc6b37981db2c 148-155
+  s_79bbb7f5c8fb7f::t_b0fe49da8bc896 52-54,56
+  s_79bbb7f5c8fb7f::t_b25c33d2b77373 34
+  s_79bbb7f5c8fb7f::t_97ada900f220c0 4
+  s_79bbb7f5c8fb7f::t_a16c6dd9f5f4db 171
+  s_79bbb7f5c8fb7f::t_a4974545bb04d8 55
+  s_79bbb7f5c8fb7f::t_e4bcebf0301882 187,189-212,214-217,222-238,242,288-325
+  s_79bbb7f5c8fb7f::t_d2f9e29f3a5e0c 1-3,5-10,12-33,35-51,57-107,109-147,156-160,162-170,172-186,188,326-335
+  s_79bbb7f5c8fb7f::t_4a8ba3689c9824 11
+  s_79bbb7f5c8fb7f::t_6d270f782deac9 161
+  s_79bbb7f5c8fb7f::t_2661b08d3324b0 213
+lib/analytics/document-boundary.ts
+  s_79bbb7f5c8fb7f::t_3b0e4ca3fd3348 1-2,7-24
+  s_79bbb7f5c8fb7f::t_d86eab107d4db8 25-60
+  s_79bbb7f5c8fb7f::t_e7de77cfc2c61c 3-6
+package.json
+  s_79bbb7f5c8fb7f::t_d0fb2e6a5d33eb 13
+cloudflare-env.d.ts
+  s_79bbb7f5c8fb7f::t_eeca544b2aceb4 28-30
+  s_79bbb7f5c8fb7f::t_56643767efc6a0 3
+components/theme-toggle.tsx
+  s_79bbb7f5c8fb7f::t_becdec865c3357 4
+  s_79bbb7f5c8fb7f::t_29f6f169ef0c7e 14
+  s_79bbb7f5c8fb7f::t_f23eba95661d06 29
+  s_79bbb7f5c8fb7f::t_42b655a7169067 26
+app/blog/[slug]/page.tsx
+  s_79bbb7f5c8fb7f::t_6d3b0a56438853 4
+  s_79bbb7f5c8fb7f::t_e584091737d81a 58
+  s_79bbb7f5c8fb7f::t_c217ef4dd92748 44-46,53-57
+lib/analytics/reading.ts
+  s_79bbb7f5c8fb7f::t_f206e9f8211614 44,47,61,66-74
+  s_79bbb7f5c8fb7f::t_90898eebad9ec5 82-83
+  s_79bbb7f5c8fb7f::t_a9318e199cee89 1-43,45-46,48-60,62-65,75-76,84-85
+  s_79bbb7f5c8fb7f::t_6f621a4a07df03 77-81
+app/studio/atelier.css
+  s_79bbb7f5c8fb7f::t_5376bd096ccd4f 1258
+  s_79bbb7f5c8fb7f::t_bbbdba13358ac2 1171-1173
+  s_79bbb7f5c8fb7f::t_b21df5f2ba8b66 271
+  s_79bbb7f5c8fb7f::t_e1f7878f57df5e 1170,1175-1257,1259-1285
+  s_79bbb7f5c8fb7f::t_d724f9834091f0 1174
+app/studio/analytics/page.tsx
+  s_79bbb7f5c8fb7f::t_bd62432515a2fd 1-19
+app/api/studio/analytics/route.ts
+  s_79bbb7f5c8fb7f::t_90f2c7d62cae6c 1-19
+components/article-engagement.tsx
+  s_79bbb7f5c8fb7f::t_2f2becdcf2c2c4 1-5,7,9-20,22-24,26-28,30-32,34-35,38,40-45,47,62-70,74-76,78-79,81-83,85-88,90-92,94-99,101-113
+  s_79bbb7f5c8fb7f::t_78a39a7acf2abd 33,36-37,39,46,48-61
+  s_79bbb7f5c8fb7f::t_a0519ab1f1d09f 84,89,93
+  s_79bbb7f5c8fb7f::t_9c3b0696036061 71-73
+  s_79bbb7f5c8fb7f::t_5ed21e2e605ad4 21,29
+  s_79bbb7f5c8fb7f::t_8f08422b09bb05 25
+  s_79bbb7f5c8fb7f::t_742bb403081230 100
+  s_79bbb7f5c8fb7f::t_bee30121ab752b 77
+  s_79bbb7f5c8fb7f::t_94080252860956 8
+  s_79bbb7f5c8fb7f::t_4f3b892b22f1dc 6
+  s_79bbb7f5c8fb7f::t_cf63fafbb2b7d1 80
+components/document-boundary.tsx
+  s_79bbb7f5c8fb7f::t_44ed67853edb41 1-3,5-6,43-44,48-92
+  s_79bbb7f5c8fb7f::t_1f23d2c6e456c2 4
+  s_79bbb7f5c8fb7f::t_716c286e0c46c8 7-42,45,47
+  s_79bbb7f5c8fb7f::t_756d41b2b9d2f8 46
+lib/content/render.tsx
+  s_79bbb7f5c8fb7f::t_fd92cb65b70004 199-204
+  s_79bbb7f5c8fb7f::t_29dc002861c952 15
+lib/analytics/privacy.ts
+  s_79bbb7f5c8fb7f::t_0e151c44620156 1-26
+lib/analytics/events.ts
+  s_79bbb7f5c8fb7f::t_cb4d7992d25470 1-18,20-98
+  s_79bbb7f5c8fb7f::t_e56b734a12f1f1 19
+.env.example
+  s_79bbb7f5c8fb7f::t_34c68e4aff167a 28-32
+vite.config.ts
+  s_79bbb7f5c8fb7f::t_af9afcaa2680f1 14-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_track_version": "development:0.1.0",
+  "base_commit_sha": "933f0b2e19839a6b013360d7f275e4fc30a09b6d",
+  "prompts": {},
+  "sessions": {
+    "s_79bbb7f5c8fb7f": {
+      "agent_id": {
+        "tool": "ai",
+        "id": "5b88ce25-cfc1-4669-8ab3-32ec0636c679",
+        "model": "ai"
+      },
+      "human_author": "Mohammed Abdessetar Elyagoubi <106479409+abdessattar23@users.noreply.github.com>"
+    }
+  }
+}
