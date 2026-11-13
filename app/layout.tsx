@@ -1,6 +1,8 @@
 import type {Metadata} from 'next';
 import SiteNavigation from '../components/site-navigation';
 import ThemeToggle from '../components/theme-toggle';
+import {DocumentBoundary} from '../components/document-boundary';
+import {PublicTracker} from '../components/public-tracker';
 import {AgentAccess} from '../components/agent-access';
 import {buildPageMetadata, buildSiteGraphJsonLd, homeDocumentTitle, serializeJsonLd, siteIcons} from '../lib/seo';
 import {liveSiteSettings} from '../lib/studio/published';
@@ -46,6 +48,8 @@ export default async function Layout({children}: Readonly<{children: React.React
         <link rel="describedby" href="/.well-known/ai-catalog.json" />
       </head>
       <body>
+        <DocumentBoundary />
+        <PublicTracker />
         <AgentAccess />
         <a className="skip" href="#main">Skip to content</a>
         <div className="shell">

@@ -1,6 +1,7 @@
 'use client';
 
 import {useSyncExternalStore} from 'react';
+import {trackEvent} from '../lib/analytics/events';
 
 type Theme = 'light' | 'dark';
 
@@ -10,7 +11,7 @@ function subscribe(onStoreChange: () => void) {
 }
 
 function currentTheme(): Theme {
-  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  return document.documentElement.dataset['theme'] === 'dark' ? 'dark' : 'light';
 }
 
 function serverTheme(): Theme {
@@ -22,9 +23,10 @@ export default function ThemeToggle() {
 
   function toggleTheme() {
     const next: Theme = theme === 'light' ? 'dark' : 'light';
-    document.documentElement.dataset.theme = next;
+    document.documentElement.dataset['theme'] = next;
     localStorage.setItem('theme', next);
     window.dispatchEvent(new Event('theme-change'));
+    trackEvent('theme_toggle', {pagePath: window.location.pathname, target: next});
   }
 
   return (

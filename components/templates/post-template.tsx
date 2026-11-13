@@ -47,7 +47,7 @@ export function PostTemplate({post, children}: {post: PostDocument; children: Re
               )]
           ))}
         </aside>
-        <article className="prose">{children}</article>
+        <article className="prose" data-article-body>{children}</article>
       </div>
     </div>
   );

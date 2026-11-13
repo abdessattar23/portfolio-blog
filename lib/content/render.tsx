@@ -12,6 +12,7 @@ import {ArticleDemo} from '../../components/article-demo';
 import BucketDemo from '../../components/bucket-demo';
 import {matchArtifactFence} from '../artifacts/format';
 import type {ArtifactDocument} from '../artifacts/schema';
+import {trackEvent} from '../analytics/events';
 import {stripDuplicateTitle} from './headings';
 import {sectionsFromMarkdown} from './schema';
 
@@ -195,6 +196,12 @@ function ProseHtml({html}: {html: string}) {
       button.textContent = 'Copy';
       button.addEventListener('click', () => {
         const text = code?.textContent ?? '';
+        const slug = /^\/blog\/([a-z0-9-]+)$/.exec(window.location.pathname)?.[1];
+        trackEvent('article_code_copy', {
+          pagePath: window.location.pathname,
+          ...(slug ? {articleSlug: slug} : {}),
+          target: language || 'code',
+        });
         void navigator.clipboard.writeText(text).then(() => {
           button.textContent = 'Copied';
           window.setTimeout(() => {

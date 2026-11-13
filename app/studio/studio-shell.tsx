@@ -113,6 +113,7 @@ export function StudioShell({
     const list: {label: string; sub: string; href?: string | undefined; kind?: DraftKind | undefined; slug?: string | undefined; group: string}[] = [
       {label: 'Studio Desk (Overview)', sub: 'Dashboard & writing metrics', href: '/studio', group: 'Navigation'},
       {label: 'Site Identity & Settings', sub: 'content/site.json', href: '/studio/settings', group: 'Navigation'},
+      {label: 'Analytics', sub: 'Readers, articles, and sources', href: '/studio/analytics', group: 'Navigation'},
       {label: 'View Live Public Site', sub: 'abdessattar.dev', href: '/', group: 'Navigation'},
     ];
     for (const d of drafts) {
@@ -253,6 +254,19 @@ export function StudioShell({
               >
                 <span className="binder-icon">⚙</span>
                 <span>Site Identity</span>
+              </a>
+              <a
+                href="/studio/analytics"
+                className="binder-nav-item"
+                data-active={pathname === '/studio/analytics'}
+              >
+                <span className="binder-icon" aria-hidden="true">
+                  <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                    <path d="M2 13.5h12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                    <path d="M3.5 11.5 6.2 7.8l2.1 2.2L12.5 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <span>Analytics</span>
               </a>
             </div>
 

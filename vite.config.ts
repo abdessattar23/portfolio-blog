@@ -11,6 +11,9 @@ const secretNames = [
   'INDEXNOW_KEY',
   'WEB_BOT_AUTH_PRIVATE_JWK',
   'STUDIO_MCP_KEY',
+  'UMAMI_BASE_URL',
+  'UMAMI_WEBSITE_ID',
+  'UMAMI_API_KEY',
 ] as const;
 
 export default defineConfig(({command, mode}) => {

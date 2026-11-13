@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {publishedPosts} from '../../../content/posts';
+import {ArticleEngagement} from '../../../components/article-engagement';
 import {PostTemplate} from '../../../components/templates/post-template';
 import {artifactsForMarkdown} from '../../../lib/artifacts/resolve';
 import {MarkdownView} from '../../../lib/content/render';
@@ -40,11 +41,20 @@ export default async function BlogPostPage({params}: BlogPostPageProps) {
   if (!post) return notFound();
   const artifacts = await artifactsForMarkdown(post.body);
 
+  const words = post.body.trim() ? post.body.trim().split(/\s+/).length : 0;
+  const estimatedReadingMinutes = Math.max(1, Math.round(words / 220));
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: serializeJsonLd(buildBlogPostJsonLd(post, site))}}
+      />
+      <ArticleEngagement
+        slug={post.slug}
+        title={post.title}
+        topics={post.topics.join(', ')}
+        estimatedReadingMinutes={estimatedReadingMinutes}
       />
       <PostTemplate post={post}>
         <MarkdownView markdown={post.body} title={post.title} artifacts={artifacts} />
