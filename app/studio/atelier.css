@@ -793,6 +793,19 @@ body:has(.studio-atelier) {
   --coral: #f06a45;
   --green: #1b7f45;
   --red: #b42318;
+  --code-bg: #f8f7f3;
+  --code-text: #222832;
+  --code-border: #dedbd3;
+  --code-toolbar: #f2efe9;
+  --code-toolbar-text: #55636e;
+  --code-keyword: #a42b47;
+  --code-built-in: #754dbb;
+  --code-string: #17644b;
+  --code-comment: #596875;
+  --code-number: #2058a4;
+  --code-type: #754dbb;
+  --code-function: #805320;
+  --code-attribute: #7b3d70;
 }
 .manuscript-full-preview { padding: 0 1rem 3rem; }
 .manuscript-proof-pane { border-left: 1px solid var(--line); }
@@ -1146,6 +1159,19 @@ body:has(.studio-atelier[data-mode='dark']) { background: #111111; }
   --coral: #ff8765;
   --green: #8dcea8;
   --red: #f0a8a0;
+  --code-bg: #111827;
+  --code-text: #e6edf3;
+  --code-border: #344052;
+  --code-toolbar: #182230;
+  --code-toolbar-text: #c1cbd9;
+  --code-keyword: #f49aaa;
+  --code-built-in: #c7adf2;
+  --code-string: #9bd4b1;
+  --code-comment: #9cabbb;
+  --code-number: #8bbcff;
+  --code-type: #c7adf2;
+  --code-function: #e1bd8f;
+  --code-attribute: #dfafd3;
 }
 .studio-atelier[data-mode='dark'] .binder-leaf-text strong,
 .studio-atelier[data-mode='dark'] button.binder-leaf,
