@@ -1,11 +1,11 @@
 ---
 slug: how-this-site-works
-title: How this site works
+title: "How this site works : in details"
 description: The public portfolio, private writing Studio, repository content,
   and analytics boundary.
 excerpt: The machinery behind the engineering notes, without another portfolio widget.
 publishedAt: 2026-11-11
-updatedAt: 2026-11-11
+updatedAt: 2026-11-16
 topics:
   - Web
   - Architecture
