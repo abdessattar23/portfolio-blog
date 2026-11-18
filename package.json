@@ -10,7 +10,8 @@
     "build": "vinext build",
     "start": "wrangler dev --config dist/server/wrangler.json --local --persist-to .wrangler/state --ip 127.0.0.1 --inspector-port 0",
     "new:post": "node scripts/new-post.ts",
-    "test": "pnpm dlx tsx scripts/verify-studio.ts && pnpm dlx tsx scripts/verify-agent.ts && pnpm dlx tsx scripts/verify-mcp.ts && pnpm dlx tsx scripts/verify-artifacts.ts && pnpm dlx tsx scripts/verify-analytics.ts",
+    "test": "pnpm dlx tsx scripts/verify-studio.ts && pnpm dlx tsx scripts/verify-agent.ts && pnpm dlx tsx scripts/verify-mcp.ts && pnpm dlx tsx scripts/verify-artifacts.ts && pnpm dlx tsx scripts/verify-analytics.ts && pnpm dlx tsx scripts/verify-reading.ts",
+    "test:reading": "pnpm dlx tsx scripts/verify-reading.ts",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },
   "dependencies": {

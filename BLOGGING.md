@@ -20,3 +20,29 @@ Edit the generated file:
 Every Markdown file in `content/posts` is picked up automatically. It feeds `/blog`, the homepage, `/blog/<slug>`, `/feed.xml`, `/sitemap.xml`, and `/llms.txt`.
 
 Do not copy the existing OpenTelemetry article and change its nouns. Start from the generator so each post has its own evidence, scope, and structure.
+
+## Code examples
+
+Use a language and a filename on source fences. Highlight only the lines being discussed:
+
+````markdown
+```java title="TimingAgent.java" {3-5,8}
+// example code
+```
+
+```cmd
+mvn clean package
+```
+
+```text kind="output" title="Expected output"
+Hello, Java!
+```
+````
+
+`filename="TimingAgent.java"` is an alias for `title`. `highlight="3-5,8"` is an alias for the brace syntax. Metadata is optional. Existing fences still work; an unambiguous inline filename in the paragraph immediately before a fence becomes its label. Terminal languages get a command header; output requires `kind="output"` or the `output` language. A `text` fence stays plain text, since it could be a directory tree or configuration rather than program output. Copy always copies code only.
+
+## Evidence and scope
+
+Build each technical article around one concrete problem. Show the smallest useful code, the command that exercises it, and the result before expanding the explanation. Link a runnable repository when one exists. Record versions and commands used. Label expected or illustrative output honestly; do not present an unexecuted example as a captured result.
+
+Use a diagram or interactive figure when it explains a mechanism more clearly than the code alone. End when the technical argument is complete. Closing sections such as “What I learned” or “One more question” are optional, not a recurring article requirement.
