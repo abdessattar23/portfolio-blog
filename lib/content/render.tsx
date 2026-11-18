@@ -15,12 +15,14 @@ import type {ArtifactDocument} from '../artifacts/schema';
 import {trackEvent} from '../analytics/events';
 import {stripDuplicateTitle} from './headings';
 import {sectionsFromMarkdown} from './schema';
+import {rehypeCodeBlocks} from './code-blocks';
 
 const processor = unified()
   .use(remarkParse)
   .use(remarkGfm)
   .use(remarkRehype)
-  .use(rehypeHighlight)
+  .use(rehypeHighlight, {plainText: ['output']})
+  .use(rehypeCodeBlocks)
   .use(rehypeStringify);
 
 const DEMOS = {
@@ -116,9 +118,7 @@ export function renderMarkdownToHtml(markdown: string, lead = false): string {
   let html = String(processor.processSync(cleaned)).replace(/<h2>([\s\S]*?)<\/h2>/g, (_match, inner: string) => {
     const id = ids[heading] ?? `section-${heading}`;
     heading += 1;
-    const plain = inner.replace(/<[^>]+>/g, '').trim();
-    const ending = /^one more question\.?$/i.test(plain);
-    return `<h2 id="${id}"${ending ? ' class="one-more"' : ''}>${inner}</h2>`;
+    return `<h2 id="${id}">${inner}</h2>`;
   });
   if (lead) html = html.replace('<p>', '<p class="lead">');
   return html;
@@ -159,7 +159,7 @@ export function MarkdownView({
       nodes.push(
         <div className="note" key={index}>
           <h3>{segment.title}</h3>
-          <div dangerouslySetInnerHTML={{__html: renderMarkdownToHtml(segment.text, false)}} />
+          <ProseHtml html={renderMarkdownToHtml(segment.text, false)} />
         </div>,
       );
       return;
@@ -177,51 +177,37 @@ function ProseHtml({html}: {html: string}) {
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
-    const frames: HTMLDivElement[] = [];
-    root.querySelectorAll('pre').forEach((pre) => {
-      if (pre.parentElement?.classList.contains('code-frame')) return;
-      const code = pre.querySelector('code');
-      const language = [...(code?.classList ?? [])]
-        .find((name) => name.startsWith('language-'))
-        ?.slice('language-'.length);
-      const frame = document.createElement('div');
-      frame.className = 'code-frame';
-      const bar = document.createElement('div');
-      bar.className = 'code-bar';
-      const label = document.createElement('span');
-      label.textContent = language || 'code';
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'code-copy';
-      button.textContent = 'Copy';
-      button.addEventListener('click', () => {
-        const text = code?.textContent ?? '';
-        const slug = /^\/blog\/([a-z0-9-]+)$/.exec(window.location.pathname)?.[1];
-        trackEvent('article_code_copy', {
-          pagePath: window.location.pathname,
-          ...(slug ? {articleSlug: slug} : {}),
-          target: language || 'code',
-        });
-        void navigator.clipboard.writeText(text).then(() => {
-          button.textContent = 'Copied';
-          window.setTimeout(() => {
-            button.textContent = 'Copy';
-          }, 1400);
-        }).catch(() => {
-          button.textContent = 'Copy failed';
-        });
+    const timers = new Set<number>();
+    function onCopy(event: MouseEvent) {
+      const button = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('.code-copy') : null;
+      if (!button || !root?.contains(button)) return;
+      const frame = button.closest('.code-frame');
+      const code = frame?.querySelector('pre code');
+      if (!code) return;
+      const slug = /^\/blog\/([a-z0-9-]+)$/.exec(window.location.pathname)?.[1];
+      trackEvent('article_code_copy', {
+        pagePath: window.location.pathname,
+        ...(slug ? {articleSlug: slug} : {}),
+        target: frame?.querySelector('.code-title')?.textContent ?? 'code',
       });
-      bar.append(label, button);
-      pre.replaceWith(frame);
-      frame.append(bar, pre);
-      frames.push(frame);
-    });
+      // Copy the original text, without filenames, controls or highlight markup.
+      const copy = navigator.clipboard?.writeText(code.textContent ?? '');
+      void (copy ?? Promise.reject(new Error('Clipboard unavailable'))).then(() => {
+        button.textContent = 'Copied';
+      }).catch(() => {
+        button.textContent = 'Copy failed';
+      }).finally(() => {
+        const timer = window.setTimeout(() => {
+          button.textContent = 'Copy';
+          timers.delete(timer);
+        }, 1800);
+        timers.add(timer);
+      });
+    }
+    root.addEventListener('click', onCopy);
     return () => {
-      frames.forEach((frame) => {
-        const pre = frame.querySelector('pre');
-        if (pre) frame.replaceWith(pre);
-        else frame.remove();
-      });
+      root.removeEventListener('click', onCopy);
+      timers.forEach((timer) => window.clearTimeout(timer));
     };
   }, [html]);
   return <div ref={ref} dangerouslySetInnerHTML={{__html: html}} />;
